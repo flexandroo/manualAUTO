@@ -1,4 +1,5 @@
-import { useState, type ChangeEvent } from 'react';
+import { useRef, useState, type ChangeEvent } from 'react';
+import html2pdf from 'html2pdf.js';
 import {
   FileDown,
   Settings,
@@ -45,8 +46,29 @@ export default function App() {
   const [parseStatus, setParseStatus] = useState<ParseStatus>('idle');
   const [parseError, setParseError] = useState('');
   const [pendingImport, setPendingImport] = useState<ParseResult | null>(null);
+  const [downloading, setDownloading] = useState(false);
+  const printRef = useRef<HTMLDivElement>(null);
 
-  const handlePrint = () => window.print();
+  const handleDownloadPdf = async () => {
+    if (!printRef.current) return;
+    setDownloading(true);
+    try {
+      const filename = `${data.cover.title || 'instruction'}-${Date.now()}.pdf`
+        .replace(/[\\/:*?"<>|]/g, '_');
+      await html2pdf()
+        .from(printRef.current)
+        .set({
+          margin: 0,
+          filename,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        })
+        .save();
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   const handleExportJson = () => {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -149,10 +171,19 @@ export default function App() {
             <Save size={14} /> Експорт JSON
           </button>
           <button
-            onClick={handlePrint}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-orange-600 hover:bg-orange-500 rounded text-xs font-bold transition-colors"
+            onClick={handleDownloadPdf}
+            disabled={downloading}
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-700 disabled:cursor-wait rounded text-xs font-bold transition-colors"
           >
-            <FileDown size={14} /> Завантажити PDF
+            {downloading ? (
+              <>
+                <Loader2 size={14} className="animate-spin" /> Генерація...
+              </>
+            ) : (
+              <>
+                <FileDown size={14} /> Завантажити PDF
+              </>
+            )}
           </button>
         </div>
       </header>
@@ -247,7 +278,7 @@ export default function App() {
               </span>
             </div>
           </div>
-          <div className="p-8 flex flex-col items-center gap-6">
+          <div className="p-6 flex flex-col items-center gap-2">
             {[
               <CoverPreview key="cover" data={data.cover} />,
               <TechSpecsPreview key="tech" data={data.techSpecs} />,
@@ -259,16 +290,28 @@ export default function App() {
                   transform: `scale(${zoom})`,
                   transformOrigin: 'top center',
                   transition: 'transform 0.2s',
+                  height: `calc(297mm * ${zoom})`,
+                  marginBottom: i < 2 ? '8px' : 0,
                 }}
               >
-                <div style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }}>{page}</div>
+                <div style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>{page}</div>
               </div>
             ))}
           </div>
         </section>
       </div>
 
-      <div className="hidden print:block">
+      <div
+        ref={printRef}
+        aria-hidden
+        style={{
+          position: 'fixed',
+          left: '-99999px',
+          top: 0,
+          width: '210mm',
+          background: 'white',
+        }}
+      >
         <CoverPreview data={data.cover} />
         <TechSpecsPreview data={data.techSpecs} />
         <SectionsPreview data={data.sections} />
