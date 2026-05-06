@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
+import { createPortal } from 'react-dom';
 import html2pdf from 'html2pdf.js';
 import { FileDown, Save, Upload, Loader2 } from 'lucide-react';
 import './styles/pdf-print.css';
@@ -127,6 +128,11 @@ export default function App() {
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
       }
+      // Two RAF ticks to make sure layout & images are fully painted before
+      // we ask html2canvas to snapshot.
+      await new Promise((r) => requestAnimationFrame(() => r(undefined)));
+      await new Promise((r) => requestAnimationFrame(() => r(undefined)));
+
       const filename = `${data.productName || 'instruction'}-${Date.now()}.pdf`.replace(
         /[\\/:*?"<>|]/g,
         '_'
@@ -140,10 +146,11 @@ export default function App() {
           scale: 2,
           useCORS: true,
           logging: false,
-          // null = let element backgrounds win; some pages (Cover,
-          // Warranty hero band) need their own dark/orange background
-          // and a forced white here would paint over them.
           backgroundColor: null,
+          // Without windowWidth, html2canvas measures the element using the
+          // current viewport, which can be 0 if the host is offscreen on a
+          // mobile-sized window. Force the canvas to render at A4 width.
+          windowWidth: Math.ceil(210 * 3.7795),
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page' },
@@ -230,20 +237,23 @@ export default function App() {
           <PreviewPane doc={data} zoom={zoom} onZoomChange={setZoom} />
         </div>
 
+      </div>
+      {/* Print container is portaled directly to <body> so it lives
+          outside the App container and isn't affected by the
+          h-screen / overflow-hidden constraints on the editor shell.
+          Positioned far off-screen, no opacity tricks — html2canvas
+          captures real rendered pixels. */}
+      {createPortal(
         <div
           ref={printRef}
           aria-hidden
           style={{
-            position: 'fixed',
+            position: 'absolute',
             top: 0,
-            // True off-screen positioning. Earlier we used opacity: 0
-            // to hide the printRef, but html2canvas captures transparent
-            // pixels — the resulting PDF was blank. Moving the element
-            // far to the left keeps it fully rendered (so html2canvas
-            // sees it) but invisible to the user.
             left: '-99999px',
-            pointerEvents: 'none',
             width: '210mm',
+            pointerEvents: 'none',
+            background: 'white',
           }}
         >
           {data.pages.map((p, i) => {
@@ -257,8 +267,9 @@ export default function App() {
               </PdfDocProvider>
             );
           })}
-        </div>
-      </div>
+        </div>,
+        document.body
+      )}
     </EditingDocProvider>
   );
 }
