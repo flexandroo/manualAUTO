@@ -1,24 +1,59 @@
-import type { InstructionData } from '../types/instruction';
-import { BLOCK_REGISTRY } from '../blocks/registry';
+import type { InstructionData, StandardPage, PageElement } from '../types/instruction';
+import { PAGE_REGISTRY } from '../pages/pageRegistry';
 import { newId } from '../utils/id';
+import { SAFETY_TEMPLATE } from '../templates/safetyBlock';
 
-// Default new instruction: Cover + Safety + Text(Призначення) + Installation + Warranty.
-// This matches the canonical TERMOJET spine identified in the analysis.
+// Builds a brand-new instruction document with the canonical TERMOJET spine:
+// Cover -> Safety (1.1-1.12 prefilled) -> empty Standard pages for Specs +
+// Construction + ... -> Warranty.
 export function makeInitialData(): InstructionData {
-  const cover = BLOCK_REGISTRY.cover.createNew();
-  const safety = BLOCK_REGISTRY.safety.createNew();
-  const purpose = BLOCK_REGISTRY.text.createNew();
-  purpose.heading = 'Призначення';
+  const cover = PAGE_REGISTRY.cover.createNew();
+  const warranty = PAGE_REGISTRY.warranty.createNew();
 
-  const install = BLOCK_REGISTRY.installationSteps.createNew();
-  const warranty = BLOCK_REGISTRY.warranty.createNew();
+  const safety: StandardPage = {
+    id: newId('page'),
+    type: 'standard',
+    sectionTitle: 'Основні положення',
+    footerLabel: 'Основні положення',
+    footerLabelSecondary: 'Розд. 1.1–1.5',
+    twoColumn: false,
+    elements: SAFETY_TEMPLATE.slice(0, 5).map(
+      (s): PageElement => ({
+        id: newId('s'),
+        type: 'subsection',
+        number: s.number,
+        heading: s.heading,
+        body: s.body,
+      })
+    ),
+  };
+
+  const safety2: StandardPage = {
+    id: newId('page'),
+    type: 'standard',
+    sectionTitle: 'Основні положення (продовження)',
+    footerLabel: 'Основні положення',
+    footerLabelSecondary: 'Розд. 1.6–1.12',
+    twoColumn: true,
+    elements: SAFETY_TEMPLATE.slice(5).map(
+      (s): PageElement => ({
+        id: newId('s'),
+        type: 'subsection',
+        number: s.number,
+        heading: s.heading,
+        body: s.body,
+      })
+    ),
+  };
 
   return {
-    productName: cover.productName,
-    blocks: [cover, safety, purpose, install, warranty].map((b) => ({
-      ...b,
-      id: b.id || newId(),
-    })),
+    brand: 'TERMOJET',
+    brandTagline: 'обладнання для котелень',
+    productName: 'Назва продукту',
+    modelCodes: [],
+    documentType: 'ТЕХНІЧНИЙ ПАСПОРТ',
+    websiteUrl: 'TERMOJET.COM.UA',
+    pages: [cover, safety, safety2, warranty],
   };
 }
 

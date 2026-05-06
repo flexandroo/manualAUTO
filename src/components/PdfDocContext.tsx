@@ -7,6 +7,9 @@ export interface PdfDocCtx {
   totalPages?: number;
   brandLogoUrl?: string;
   brand?: string;
+  brandTagline?: string;
+  documentType?: string;
+  modelCodes?: string[];
   websiteUrl?: string;
 }
 

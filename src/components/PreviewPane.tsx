@@ -1,32 +1,27 @@
 import { Eye } from 'lucide-react';
-import type { Block, CoverBlock } from '../types/instruction';
-import { getBlockSpec } from '../blocks/registry';
+import type { InstructionData, Page } from '../types/instruction';
+import { getPageSpec } from '../pages/pageRegistry';
 import { PdfDocProvider, type PdfDocCtx } from './PdfDocContext';
 
 interface Props {
-  blocks: Block[];
+  doc: InstructionData;
   zoom: number;
   onZoomChange: (z: number) => void;
 }
 
-function deriveDocContext(blocks: Block[]): PdfDocCtx {
-  const cover = blocks.find((b) => b.type === 'cover') as CoverBlock | undefined;
-  return {
-    productName: cover?.productName,
+export function PreviewPane({ doc, zoom, onZoomChange }: Props) {
+  const baseCtx: PdfDocCtx = {
+    productName: doc.productName,
+    brand: doc.brand,
+    brandLogoUrl: doc.brandLogoUrl,
+    websiteUrl: doc.websiteUrl,
     productSubtitle:
-      cover && cover.modelCodes && cover.modelCodes.length > 0
-        ? cover.modelCodes.slice(0, 2).join('…') +
-          (cover.modelCodes.length > 2 ? '…' + cover.modelCodes.at(-1) : '')
+      doc.modelCodes.length > 0
+        ? doc.modelCodes.slice(0, 2).join('…') +
+          (doc.modelCodes.length > 2 ? '…' + doc.modelCodes.at(-1) : '')
         : undefined,
-    brand: cover?.brand,
-    brandLogoUrl: cover?.brandLogoUrl,
-    websiteUrl: cover?.websiteUrl,
-    totalPages: blocks.length,
+    totalPages: doc.pages.length,
   };
-}
-
-export function PreviewPane({ blocks, zoom, onZoomChange }: Props) {
-  const baseCtx = deriveDocContext(blocks);
 
   return (
     <section className="flex-1 bg-slate-800 overflow-auto relative">
@@ -52,19 +47,26 @@ export function PreviewPane({ blocks, zoom, onZoomChange }: Props) {
         </div>
       </div>
       <div className="p-6 flex flex-col items-center gap-4">
-        {blocks.map((b, i) => {
-          const spec = getBlockSpec(b.type);
+        {doc.pages.map((p: Page, i) => {
+          const spec = getPageSpec(p.type);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const Preview = spec.Preview as any;
-          const ctx: PdfDocCtx = { ...baseCtx, pageNumber: i + 1 };
-          // Use CSS `zoom` (Chromium/Safari) so the wrapper takes the
-          // *scaled* layout box height. This prevents tall blocks from
-          // overlapping the next block in preview when content exceeds A4.
+          const ctx: PdfDocCtx & {
+            documentType?: string;
+            brandTagline?: string;
+            modelCodes?: string[];
+          } = {
+            ...baseCtx,
+            pageNumber: i + 1,
+            documentType: doc.documentType,
+            brandTagline: doc.brandTagline,
+            modelCodes: doc.modelCodes,
+          };
           return (
-            <div key={b.id} style={{ zoom }}>
+            <div key={p.id} style={{ zoom }}>
               <div style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
                 <PdfDocProvider value={ctx}>
-                  <Preview data={b} />
+                  <Preview data={p} />
                 </PdfDocProvider>
               </div>
             </div>

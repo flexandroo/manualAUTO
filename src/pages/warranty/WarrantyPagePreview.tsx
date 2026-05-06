@@ -1,22 +1,13 @@
-import type { WarrantyBlockData } from '../../types/instruction';
+import type { WarrantyPage } from '../../types/instruction';
 import { usePdfDoc } from '../../components/PdfDocContext';
 import { TermojetLogo } from '../../components/TermojetLogo';
-import { warrantyFontStyle } from './warrantyStyles';
 
 interface Props {
-  data: WarrantyBlockData;
+  data: WarrantyPage;
 }
 
-export function WarrantyPreview({ data }: Props) {
+export function WarrantyPagePreview({ data }: Props) {
   const ctx = usePdfDoc();
-  const titleStyle = warrantyFontStyle(data, 'title');
-  const labelStyle = warrantyFontStyle(data, 'fieldLabel');
-  const valueStyle = warrantyFontStyle(data, 'fieldValue');
-  const termStyle = warrantyFontStyle(data, 'termText');
-  const condStyle = warrantyFontStyle(data, 'conditionText');
-  const caseHeadingStyle = warrantyFontStyle(data, 'caseHeading');
-  const caseDocStyle = warrantyFontStyle(data, 'caseDoc');
-
   return (
     <div
       className="pdf-page"
@@ -43,11 +34,10 @@ export function WarrantyPreview({ data }: Props) {
               marginBottom: '1.5mm',
             }}
           >
-            {ctx.brand || 'TERMOJET'}
+            {ctx.brand ?? 'TERMOJET'}
           </div>
           <div
             style={{
-              ...titleStyle,
               fontSize: '20pt',
               fontWeight: 900,
               color: 'white',
@@ -74,7 +64,7 @@ export function WarrantyPreview({ data }: Props) {
       </div>
 
       <div style={{ padding: '7mm 14mm', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* Form fields grid */}
+        {/* Form fields */}
         {data.fields.length > 0 && (
           <div
             style={{
@@ -88,7 +78,6 @@ export function WarrantyPreview({ data }: Props) {
               <div key={i}>
                 <div
                   style={{
-                    ...labelStyle,
                     fontSize: '6.5pt',
                     fontWeight: 700,
                     color: 'var(--pdf-mid)',
@@ -101,14 +90,13 @@ export function WarrantyPreview({ data }: Props) {
                 </div>
                 <div
                   style={{
-                    ...valueStyle,
                     fontSize: '9pt',
                     color: 'var(--pdf-navy)',
                     marginBottom: '2mm',
                     minHeight: '5mm',
                   }}
                 >
-                  {f.value || ' '}
+                  {f.value || ' '}
                 </div>
                 <div style={{ borderBottom: '1.5px solid rgba(13,21,38,0.2)' }} />
               </div>
@@ -116,7 +104,6 @@ export function WarrantyPreview({ data }: Props) {
           </div>
         )}
 
-        {/* Signature areas */}
         <div
           style={{
             display: 'grid',
@@ -157,7 +144,7 @@ export function WarrantyPreview({ data }: Props) {
                 marginBottom: '1.5mm',
               }}
             >
-              Підпис монтажника / Введення в експлуатацію
+              Підпис монтажника
             </div>
             <div
               style={{
@@ -177,61 +164,52 @@ export function WarrantyPreview({ data }: Props) {
           }}
         />
 
-        {/* Term highlight */}
         <div className="pdf-section-bar" style={{ marginBottom: '4mm' }}>
           Умови гарантії
         </div>
 
         <div className="pdf-two-col" style={{ flex: 1 }}>
           <div>
-            <div
-              className="pdf-subsection-body"
-              style={{ ...termStyle, marginBottom: '3mm' }}
-            >
-              {data.termText}{' '}
-              <span style={{ opacity: 0.7 }}>{data.conditionText}</span>
+            <div className="pdf-subsection-body" style={{ marginBottom: '3mm' }}>
+              <strong>{data.termText}.</strong> {data.conditionText}
             </div>
-            <div
-              className="pdf-subsection-title"
-              style={{ ...caseHeadingStyle, marginBottom: '2mm' }}
-            >
+            <div className="pdf-subsection-title" style={{ marginBottom: '2mm' }}>
               {data.caseHeading}
             </div>
             {data.caseDocs.length > 0 && (
               <ul className="pdf-bullet-list">
                 {data.caseDocs.map((d, i) => (
-                  <li key={i} style={caseDocStyle}>
-                    {d}
-                  </li>
+                  <li key={i}>{d}</li>
                 ))}
               </ul>
             )}
             <div
               className="pdf-subsection-body"
-              style={{
-                ...condStyle,
-                marginTop: '3mm',
-                fontSize: '7.5pt',
-                opacity: 0.55,
-              }}
+              style={{ marginTop: '3mm', fontSize: '7.5pt', opacity: 0.55 }}
             >
               {data.reviewText}
             </div>
           </div>
           <div>
-            <div className="pdf-warning-box">
-              <strong>Строк розгляду — 5 робочих днів</strong>
-              Гарантія діє з дати продажу, підтвердженої цим талоном.
+            <div className="pdf-subsection-title" style={{ marginBottom: '2mm' }}>
+              Гарантія не поширюється на:
             </div>
+            {data.exclusions.length > 0 && (
+              <ul className="pdf-bullet-list">
+                {data.exclusions.map((d, i) => (
+                  <li key={i}>{d}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
 
       <div className="pdf-page-footer-band">
         <div>
-          {ctx.brand || 'TERMOJET'}
+          {ctx.brand ?? 'TERMOJET'}
           <span className="pdf-footer-dot" />
-          {ctx.websiteUrl || 'TERMOJET.COM.UA'}
+          {ctx.websiteUrl ?? 'TERMOJET.COM.UA'}
         </div>
         <div>
           {ctx.pageNumber !== undefined && ctx.totalPages !== undefined

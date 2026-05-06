@@ -1,63 +1,43 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import html2pdf from 'html2pdf.js';
-import { FileDown, Save, Upload, Loader2, FileUp, AlertCircle } from 'lucide-react';
+import { FileDown, Save, Upload, Loader2 } from 'lucide-react';
 import './styles/pdf-print.css';
-import type { Block, BlockType, InstructionData } from './types/instruction';
+import type { InstructionData, Page, PageType } from './types/instruction';
 import { initialData } from './data/initialData';
-import { BLOCK_REGISTRY, getBlockSpec } from './blocks/registry';
-import { BlockList } from './components/BlockList';
-import { BlockEditorPanel } from './components/BlockEditorPanel';
+import { PAGE_REGISTRY, getPageSpec } from './pages/pageRegistry';
+import { PageList } from './components/PageList';
+import { PageEditorPanel } from './components/PageEditorPanel';
 import { PreviewPane } from './components/PreviewPane';
-import { ImportReport } from './components/ImportReport';
+import { DocumentHeader } from './components/DocumentHeader';
 import { PdfDocProvider, type PdfDocCtx } from './components/PdfDocContext';
-import { parsePdfToBlocks, type PdfParseResult } from './parsers/parsePdf';
+import { migrateOldBlocksToPages } from './utils/migration';
 
-const STORAGE_KEY = 'manualAUTO:document:v1';
-
-function migrateBlock(block: Block): Block {
-  if (block.type === 'cover') {
-    const c = block as Block & {
-      brand?: string;
-      brandTagline?: string;
-      modelCodes?: string[];
-      productImages?: string[];
-      imageUrl?: string;
-      subtitle?: string;
-      bulletPoints?: string[];
-      tagline?: string;
-      websiteUrl?: string;
-      documentType?: string;
-      styles?: Record<string, unknown>;
-    };
-    return {
-      ...block,
-      type: 'cover',
-      brand: c.brand ?? 'TERMOJET',
-      brandTagline: c.brandTagline ?? 'обладнання для котелень',
-      modelCodes: Array.isArray(c.modelCodes) ? c.modelCodes : [],
-      productImages: Array.isArray(c.productImages)
-        ? c.productImages
-        : c.imageUrl
-        ? [c.imageUrl]
-        : [],
-      subtitle: c.subtitle ?? 'Інструкція з монтажу та експлуатації',
-      bulletPoints: Array.isArray(c.bulletPoints) ? c.bulletPoints : [],
-      tagline: c.tagline ?? 'Швидко ● Надійно ● Ефективно',
-      websiteUrl: c.websiteUrl ?? 'WWW.TERMOJET.COM.UA',
-      documentType: c.documentType ?? 'ТЕХНІЧНИЙ СЕРТИФІКАТ',
-      styles: (c.styles && typeof c.styles === 'object' ? c.styles : {}) as Record<string, never>,
-    } as Block;
-  }
-  return block;
-}
+const STORAGE_KEY = 'manualAUTO:document:v2';
+const LEGACY_STORAGE_KEY = 'manualAUTO:document:v1';
 
 function loadFromStorage(): InstructionData | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as InstructionData;
-    if (!parsed || !Array.isArray(parsed.blocks)) return null;
-    return { ...parsed, blocks: parsed.blocks.map(migrateBlock) };
+    if (raw) {
+      const parsed = JSON.parse(raw) as InstructionData;
+      if (parsed && Array.isArray(parsed.pages)) return parsed;
+    }
+    // Legacy v1 (blocks-based) — migrate
+    const legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY);
+    if (legacyRaw) {
+      const legacy = JSON.parse(legacyRaw);
+      const migrated = migrateOldBlocksToPages(legacy);
+      if (migrated) {
+        // Persist under v2 key, leave legacy intact in case the user wants to roll back
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+        } catch {
+          /* quota */
+        }
+        return migrated;
+      }
+    }
+    return null;
   } catch {
     return null;
   }
@@ -65,56 +45,48 @@ function loadFromStorage(): InstructionData | null {
 
 export default function App() {
   const [data, setData] = useState<InstructionData>(() => loadFromStorage() ?? initialData);
-  const [activeId, setActiveId] = useState<string | null>(data.blocks[0]?.id ?? null);
+  const [activeId, setActiveId] = useState<string | null>(data.pages[0]?.id ?? null);
   const [zoom, setZoom] = useState(0.65);
   const [downloading, setDownloading] = useState(false);
-  const [pdfParsing, setPdfParsing] = useState(false);
-  const [pdfError, setPdfError] = useState('');
-  const [pendingImport, setPendingImport] = useState<PdfParseResult | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
 
-  // Local autosave.
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch {
-      // quota exceeded: ignore
+      /* quota exceeded */
     }
   }, [data]);
 
-  const activeBlock = useMemo(
-    () => data.blocks.find((b) => b.id === activeId) ?? null,
-    [data.blocks, activeId]
+  const activePage = useMemo(
+    () => data.pages.find((p) => p.id === activeId) ?? null,
+    [data.pages, activeId]
   );
 
-  const updateBlock = (next: Block) => {
-    setData((d) => ({
-      ...d,
-      blocks: d.blocks.map((b) => (b.id === next.id ? next : b)),
-      productName: next.type === 'cover' ? next.productName : d.productName,
-    }));
+  const updatePage = (next: Page) => {
+    setData((d) => ({ ...d, pages: d.pages.map((p) => (p.id === next.id ? next : p)) }));
   };
 
-  const addBlock = (type: BlockType) => {
-    const created = BLOCK_REGISTRY[type].createNew();
-    setData((d) => ({ ...d, blocks: [...d.blocks, created] }));
+  const addPage = (type: PageType) => {
+    const created = PAGE_REGISTRY[type].createNew();
+    setData((d) => ({ ...d, pages: [...d.pages, created] }));
     setActiveId(created.id);
   };
 
-  const removeBlock = (id: string) => {
-    setData((d) => ({ ...d, blocks: d.blocks.filter((b) => b.id !== id) }));
-    setActiveId((aid) => (aid === id ? data.blocks[0]?.id ?? null : aid));
+  const removePage = (id: string) => {
+    setData((d) => ({ ...d, pages: d.pages.filter((p) => p.id !== id) }));
+    setActiveId((aid) => (aid === id ? data.pages[0]?.id ?? null : aid));
   };
 
-  const moveBlock = (id: string, dir: -1 | 1) => {
+  const movePage = (id: string, dir: -1 | 1) => {
     setData((d) => {
-      const idx = d.blocks.findIndex((b) => b.id === id);
-      if (idx === -1) return d;
-      const target = idx + dir;
-      if (target < 0 || target >= d.blocks.length) return d;
-      const next = [...d.blocks];
-      [next[idx], next[target]] = [next[target], next[idx]];
-      return { ...d, blocks: next };
+      const idx = d.pages.findIndex((p) => p.id === id);
+      if (idx < 0) return d;
+      const t = idx + dir;
+      if (t < 0 || t >= d.pages.length) return d;
+      const next = [...d.pages];
+      [next[idx], next[t]] = [next[t], next[idx]];
+      return { ...d, pages: next };
     });
   };
 
@@ -128,50 +100,26 @@ export default function App() {
     URL.revokeObjectURL(url);
   };
 
-  const handleImportPdf = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    e.target.value = '';
-    if (!file) return;
-    setPdfParsing(true);
-    setPdfError('');
-    try {
-      const result = await parsePdfToBlocks(file);
-      setPendingImport(result);
-    } catch (err) {
-      console.error(err);
-      setPdfError(err instanceof Error ? err.message : 'Не вдалося розпарсити PDF');
-    } finally {
-      setPdfParsing(false);
-    }
-  };
-
-  const applyPdfImport = () => {
-    if (!pendingImport) return;
-    const newCover = pendingImport.blocks.find((b) => b.type === 'cover');
-    setData({
-      productName:
-        newCover && newCover.type === 'cover' ? newCover.productName : data.productName,
-      blocks: pendingImport.blocks,
-    });
-    setActiveId(pendingImport.blocks[0]?.id ?? null);
-    setPendingImport(null);
-  };
-
   const handleImportJson = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    e.target.value = '';
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (ev) => {
       try {
-        const parsed = JSON.parse(ev.target?.result as string) as InstructionData;
-        setData(parsed);
-        setActiveId(parsed.blocks[0]?.id ?? null);
+        const raw = JSON.parse(ev.target?.result as string);
+        const migrated = migrateOldBlocksToPages(raw) ?? (raw as InstructionData);
+        if (Array.isArray(migrated.pages)) {
+          setData(migrated);
+          setActiveId(migrated.pages[0]?.id ?? null);
+        } else {
+          alert('Файл має невідомий формат');
+        }
       } catch {
         alert('Помилка зчитування файлу');
       }
     };
     reader.readAsText(file);
-    e.target.value = '';
   };
 
   const handleDownloadPdf = async () => {
@@ -185,10 +133,6 @@ export default function App() {
         /[\\/:*?"<>|]/g,
         '_'
       );
-      // Honour `page-break-after: always` on .pdf-page so each block
-      // starts a fresh A4 page. Without this html2pdf concatenates the
-      // entire printRef into one tall canvas and slices arbitrarily,
-      // causing content to overlap page boundaries.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const options: any = {
         margin: 0,
@@ -204,6 +148,22 @@ export default function App() {
     }
   };
 
+  const baseCtx: PdfDocCtx = {
+    productName: data.productName,
+    brand: data.brand,
+    brandLogoUrl: data.brandLogoUrl,
+    websiteUrl: data.websiteUrl,
+    documentType: data.documentType,
+    brandTagline: data.brandTagline,
+    modelCodes: data.modelCodes,
+    productSubtitle:
+      data.modelCodes.length > 0
+        ? data.modelCodes.slice(0, 2).join('…') +
+          (data.modelCodes.length > 2 ? '…' + data.modelCodes.at(-1) : '')
+        : undefined,
+    totalPages: data.pages.length,
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       <header className="no-print bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
@@ -214,52 +174,26 @@ export default function App() {
           <div>
             <div className="text-sm font-bold tracking-tight">manualAUTO</div>
             <div className="text-[10px] text-slate-500 uppercase tracking-wider">
-              Генератор інструкцій · v0.4
+              Генератор інструкцій · v0.5
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <label
-            className={`cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-              pdfParsing
-                ? 'bg-orange-600/30 text-orange-300 cursor-wait'
-                : 'bg-orange-600/20 hover:bg-orange-600/30 text-orange-300 border border-orange-600/40'
-            }`}
-            title="Витягне з PDF титульну, основні положення, інструкцію з монтажу і гарантію"
-          >
-            {pdfParsing ? (
-              <>
-                <Loader2 size={14} className="animate-spin" /> Парсинг...
-              </>
-            ) : (
-              <>
-                <FileUp size={14} /> Імпорт з PDF
-              </>
-            )}
-            <input
-              type="file"
-              accept=".pdf"
-              onChange={handleImportPdf}
-              className="hidden"
-              disabled={pdfParsing}
-            />
-          </label>
-
-          <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium transition-colors">
+          <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
             <Upload size={14} /> Імпорт JSON
             <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
           </label>
           <button
             onClick={handleExportJson}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium"
           >
             <Save size={14} /> Експорт JSON
           </button>
           <button
             onClick={handleDownloadPdf}
             disabled={downloading}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-700 disabled:cursor-wait rounded text-xs font-bold transition-colors"
+            className="flex items-center gap-1.5 px-4 py-1.5 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-700 disabled:cursor-wait rounded text-xs font-bold"
           >
             {downloading ? (
               <>
@@ -274,35 +208,20 @@ export default function App() {
         </div>
       </header>
 
-      {pdfError && (
-        <div className="no-print bg-red-950/50 border-b border-red-800 px-6 py-2 text-sm text-red-300 flex items-center gap-2">
-          <AlertCircle size={16} /> Помилка PDF: {pdfError}
-          <button onClick={() => setPdfError('')} className="ml-auto text-xs underline">
-            ×
-          </button>
-        </div>
-      )}
+      <DocumentHeader data={data} onChange={setData} />
 
       <div className="flex-1 flex overflow-hidden no-print">
-        <BlockList
-          blocks={data.blocks}
+        <PageList
+          pages={data.pages}
           activeId={activeId}
           onSelect={setActiveId}
-          onAdd={addBlock}
-          onRemove={removeBlock}
-          onMove={moveBlock}
+          onAdd={addPage}
+          onRemove={removePage}
+          onMove={movePage}
         />
-        <BlockEditorPanel block={activeBlock} onChange={updateBlock} />
-        <PreviewPane blocks={data.blocks} zoom={zoom} onZoomChange={setZoom} />
+        <PageEditorPanel page={activePage} onChange={updatePage} />
+        <PreviewPane doc={data} zoom={zoom} onZoomChange={setZoom} />
       </div>
-
-      {pendingImport && (
-        <ImportReport
-          report={pendingImport.report}
-          onClose={() => setPendingImport(null)}
-          onApply={applyPdfImport}
-        />
-      )}
 
       <div
         ref={printRef}
@@ -318,27 +237,14 @@ export default function App() {
           background: 'white',
         }}
       >
-        {data.blocks.map((b, i) => {
-          const spec = getBlockSpec(b.type);
+        {data.pages.map((p, i) => {
+          const spec = getPageSpec(p.type);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const Preview = spec.Preview as any;
-          const cover = data.blocks.find((bb) => bb.type === 'cover');
-          const ctx: PdfDocCtx = {
-            productName: cover && cover.type === 'cover' ? cover.productName : data.productName,
-            productSubtitle:
-              cover && cover.type === 'cover' && cover.modelCodes && cover.modelCodes.length > 0
-                ? cover.modelCodes.slice(0, 2).join('…') +
-                  (cover.modelCodes.length > 2 ? '…' + cover.modelCodes.at(-1) : '')
-                : undefined,
-            brand: cover && cover.type === 'cover' ? cover.brand : undefined,
-            brandLogoUrl: cover && cover.type === 'cover' ? cover.brandLogoUrl : undefined,
-            websiteUrl: cover && cover.type === 'cover' ? cover.websiteUrl : undefined,
-            pageNumber: i + 1,
-            totalPages: data.blocks.length,
-          };
+          const ctx: PdfDocCtx = { ...baseCtx, pageNumber: i + 1 };
           return (
-            <PdfDocProvider key={b.id} value={ctx}>
-              <Preview data={b} />
+            <PdfDocProvider key={p.id} value={ctx}>
+              <Preview data={p} />
             </PdfDocProvider>
           );
         })}
