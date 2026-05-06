@@ -186,6 +186,30 @@ export default function App() {
       const pageW = 210;
       const pageH = 297;
 
+      // Inline the page's stylesheet into the cloned subtree before
+      // capture. html2canvas's foreignObjectRendering mode wraps the
+      // node in <svg><foreignObject><html>..., which has no access to
+      // document.head's stylesheet. Without this, classes like
+      // .pdf-page-header / .pdf-section-bar etc. don't apply and pages
+      // render as black-on-black. We grab every <style> + <link
+      // rel=stylesheet> currently in the document and clone them into
+      // the foreignObject root.
+      const collectedStyles = (() => {
+        const out: string[] = [];
+        for (const sheet of Array.from(document.styleSheets)) {
+          try {
+            const rules = (sheet as CSSStyleSheet).cssRules;
+            if (!rules) continue;
+            for (const rule of Array.from(rules)) {
+              out.push(rule.cssText);
+            }
+          } catch {
+            // Cross-origin sheet — skip.
+          }
+        }
+        return out.join('\n');
+      })();
+
       for (let i = 0; i < pages.length; i++) {
         const node = pages[i];
         const canvas = await html2canvas(node, {
@@ -195,14 +219,13 @@ export default function App() {
           backgroundColor: null,
           width: node.offsetWidth,
           height: node.offsetHeight,
-          // Use the browser's native rendering through SVG <foreignObject>
-          // so text baselines match the live preview exactly. All colours
-          // in pdf-print.css and the inline element-renderer styles are
-          // now hex/rgba (not var()) — foreignObject doesn't propagate
-          // CSS custom properties into its cloned subtree, so vars used
-          // to render as black. Hex avoids that pitfall entirely.
           foreignObjectRendering: true,
           removeContainer: true,
+          onclone: (clonedDoc) => {
+            const styleEl = clonedDoc.createElement('style');
+            styleEl.textContent = collectedStyles;
+            clonedDoc.head.appendChild(styleEl);
+          },
         });
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         if (i > 0) pdf.addPage('a4', 'portrait');
