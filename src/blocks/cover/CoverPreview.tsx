@@ -1,4 +1,5 @@
 import type { CoverBlock } from '../../types/instruction';
+import { TermojetLogo } from '../../components/TermojetLogo';
 
 interface Props {
   data: CoverBlock;
@@ -31,6 +32,8 @@ export function CoverPreview({ data }: Props) {
             alt={data.brand}
             style={{ maxHeight: '60px', maxWidth: '70%', objectFit: 'contain' }}
           />
+        ) : data.brand === 'TERMOJET' ? (
+          <TermojetLogo height={72} />
         ) : (
           <>
             <div
@@ -39,7 +42,6 @@ export function CoverPreview({ data }: Props) {
                 fontSize: '14px',
                 letterSpacing: '8px',
                 fontWeight: 700,
-                marginBottom: '0px',
                 lineHeight: 1,
               }}
             >

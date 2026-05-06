@@ -10,10 +10,12 @@
 import { extractStructuredText, type PageData } from './pdfExtract';
 import type {
   Block,
+  ConstructionLegendData,
   CoverBlock,
   InstallationStepsBlockData,
   SafetyBlockData,
   SafetySubsection,
+  TechSpecsBlockData,
   TextBlockData,
   WarrantyBlockData,
 } from '../types/instruction';
@@ -85,7 +87,48 @@ export async function parsePdfToBlocks(file: File): Promise<PdfParseResult> {
     });
   }
 
-  // 4) Warranty (last 1-2 pages)
+  // 4) TechSpecs (Технічні характеристики)
+  const techSpecs = parseTechSpecs(pages);
+  if (techSpecs) {
+    blocks.push(techSpecs);
+    const tableInfo = techSpecs.table.rows.length
+      ? `, таблиця ${techSpecs.table.headers.length}×${techSpecs.table.rows.length}`
+      : '';
+    detected.push({
+      type: 'techSpecs',
+      label: 'Технічні характеристики',
+      ok: true,
+      details: `${techSpecs.properties.length} властивостей${tableInfo}`,
+    });
+  } else {
+    detected.push({
+      type: 'techSpecs',
+      label: 'Технічні характеристики',
+      ok: false,
+      details: 'не знайдено',
+    });
+  }
+
+  // 5) Construction legend (Конструкція + 1-N виносок)
+  const construction = parseConstructionLegend(pages);
+  if (construction && construction.items.length >= 2) {
+    blocks.push(construction);
+    detected.push({
+      type: 'constructionLegend',
+      label: 'Конструкція + легенда',
+      ok: true,
+      details: `${construction.items.length} виносок (зображення треба завантажити вручну)`,
+    });
+  } else {
+    detected.push({
+      type: 'constructionLegend',
+      label: 'Конструкція + легенда',
+      ok: false,
+      details: 'не знайдено',
+    });
+  }
+
+  // 6) Warranty (last 1-2 pages)
   const warranty = parseWarranty(pages);
   if (warranty) {
     blocks.push(warranty);
@@ -336,6 +379,121 @@ function makeDefaultWarranty(): WarrantyBlockData {
     caseHeading: WARRANTY_TEMPLATE.caseHeading,
     caseDocs: [...WARRANTY_TEMPLATE.caseDocs],
     reviewText: WARRANTY_TEMPLATE.reviewText,
+  };
+}
+
+// ---- TechSpecs ----
+
+const PROPERTY_KEYS = [
+  'Матеріал',
+  'Зварювання',
+  'Збірка',
+  'Гідравлічне випробування',
+  'Випробування гідравлічне',
+  'Максимальний робочий тиск',
+  'Робочий тиск',
+  'Максимальна робоча температура',
+  'Теплоносій',
+  'Покриття',
+  'Комплектація',
+  'Упаковка',
+  'Маркування',
+  'Гарантійний термін',
+  'Термін гарантії',
+];
+
+function parseTechSpecs(pages: PageData[]): TechSpecsBlockData | null {
+  const target = pages.find((p) => /Технічні\s+характеристики/i.test(p.text));
+  if (!target) return null;
+
+  const text = target.text;
+
+  let standards = '';
+  const stdMatch = text.match(
+    /(?:Відповідно\s+до\s+стандартів|Згідно\s+ТУ[УУ]?)[:.]?\s*([^\n]+)/i
+  );
+  if (stdMatch) standards = stdMatch[1].trim();
+
+  const properties: { key: string; value: string }[] = [];
+  for (const key of PROPERTY_KEYS) {
+    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`${escaped}\\s*[-—–:]\\s*([^\\n]+)`, 'i');
+    const m = text.match(re);
+    if (m) {
+      const value = m[1].trim().replace(/[.,;]+$/, '');
+      if (!properties.some((p) => p.key === key)) {
+        properties.push({ key, value });
+      }
+    }
+  }
+
+  // Table extraction is intentionally minimal — pdf.js layout makes table
+  // reconstruction unreliable. We expose an empty table that the user fills.
+  return {
+    id: newId('specs'),
+    type: 'techSpecs',
+    heading: 'Технічні характеристики',
+    standards,
+    properties,
+    table: { headers: ['Модель'], rows: [] },
+  };
+}
+
+// ---- Construction legend ----
+
+function parseConstructionLegend(pages: PageData[]): ConstructionLegendData | null {
+  const target = pages.find((p) =>
+    /Конструкція\s+(?:колектора|виробу|роздільника|групи|модуля)|Будова\s+(?:роздільника|виробу)/i.test(
+      p.text
+    )
+  );
+  if (!target) return null;
+
+  const text = target.text;
+
+  // Extract heading
+  const headingMatch = text.match(
+    /\d?\.?\s*(Конструкція[^\n]*|Будова[^\n]+)/i
+  );
+  const heading = headingMatch?.[1]?.trim() ?? 'Конструкція виробу';
+
+  // Find numbered legend items: "1 - Підключення котла..." / "1 – ..." / "1. ..."
+  const itemRegex = /(?:^|\n)\s*(\d{1,2})\s*[-–—.)]\s+([^\n]+)/g;
+  const items: { number: number; label: string }[] = [];
+  const seen = new Set<number>();
+  let m: RegExpExecArray | null;
+  while ((m = itemRegex.exec(text)) !== null) {
+    const n = parseInt(m[1], 10);
+    const label = m[2].trim().replace(/[.;,]+$/, '');
+    // Filter out things like dates, model codes etc by requiring Cyrillic
+    if (!/[А-ЯІЇЄҐа-яіїєґ]/.test(label)) continue;
+    if (label.length < 4) continue;
+    if (seen.has(n)) continue;
+    if (n < 1 || n > 30) continue;
+    seen.add(n);
+    items.push({ number: n, label });
+  }
+  items.sort((a, b) => a.number - b.number);
+
+  // Detect flow lines if mentioned
+  const flowLines: { color: string; label: string }[] = [];
+  const flowMatches = text.match(/Лінія\s+подачі[^\n]*|Зворотн\S*\s+лінія[^\n]*/gi);
+  if (flowMatches) {
+    for (const fm of flowMatches) {
+      const isReturn = /Зворотн/i.test(fm);
+      flowLines.push({
+        color: isReturn ? '#3b82f6' : '#dc2626',
+        label: fm.trim(),
+      });
+    }
+  }
+
+  return {
+    id: newId('construct'),
+    type: 'constructionLegend',
+    heading,
+    items,
+    flowLines,
   };
 }
 

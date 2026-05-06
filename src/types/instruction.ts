@@ -7,6 +7,10 @@ export type BlockType =
   | 'safety'
   | 'text'
   | 'installationSteps'
+  | 'techSpecs'
+  | 'constructionLegend'
+  | 'figureGrid'
+  | 'warningCallout'
   | 'warranty';
 
 export interface BlockBase {
@@ -75,11 +79,66 @@ export interface WarrantyBlockData extends BlockBase {
   reviewText: string;
 }
 
+export interface TechSpecProperty {
+  key: string;
+  value: string;
+}
+
+export interface TechSpecsTable {
+  headers: string[];
+  rows: string[][];
+}
+
+export interface TechSpecsBlockData extends BlockBase {
+  type: 'techSpecs';
+  heading: string;
+  standards: string;
+  properties: TechSpecProperty[];
+  table: TechSpecsTable;
+}
+
+export interface ConstructionLegendItem {
+  number: number;
+  label: string;
+}
+
+export interface ConstructionLegendData extends BlockBase {
+  type: 'constructionLegend';
+  heading: string;
+  imageUrl?: string;
+  items: ConstructionLegendItem[];
+  flowLines: { color: string; label: string }[];
+}
+
+export interface FigureGridItem {
+  id: string;
+  caption: string;
+  imageUrl?: string;
+}
+
+export interface FigureGridBlockData extends BlockBase {
+  type: 'figureGrid';
+  heading: string;
+  columns: 2 | 3 | 4;
+  figures: FigureGridItem[];
+}
+
+export interface WarningCalloutData extends BlockBase {
+  type: 'warningCallout';
+  level: 'info' | 'warning' | 'danger';
+  title: string;
+  body: string;
+}
+
 export type Block =
   | CoverBlock
   | SafetyBlockData
   | TextBlockData
   | InstallationStepsBlockData
+  | TechSpecsBlockData
+  | ConstructionLegendData
+  | FigureGridBlockData
+  | WarningCalloutData
   | WarrantyBlockData;
 
 export interface InstructionData {

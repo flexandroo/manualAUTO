@@ -5,6 +5,10 @@ import {
   Layers,
   ListOrdered,
   ScrollText,
+  Table2,
+  Cog,
+  Images,
+  AlertTriangle,
   type LucideIcon,
 } from 'lucide-react';
 import type {
@@ -14,6 +18,10 @@ import type {
   SafetyBlockData,
   TextBlockData,
   InstallationStepsBlockData,
+  TechSpecsBlockData,
+  ConstructionLegendData,
+  FigureGridBlockData,
+  WarningCalloutData,
   WarrantyBlockData,
 } from '../types/instruction';
 import { newId } from '../utils/id';
@@ -28,6 +36,14 @@ import { TextEditor } from './text/TextEditor';
 import { TextPreview } from './text/TextPreview';
 import { InstallationStepsEditor } from './installationSteps/InstallationStepsEditor';
 import { InstallationStepsPreview } from './installationSteps/InstallationStepsPreview';
+import { TechSpecsEditor } from './techSpecs/TechSpecsEditor';
+import { TechSpecsPreview } from './techSpecs/TechSpecsPreview';
+import { ConstructionLegendEditor } from './constructionLegend/ConstructionLegendEditor';
+import { ConstructionLegendPreview } from './constructionLegend/ConstructionLegendPreview';
+import { FigureGridEditor } from './figureGrid/FigureGridEditor';
+import { FigureGridPreview } from './figureGrid/FigureGridPreview';
+import { WarningCalloutEditor } from './warningCallout/WarningCalloutEditor';
+import { WarningCalloutPreview } from './warningCallout/WarningCalloutPreview';
 import { WarrantyEditor } from './warranty/WarrantyEditor';
 import { WarrantyPreview } from './warranty/WarrantyPreview';
 
@@ -38,7 +54,7 @@ interface BlockSpec<T extends Block> {
   Editor: ComponentType<{ data: T; onChange: (d: T) => void }>;
   Preview: ComponentType<{ data: T }>;
   createNew: () => T;
-  unique?: boolean; // some blocks should appear at most once
+  unique?: boolean;
 }
 
 const coverSpec: BlockSpec<CoverBlock> = {
@@ -109,6 +125,67 @@ const installationStepsSpec: BlockSpec<InstallationStepsBlockData> = {
   }),
 };
 
+const techSpecsSpec: BlockSpec<TechSpecsBlockData> = {
+  type: 'techSpecs',
+  label: 'Технічні характеристики',
+  icon: Table2,
+  Editor: TechSpecsEditor,
+  Preview: TechSpecsPreview,
+  createNew: () => ({
+    id: newId('specs'),
+    type: 'techSpecs',
+    heading: 'Технічні характеристики',
+    standards: '',
+    properties: [],
+    table: { headers: ['Модель'], rows: [] },
+  }),
+};
+
+const constructionLegendSpec: BlockSpec<ConstructionLegendData> = {
+  type: 'constructionLegend',
+  label: 'Конструкція + легенда',
+  icon: Cog,
+  Editor: ConstructionLegendEditor,
+  Preview: ConstructionLegendPreview,
+  createNew: () => ({
+    id: newId('construct'),
+    type: 'constructionLegend',
+    heading: 'Конструкція виробу',
+    items: [],
+    flowLines: [],
+  }),
+};
+
+const figureGridSpec: BlockSpec<FigureGridBlockData> = {
+  type: 'figureGrid',
+  label: 'Сітка рисунків',
+  icon: Images,
+  Editor: FigureGridEditor,
+  Preview: FigureGridPreview,
+  createNew: () => ({
+    id: newId('figs'),
+    type: 'figureGrid',
+    heading: 'Рисунки',
+    columns: 3,
+    figures: [],
+  }),
+};
+
+const warningCalloutSpec: BlockSpec<WarningCalloutData> = {
+  type: 'warningCallout',
+  label: 'Попередження',
+  icon: AlertTriangle,
+  Editor: WarningCalloutEditor,
+  Preview: WarningCalloutPreview,
+  createNew: () => ({
+    id: newId('warn'),
+    type: 'warningCallout',
+    level: 'warning',
+    title: 'Увага!',
+    body: '',
+  }),
+};
+
 const warrantySpec: BlockSpec<WarrantyBlockData> = {
   type: 'warranty',
   label: 'Гарантія',
@@ -135,14 +212,23 @@ export const BLOCK_REGISTRY: Record<BlockType, BlockSpec<any>> = {
   safety: safetySpec,
   text: textSpec,
   installationSteps: installationStepsSpec,
+  techSpecs: techSpecsSpec,
+  constructionLegend: constructionLegendSpec,
+  figureGrid: figureGridSpec,
+  warningCallout: warningCalloutSpec,
   warranty: warrantySpec,
 };
 
+// Order in the "+ add block" menu
 export const BLOCK_TYPE_ORDER: BlockType[] = [
   'cover',
   'safety',
   'text',
   'installationSteps',
+  'techSpecs',
+  'constructionLegend',
+  'figureGrid',
+  'warningCallout',
   'warranty',
 ];
 
