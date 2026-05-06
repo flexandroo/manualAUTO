@@ -51,12 +51,14 @@ const coverSpec: BlockSpec<CoverBlock> = {
   createNew: () => ({
     id: newId('cover'),
     type: 'cover',
+    brand: 'TERMOJET',
     productName: 'Назва продукту',
-    subtitle: '',
+    subtitle: 'Інструкція з монтажу та експлуатації',
     modelCodes: [],
-    documentType: 'ТЕХНІЧНИЙ ПАСПОРТ',
+    documentType: 'ТЕХНІЧНИЙ СЕРТИФІКАТ',
     tagline: 'Швидко ● Надійно ● Ефективно',
     websiteUrl: 'WWW.TERMOJET.COM.UA',
+    productImages: [],
   }),
 };
 

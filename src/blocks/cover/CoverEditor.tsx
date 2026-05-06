@@ -10,20 +10,37 @@ interface Props {
 }
 
 export function CoverEditor({ data, onChange }: Props) {
+  const updateProductImage = (i: number, url: string | undefined) => {
+    const next = [...data.productImages];
+    if (url === undefined) {
+      next.splice(i, 1);
+    } else {
+      next[i] = url;
+    }
+    onChange({ ...data, productImages: next });
+  };
+
   return (
     <div>
+      <FieldGroup label="Бренд">
+        <Input value={data.brand} onChange={(e) => onChange({ ...data, brand: e.target.value })} />
+      </FieldGroup>
+
+      <ImageUploader
+        label="Логотип бренду (опціонально)"
+        hint="Якщо завантажити — заміняє текст з трикутничками у верхній плашці"
+        value={data.brandLogoUrl}
+        onChange={(url) => onChange({ ...data, brandLogoUrl: url })}
+        aspectRatio="3/1"
+      />
+
       <FieldGroup label="Назва продукту">
         <Input
           value={data.productName}
           onChange={(e) => onChange({ ...data, productName: e.target.value })}
         />
       </FieldGroup>
-      <FieldGroup label="Підзаголовок">
-        <Input
-          value={data.subtitle}
-          onChange={(e) => onChange({ ...data, subtitle: e.target.value })}
-        />
-      </FieldGroup>
+
       <FieldGroup label="Перелік моделей" hint="Кожна модель з нового рядка або через крапку з комою">
         <Textarea
           value={data.modelCodes.join('\n')}
@@ -39,31 +56,46 @@ export function CoverEditor({ data, onChange }: Props) {
           rows={4}
         />
       </FieldGroup>
-      <FieldGroup label="Тип документа">
+
+      <FieldGroup label="Тип документа" hint='Наприклад "ТЕХНІЧНИЙ СЕРТИФІКАТ"'>
         <Input
           value={data.documentType}
           onChange={(e) => onChange({ ...data, documentType: e.target.value })}
         />
       </FieldGroup>
-      <FieldGroup label="Слоган">
+
+      <FieldGroup label="Підзаголовок (текст у пілюлі)" hint='Наприклад "Інструкція з монтажу та експлуатації"'>
         <Input
-          value={data.tagline}
-          onChange={(e) => onChange({ ...data, tagline: e.target.value })}
+          value={data.subtitle}
+          onChange={(e) => onChange({ ...data, subtitle: e.target.value })}
         />
       </FieldGroup>
-      <FieldGroup label="Сайт">
+
+      <div className="mb-5">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+          Фото продукту (до 3-х)
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {[0, 1, 2].map((i) => (
+            <ImageUploader
+              key={i}
+              value={data.productImages[i]}
+              onChange={(url) => updateProductImage(i, url)}
+              aspectRatio="3/4"
+            />
+          ))}
+        </div>
+        <div className="text-[11px] text-slate-500 mt-1">
+          Перетягніть файли або вставте з буфера (Ctrl+V) у потрібний слот
+        </div>
+      </div>
+
+      <FieldGroup label="Сайт (для футерів інших сторінок)">
         <Input
           value={data.websiteUrl}
           onChange={(e) => onChange({ ...data, websiteUrl: e.target.value })}
         />
       </FieldGroup>
-      <ImageUploader
-        label="Фото продукту"
-        hint="PNG/JPG до 8 МБ. Можна перетягнути файл або вставити з буфера (Ctrl+V)."
-        value={data.imageUrl}
-        onChange={(url) => onChange({ ...data, imageUrl: url })}
-        aspectRatio="4/3"
-      />
     </div>
   );
 }

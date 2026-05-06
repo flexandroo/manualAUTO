@@ -158,12 +158,14 @@ function parseCover(page: PageData | undefined): CoverBlock {
   return {
     id: newId('cover'),
     type: 'cover',
+    brand: 'TERMOJET',
     productName: title || 'Назва продукту',
     subtitle,
     modelCodes,
     documentType,
     tagline,
     websiteUrl,
+    productImages: [],
   };
 }
 

@@ -16,12 +16,16 @@ export interface BlockBase {
 
 export interface CoverBlock extends BlockBase {
   type: 'cover';
+  brand: string;
+  brandLogoUrl?: string;
   productName: string;
   modelCodes: string[];
   documentType: string;
   subtitle: string;
   tagline: string;
   websiteUrl: string;
+  productImages: string[];
+  /** @deprecated use productImages */
   imageUrl?: string;
 }
 
