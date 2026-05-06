@@ -195,6 +195,21 @@ export default function App() {
           backgroundColor: null,
           width: node.offsetWidth,
           height: node.offsetHeight,
+          onclone: (clonedDoc) => {
+            // html2canvas's text raster shifts glyph baselines ~2 px
+            // lower than the live preview. Compensate by translating
+            // the main text-bearing containers up by 2 px in the
+            // clone only. The user's editor preview is unaffected.
+            const style = clonedDoc.createElement('style');
+            style.textContent = `
+              .pdf-page-header,
+              .pdf-page-content,
+              .pdf-page-footer-band {
+                transform: translateY(-2px);
+              }
+            `;
+            clonedDoc.head.appendChild(style);
+          },
         });
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         if (i > 0) pdf.addPage('a4', 'portrait');
