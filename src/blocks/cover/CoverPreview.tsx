@@ -6,6 +6,10 @@ interface Props {
   data: CoverBlock;
 }
 
+const NAVY = '#0D1526';
+const ORANGE = '#F25D2A';
+const WHITE = '#FAFAF8';
+
 export function CoverPreview({ data }: Props) {
   const images = data.productImages?.length
     ? data.productImages
@@ -19,163 +23,102 @@ export function CoverPreview({ data }: Props) {
     <div
       className="pdf-page"
       style={{
+        background: NAVY,
+        color: WHITE,
         padding: 0,
-        display: 'flex',
-        flexDirection: 'column',
         minHeight: '297mm',
-        background: '#ffffff',
       }}
     >
-      {/* Top brand area: small logo left, tagline right (asymmetric) */}
+      {/* TOP BAND — orange */}
       <div
         style={{
+          background: ORANGE,
+          padding: '10mm 14mm 8mm',
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '16mm 18mm 0',
+          justifyContent: 'space-between',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ height: '14mm', display: 'flex', alignItems: 'center' }}>
           {data.brandLogoUrl ? (
             <img
               src={data.brandLogoUrl}
               alt={data.brand}
-              style={{ height: '34px', maxWidth: '180px', objectFit: 'contain' }}
-            />
-          ) : data.brand === 'TERMOJET' ? (
-            <TermojetLogo height={38} />
-          ) : (
-            <div
               style={{
-                fontSize: '20px',
-                fontWeight: 900,
-                color: '#0f172a',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
+                height: '14mm',
+                maxWidth: '60mm',
+                objectFit: 'contain',
+                filter: 'brightness(0) invert(1)',
               }}
-            >
-              {data.brand}
-            </div>
+            />
+          ) : (
+            <TermojetLogo height={42} color="white" />
           )}
         </div>
         {data.brandTagline && (
           <div
             style={{
-              ...coverFontStyle(data, 'brandTagline'),
-              color: '#64748b',
+              fontSize: '7pt',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
-              letterSpacing: '0.18em',
+              opacity: 0.85,
+              textAlign: 'right',
+              lineHeight: 1.5,
+              color: 'white',
             }}
           >
+            {data.documentType && <>Технічний сертифікат<br /></>}
             {data.brandTagline}
           </div>
         )}
       </div>
 
-      {/* Thin orange accent line */}
-      <div
-        style={{
-          margin: '14mm 18mm 0',
-          height: '1px',
-          background: '#e2e8f0',
-          position: 'relative',
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: '64px',
-            height: '2px',
-            background: '#ff6b1a',
-          }}
-        />
-      </div>
-
-      {/* Hero product image area — dominant whitespace and the product */}
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '14mm 18mm',
-          gap: '10mm',
-          minHeight: '120mm',
-        }}
-      >
-        {images.length === 0 ? (
+      {/* HERO area — title, models, doc types */}
+      <div style={{ padding: '10mm 14mm 0' }}>
+        {data.brandTagline && (
           <div
             style={{
-              width: '70%',
-              aspectRatio: '4/3',
-              background: '#f8fafc',
-              border: '1px dashed #cbd5e1',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#94a3b8',
-              fontSize: '11px',
-              fontWeight: 500,
-            }}
-          >
-            [ зображення продукту ]
-          </div>
-        ) : (
-          images.map((url, i) => (
-            <img
-              key={i}
-              src={url}
-              alt=""
-              style={{
-                maxHeight: '120mm',
-                maxWidth: `${Math.floor(95 / images.length)}%`,
-                objectFit: 'contain',
-              }}
-            />
-          ))
-        )}
-      </div>
-
-      {/* Title block — left-aligned, editorial */}
-      <div style={{ padding: '0 18mm 0' }}>
-        {data.documentType && (
-          <div
-            style={{
-              ...coverFontStyle(data, 'documentType'),
-              color: '#64748b',
+              ...coverFontStyle(data, 'brandTagline'),
+              fontSize: '7pt',
+              fontWeight: 700,
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
-              marginBottom: '10px',
+              color: ORANGE,
+              marginBottom: '3mm',
             }}
           >
-            {data.documentType}
+            {data.productName}
           </div>
         )}
 
-        <h1
+        <div
           style={{
             ...coverFontStyle(data, 'productName'),
-            color: '#0f172a',
-            letterSpacing: '-0.025em',
-            lineHeight: 1.0,
-            margin: 0,
-            marginBottom: '10px',
+            fontSize: '20pt',
+            fontWeight: 900,
+            lineHeight: 1.1,
+            letterSpacing: '-0.01em',
+            marginBottom: '2mm',
+            color: 'white',
           }}
         >
-          {data.productName}
-        </h1>
+          Серія{' '}
+          <span style={{ color: ORANGE }}>
+            {modelCodes[0]?.split('-')[0] || data.productName.split(' ')[0]}
+          </span>
+        </div>
 
         {data.subtitle && (
           <div
             style={{
               ...coverFontStyle(data, 'subtitle'),
-              color: '#475569',
-              marginBottom: '14px',
-              maxWidth: '160mm',
-              lineHeight: 1.5,
+              fontSize: '9pt',
+              fontWeight: 500,
+              opacity: 0.55,
+              marginBottom: '5mm',
+              letterSpacing: '0.02em',
+              color: 'white',
             }}
           >
             {data.subtitle}
@@ -186,10 +129,9 @@ export function CoverPreview({ data }: Props) {
           <div
             style={{
               display: 'flex',
+              gap: '2.5mm',
               flexWrap: 'wrap',
-              gap: '5px',
-              marginBottom: '14px',
-              maxWidth: '160mm',
+              marginBottom: '6mm',
             }}
           >
             {modelCodes.map((m, i) => (
@@ -197,14 +139,14 @@ export function CoverPreview({ data }: Props) {
                 key={i}
                 style={{
                   ...coverFontStyle(data, 'modelCodes'),
-                  background: '#f1f5f9',
-                  color: '#0f172a',
-                  padding: '4px 10px',
-                  borderRadius: '4px',
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontSize: '10px',
-                  fontWeight: 600,
-                  letterSpacing: '0.02em',
+                  background: 'rgba(242,93,42,0.15)',
+                  border: '1px solid rgba(242,93,42,0.4)',
+                  color: ORANGE,
+                  fontSize: '7.5pt',
+                  fontWeight: 700,
+                  padding: '1.5mm 3.5mm',
+                  borderRadius: '2mm',
+                  letterSpacing: '0.06em',
                 }}
               >
                 {m}
@@ -213,68 +155,209 @@ export function CoverPreview({ data }: Props) {
           </div>
         )}
 
-        {bulletPoints.length > 0 && (
+        <div
+          style={{
+            width: '100%',
+            height: '1px',
+            background: 'rgba(255,255,255,0.1)',
+            marginBottom: '5mm',
+          }}
+        />
+
+        {data.documentType && (
+          <div style={{ display: 'flex', gap: '6mm', flexWrap: 'wrap' }}>
+            {[data.documentType, data.subtitle]
+              .filter(Boolean)
+              .map((label, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '2.5mm',
+                    fontSize: '7.5pt',
+                    fontWeight: 600,
+                    opacity: 0.65,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    color: 'white',
+                  }}
+                >
+                  <span
+                    style={{
+                      width: '2.5mm',
+                      height: '2.5mm',
+                      background: ORANGE,
+                      borderRadius: '50%',
+                      flexShrink: 0,
+                      opacity: 0.8,
+                      display: 'block',
+                    }}
+                  />
+                  {label}
+                </div>
+              ))}
+          </div>
+        )}
+      </div>
+
+      {/* FEATURES grid (3 columns from bulletPoints) */}
+      {bulletPoints.length > 0 && (
+        <div
+          style={{
+            padding: '6mm 14mm 0',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4mm',
+          }}
+        >
           <div
             style={{
-              borderTop: '1px solid #e2e8f0',
-              paddingTop: '14px',
-              maxWidth: '160mm',
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '4px 18px',
+              gridTemplateColumns: `repeat(${Math.min(bulletPoints.length, 3)}, 1fr)`,
+              gap: '3mm',
             }}
           >
-            {bulletPoints.map((b, i) => {
+            {bulletPoints.slice(0, 3).map((b, i) => {
               const fs = coverFontStyle(data, 'bulletPoints');
               return (
                 <div
                   key={i}
                   style={{
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    padding: '6mm 5mm',
                     display: 'flex',
-                    alignItems: 'baseline',
-                    gap: '8px',
-                    fontSize: fs.fontSize,
-                    fontWeight: fs.fontWeight,
-                    color: '#0f172a',
-                    lineHeight: 1.45,
+                    flexDirection: 'column',
+                    gap: '2.5mm',
+                    background: 'rgba(255,255,255,0.03)',
                   }}
                 >
-                  <span
+                  <div
                     style={{
-                      color: '#ff6b1a',
-                      fontSize: '8px',
-                      flexShrink: 0,
+                      width: '8mm',
+                      height: '8mm',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '1mm',
                     }}
                   >
-                    ◆
-                  </span>
-                  <span>{b}</span>
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                      <rect
+                        x="1"
+                        y="1"
+                        width="20"
+                        height="20"
+                        rx="2"
+                        stroke={ORANGE}
+                        strokeWidth="1.5"
+                      />
+                      <line x1="11" y1="5" x2="11" y2="17" stroke={ORANGE} strokeWidth="1.5" />
+                      <line x1="5" y1="11" x2="17" y2="11" stroke={ORANGE} strokeWidth="1.5" />
+                    </svg>
+                  </div>
+                  <div
+                    style={{
+                      ...fs,
+                      fontSize: fs.fontSize,
+                      color: 'white',
+                      lineHeight: 1.3,
+                      opacity: 0.9,
+                    }}
+                  >
+                    {b}
+                  </div>
                 </div>
               );
             })}
           </div>
+        </div>
+      )}
+
+      {/* DRAWINGS strip — semi-transparent product images at bottom */}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'flex-end',
+          gap: 0,
+          padding: '0 0 6mm',
+          overflow: 'hidden',
+          marginTop: '6mm',
+        }}
+      >
+        {images.length > 0 ? (
+          images.map((url, i) => (
+            <div
+              key={i}
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                borderRight:
+                  i < images.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                padding: '4mm 3mm 0',
+              }}
+            >
+              <img
+                src={url}
+                alt=""
+                style={{
+                  width: '100%',
+                  maxHeight: '75mm',
+                  objectFit: 'contain',
+                  objectPosition: 'bottom',
+                  opacity: 0.22,
+                  filter: 'invert(1) brightness(1.2)',
+                  mixBlendMode: 'screen',
+                  display: 'block',
+                }}
+              />
+            </div>
+          ))
+        ) : (
+          <div
+            style={{
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'rgba(255,255,255,0.25)',
+              fontSize: '8pt',
+              padding: '20mm 0',
+            }}
+          >
+            [ Зображення продуктів з'являться тут ]
+          </div>
         )}
       </div>
 
-      {/* Footer */}
+      {/* BOTTOM band */}
       <div
         style={{
-          padding: '0 18mm 12mm',
-          marginTop: '18mm',
+          background: 'rgba(0,0,0,0.3)',
+          padding: '5mm 14mm',
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          fontSize: '9px',
-          color: '#64748b',
-          textTransform: 'uppercase',
-          letterSpacing: '0.18em',
-          fontWeight: 600,
-          borderTop: '1px solid #e2e8f0',
-          paddingTop: '8px',
+          justifyContent: 'space-between',
         }}
       >
-        <span>{data.websiteUrl}</span>
-        <span>01</span>
+        <div
+          style={{
+            fontSize: '7pt',
+            opacity: 0.5,
+            fontWeight: 500,
+            letterSpacing: '0.04em',
+            color: 'white',
+          }}
+        >
+          {data.brand || 'TERMOJET'} © {new Date().getFullYear()} — Усі права захищено
+        </div>
+        <div style={{ fontSize: '7pt', opacity: 0.5, fontWeight: 500, color: 'white' }}>
+          UA | Українська мова
+        </div>
       </div>
     </div>
   );

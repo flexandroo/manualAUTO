@@ -1,6 +1,7 @@
 import { Eye } from 'lucide-react';
-import type { Block } from '../types/instruction';
+import type { Block, CoverBlock } from '../types/instruction';
 import { getBlockSpec } from '../blocks/registry';
+import { PdfDocProvider, type PdfDocCtx } from './PdfDocContext';
 
 interface Props {
   blocks: Block[];
@@ -8,7 +9,25 @@ interface Props {
   onZoomChange: (z: number) => void;
 }
 
+function deriveDocContext(blocks: Block[]): PdfDocCtx {
+  const cover = blocks.find((b) => b.type === 'cover') as CoverBlock | undefined;
+  return {
+    productName: cover?.productName,
+    productSubtitle:
+      cover && cover.modelCodes && cover.modelCodes.length > 0
+        ? cover.modelCodes.slice(0, 2).join('…') +
+          (cover.modelCodes.length > 2 ? '…' + cover.modelCodes.at(-1) : '')
+        : undefined,
+    brand: cover?.brand,
+    brandLogoUrl: cover?.brandLogoUrl,
+    websiteUrl: cover?.websiteUrl,
+    totalPages: blocks.length,
+  };
+}
+
 export function PreviewPane({ blocks, zoom, onZoomChange }: Props) {
+  const baseCtx = deriveDocContext(blocks);
+
   return (
     <section className="flex-1 bg-slate-800 overflow-auto relative">
       <div className="sticky top-0 z-10 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-4 py-2 flex items-center justify-between">
@@ -33,10 +52,11 @@ export function PreviewPane({ blocks, zoom, onZoomChange }: Props) {
         </div>
       </div>
       <div className="p-6 flex flex-col items-center gap-3">
-        {blocks.map((b) => {
+        {blocks.map((b, i) => {
           const spec = getBlockSpec(b.type);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const Preview = spec.Preview as any;
+          const ctx: PdfDocCtx = { ...baseCtx, pageNumber: i + 1 };
           return (
             <div
               key={b.id}
@@ -48,7 +68,9 @@ export function PreviewPane({ blocks, zoom, onZoomChange }: Props) {
               }}
             >
               <div style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
-                <Preview data={b} />
+                <PdfDocProvider value={ctx}>
+                  <Preview data={b} />
+                </PdfDocProvider>
               </div>
             </div>
           );

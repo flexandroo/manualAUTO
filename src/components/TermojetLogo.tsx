@@ -8,7 +8,7 @@ interface Props {
   color?: string;
 }
 
-export function TermojetLogo({ height = 70, color = '#ff6b1a' }: Props) {
+export function TermojetLogo({ height = 70, color = '#F25D2A' }: Props) {
   return (
     <svg
       viewBox="0 0 600 200"

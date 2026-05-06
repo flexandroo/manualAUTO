@@ -9,6 +9,7 @@ import { BlockList } from './components/BlockList';
 import { BlockEditorPanel } from './components/BlockEditorPanel';
 import { PreviewPane } from './components/PreviewPane';
 import { ImportReport } from './components/ImportReport';
+import { PdfDocProvider, type PdfDocCtx } from './components/PdfDocContext';
 import { parsePdfToBlocks, type PdfParseResult } from './parsers/parsePdf';
 
 const STORAGE_KEY = 'manualAUTO:document:v1';
@@ -313,11 +314,29 @@ export default function App() {
           background: 'white',
         }}
       >
-        {data.blocks.map((b) => {
+        {data.blocks.map((b, i) => {
           const spec = getBlockSpec(b.type);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const Preview = spec.Preview as any;
-          return <Preview key={b.id} data={b} />;
+          const cover = data.blocks.find((bb) => bb.type === 'cover');
+          const ctx: PdfDocCtx = {
+            productName: cover && cover.type === 'cover' ? cover.productName : data.productName,
+            productSubtitle:
+              cover && cover.type === 'cover' && cover.modelCodes && cover.modelCodes.length > 0
+                ? cover.modelCodes.slice(0, 2).join('…') +
+                  (cover.modelCodes.length > 2 ? '…' + cover.modelCodes.at(-1) : '')
+                : undefined,
+            brand: cover && cover.type === 'cover' ? cover.brand : undefined,
+            brandLogoUrl: cover && cover.type === 'cover' ? cover.brandLogoUrl : undefined,
+            websiteUrl: cover && cover.type === 'cover' ? cover.websiteUrl : undefined,
+            pageNumber: i + 1,
+            totalPages: data.blocks.length,
+          };
+          return (
+            <PdfDocProvider key={b.id} value={ctx}>
+              <Preview data={b} />
+            </PdfDocProvider>
+          );
         })}
       </div>
     </div>
