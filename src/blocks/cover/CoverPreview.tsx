@@ -23,67 +23,48 @@ export function CoverPreview({ data }: Props) {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '297mm',
+        background: '#ffffff',
       }}
     >
-      {/* Brand header */}
+      {/* Top brand area: small logo left, tagline right (asymmetric) */}
       <div
         style={{
-          background: '#0f172a',
-          padding: '32px 14mm 30px',
-          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '16mm 18mm 0',
         }}
       >
-        {data.brandLogoUrl ? (
-          <img
-            src={data.brandLogoUrl}
-            alt={data.brand}
-            style={{
-              maxHeight: '90px',
-              maxWidth: '70%',
-              objectFit: 'contain',
-              display: 'block',
-              margin: '0 auto',
-            }}
-          />
-        ) : data.brand === 'TERMOJET' ? (
-          <TermojetLogo height={96} />
-        ) : (
-          <>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {data.brandLogoUrl ? (
+            <img
+              src={data.brandLogoUrl}
+              alt={data.brand}
+              style={{ height: '34px', maxWidth: '180px', objectFit: 'contain' }}
+            />
+          ) : data.brand === 'TERMOJET' ? (
+            <TermojetLogo height={38} />
+          ) : (
             <div
               style={{
-                color: '#ff6b1a',
-                fontSize: '18px',
-                letterSpacing: '12px',
-                fontWeight: 700,
-                lineHeight: 1,
-              }}
-            >
-              ▲ ▲ ▲
-            </div>
-            <div
-              style={{
-                color: 'white',
-                fontSize: '46px',
+                fontSize: '20px',
                 fontWeight: 900,
-                letterSpacing: '0.06em',
-                lineHeight: 1.05,
-                marginTop: '6px',
+                color: '#0f172a',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
               }}
             >
               {data.brand}
             </div>
-          </>
-        )}
-
+          )}
+        </div>
         {data.brandTagline && (
           <div
             style={{
               ...coverFontStyle(data, 'brandTagline'),
-              color: '#ff6b1a',
-              letterSpacing: '0.08em',
+              color: '#64748b',
               textTransform: 'uppercase',
-              marginTop: '12px',
-              lineHeight: 1.2,
+              letterSpacing: '0.18em',
             }}
           >
             {data.brandTagline}
@@ -91,136 +72,56 @@ export function CoverPreview({ data }: Props) {
         )}
       </div>
 
-      {/* Orange divider bar */}
-      <div style={{ height: '8px', background: '#ff6b1a' }} />
-
-      {/* Title + models + doc type — all centered */}
-      <div style={{ padding: '32px 14mm 0', textAlign: 'center' }}>
-        <h1
-          style={{
-            ...coverFontStyle(data, 'productName'),
-            color: '#ff6b1a',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.05,
-            margin: 0,
-          }}
-        >
-          {data.productName}
-        </h1>
-
-        {modelCodes.length > 0 && (
-          <div
-            style={{
-              ...coverFontStyle(data, 'modelCodes'),
-              marginTop: '16px',
-              color: '#2d2d2d',
-              lineHeight: 1.5,
-              maxWidth: '170mm',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}
-          >
-            {modelCodes.join('; ')}
-          </div>
-        )}
-
-        {data.documentType && (
-          <div
-            style={{
-              ...coverFontStyle(data, 'documentType'),
-              marginTop: '4px',
-              color: '#2d2d2d',
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-            }}
-          >
-            {data.documentType}
-          </div>
-        )}
-      </div>
-
-      {/* Subtitle + bullet points */}
-      {(data.subtitle || bulletPoints.length > 0) && (
-        <div style={{ padding: '28px 14mm 0', textAlign: 'center' }}>
-          {data.subtitle && (
-            <div
-              style={{
-                ...coverFontStyle(data, 'subtitle'),
-                color: '#2d2d2d',
-                letterSpacing: '0.03em',
-                marginBottom: '14px',
-              }}
-            >
-              {data.subtitle}
-            </div>
-          )}
-
-          {bulletPoints.length > 0 && (
-            <div
-              style={{
-                display: 'inline-block',
-                textAlign: 'left',
-              }}
-            >
-              {bulletPoints.map((b, i) => {
-                const fs = coverFontStyle(data, 'bulletPoints');
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'baseline',
-                      gap: '12px',
-                      marginBottom: '6px',
-                      color: '#2d2d2d',
-                      lineHeight: 1.45,
-                      fontSize: fs.fontSize,
-                    }}
-                  >
-                    <span
-                      style={{
-                        color: '#ff6b1a',
-                        fontSize: '12px',
-                        fontWeight: 800,
-                        flexShrink: 0,
-                      }}
-                    >
-                      ◆
-                    </span>
-                    <span style={{ fontWeight: fs.fontWeight }}>{b}</span>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Product photos area at bottom */}
+      {/* Thin orange accent line */}
       <div
         style={{
-          marginTop: 'auto',
-          background: 'linear-gradient(180deg, #f0f0f0 0%, #d8d8d8 100%)',
-          borderTopLeftRadius: '70px',
-          borderTopRightRadius: '70px',
-          padding: '28px 14mm 18mm',
+          margin: '14mm 18mm 0',
+          height: '1px',
+          background: '#e2e8f0',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: '64px',
+            height: '2px',
+            background: '#ff6b1a',
+          }}
+        />
+      </div>
+
+      {/* Hero product image area — dominant whitespace and the product */}
+      <div
+        style={{
+          flex: 1,
           display: 'flex',
+          alignItems: 'center',
           justifyContent: 'center',
-          alignItems: 'flex-end',
-          gap: '28px',
-          minHeight: '108mm',
+          padding: '14mm 18mm',
+          gap: '10mm',
+          minHeight: '120mm',
         }}
       >
         {images.length === 0 ? (
           <div
             style={{
-              color: '#9a9a9a',
-              fontSize: '12px',
+              width: '70%',
+              aspectRatio: '4/3',
+              background: '#f8fafc',
+              border: '1px dashed #cbd5e1',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#94a3b8',
+              fontSize: '11px',
               fontWeight: 500,
-              alignSelf: 'center',
             }}
           >
-            [ Фото продукту з'являться тут ]
+            [ зображення продукту ]
           </div>
         ) : (
           images.map((url, i) => (
@@ -229,13 +130,151 @@ export function CoverPreview({ data }: Props) {
               src={url}
               alt=""
               style={{
-                maxHeight: '92mm',
-                maxWidth: `${Math.floor(92 / images.length)}%`,
+                maxHeight: '120mm',
+                maxWidth: `${Math.floor(95 / images.length)}%`,
                 objectFit: 'contain',
               }}
             />
           ))
         )}
+      </div>
+
+      {/* Title block — left-aligned, editorial */}
+      <div style={{ padding: '0 18mm 0' }}>
+        {data.documentType && (
+          <div
+            style={{
+              ...coverFontStyle(data, 'documentType'),
+              color: '#64748b',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              marginBottom: '10px',
+            }}
+          >
+            {data.documentType}
+          </div>
+        )}
+
+        <h1
+          style={{
+            ...coverFontStyle(data, 'productName'),
+            color: '#0f172a',
+            letterSpacing: '-0.025em',
+            lineHeight: 1.0,
+            margin: 0,
+            marginBottom: '10px',
+          }}
+        >
+          {data.productName}
+        </h1>
+
+        {data.subtitle && (
+          <div
+            style={{
+              ...coverFontStyle(data, 'subtitle'),
+              color: '#475569',
+              marginBottom: '14px',
+              maxWidth: '160mm',
+              lineHeight: 1.5,
+            }}
+          >
+            {data.subtitle}
+          </div>
+        )}
+
+        {modelCodes.length > 0 && (
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '5px',
+              marginBottom: '14px',
+              maxWidth: '160mm',
+            }}
+          >
+            {modelCodes.map((m, i) => (
+              <span
+                key={i}
+                style={{
+                  ...coverFontStyle(data, 'modelCodes'),
+                  background: '#f1f5f9',
+                  color: '#0f172a',
+                  padding: '4px 10px',
+                  borderRadius: '4px',
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {m}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {bulletPoints.length > 0 && (
+          <div
+            style={{
+              borderTop: '1px solid #e2e8f0',
+              paddingTop: '14px',
+              maxWidth: '160mm',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: '4px 18px',
+            }}
+          >
+            {bulletPoints.map((b, i) => {
+              const fs = coverFontStyle(data, 'bulletPoints');
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: '8px',
+                    fontSize: fs.fontSize,
+                    fontWeight: fs.fontWeight,
+                    color: '#0f172a',
+                    lineHeight: 1.45,
+                  }}
+                >
+                  <span
+                    style={{
+                      color: '#ff6b1a',
+                      fontSize: '8px',
+                      flexShrink: 0,
+                    }}
+                  >
+                    ◆
+                  </span>
+                  <span>{b}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div
+        style={{
+          padding: '0 18mm 12mm',
+          marginTop: '18mm',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontSize: '9px',
+          color: '#64748b',
+          textTransform: 'uppercase',
+          letterSpacing: '0.18em',
+          fontWeight: 600,
+          borderTop: '1px solid #e2e8f0',
+          paddingTop: '8px',
+        }}
+      >
+        <span>{data.websiteUrl}</span>
+        <span>01</span>
       </div>
     </div>
   );

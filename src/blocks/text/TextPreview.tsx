@@ -1,4 +1,5 @@
 import type { TextBlockData } from '../../types/instruction';
+import { PdfSectionHeader, PdfFooter } from '../../components/PdfSectionHeader';
 import { textFontStyle } from './textStyles';
 
 interface Props {
@@ -11,26 +12,20 @@ export function TextPreview({ data }: Props) {
   return (
     <div className="pdf-page">
       {data.heading && (
-        <div className="pdf-section-header" style={headingStyle}>
-          <div className="pdf-section-header__bar" />
-          <div className="pdf-section-header__text" style={headingStyle}>
-            {data.heading}
-          </div>
-        </div>
+        <PdfSectionHeader title={data.heading} titleStyle={headingStyle} />
       )}
       <div
         style={{
           ...bodyStyle,
-          lineHeight: 1.6,
-          color: '#2d2d2d',
+          lineHeight: 1.7,
+          color: '#1f2937',
           whiteSpace: 'pre-wrap',
+          maxWidth: '160mm',
         }}
       >
         {data.body}
       </div>
-      <div className="pdf-footer">
-        <span>termojet.com.ua</span>
-      </div>
+      <PdfFooter url="termojet.com.ua" />
     </div>
   );
 }

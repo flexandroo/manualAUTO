@@ -1,4 +1,5 @@
 import type { TechSpecsBlockData } from '../../types/instruction';
+import { PdfSectionHeader, PdfFooter } from '../../components/PdfSectionHeader';
 import { techSpecsFontStyle } from './techSpecsStyles';
 
 interface Props {
@@ -14,77 +15,100 @@ export function TechSpecsPreview({ data }: Props) {
 
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header" style={headingStyle}>
-        <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text" style={headingStyle}>
-          {data.heading}
-        </div>
-      </div>
+      <PdfSectionHeader
+        eyebrow="Технічні дані"
+        title={data.heading}
+        titleStyle={headingStyle}
+      />
 
       {data.standards && (
         <div
           style={{
             ...standardsStyle,
-            color: '#2d2d2d',
+            color: '#475569',
             lineHeight: 1.5,
-            marginBottom: '12px',
+            marginBottom: '20px',
+            maxWidth: '160mm',
           }}
         >
-          <strong style={{ color: '#ff6b1a' }}>Відповідно до стандартів:</strong>{' '}
+          <span
+            style={{
+              display: 'inline-block',
+              fontSize: '9px',
+              fontWeight: 700,
+              color: '#ff6b1a',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              marginRight: '8px',
+            }}
+          >
+            Стандарти
+          </span>
           {data.standards}
         </div>
       )}
 
       {data.properties.length > 0 && (
-        <ul
-          style={{
-            ...propStyle,
-            lineHeight: 1.7,
-            paddingLeft: '18px',
-            listStyleType: 'square',
-            marginBottom: '14px',
-          }}
-        >
-          {data.properties.map((p, i) => (
-            <li key={i} style={{ marginBottom: '2px' }}>
-              <strong>{p.key}:</strong> {p.value}
-            </li>
-          ))}
-        </ul>
+        <div className="pdf-specs-list" style={{ marginBottom: '24px' }}>
+          {data.properties.flatMap((p, i) => [
+            <div
+              key={`r-${i}-l`}
+              className="pdf-specs-key"
+              style={{ ...propStyle, fontWeight: 700 }}
+            >
+              {p.key}
+            </div>,
+            <div key={`r-${i}-v`} className="pdf-specs-value" style={propStyle}>
+              {p.value}
+            </div>,
+          ])}
+        </div>
       )}
 
       {data.table.rows.length > 0 && (
-        <table className="pdf-table">
-          <thead>
-            <tr>
-              {data.table.headers.map((h, i) => (
-                <th key={i} style={thStyle}>
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data.table.rows.map((row, i) => (
-              <tr key={i}>
-                {row.map((cell, j) => (
-                  <td
-                    key={j}
-                    style={{ whiteSpace: 'pre-line', ...tdStyle }}
-                    className={j > 0 ? 'pdf-mono' : ''}
-                  >
-                    {j === 0 ? <strong>{cell}</strong> : cell}
-                  </td>
+        <div>
+          <div
+            style={{
+              fontSize: '10px',
+              fontWeight: 700,
+              color: '#ff6b1a',
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              marginBottom: '10px',
+            }}
+          >
+            Порівняння моделей
+          </div>
+          <table className="pdf-table">
+            <thead>
+              <tr>
+                {data.table.headers.map((h, i) => (
+                  <th key={i} style={thStyle}>
+                    {h}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.table.rows.map((row, i) => (
+                <tr key={i}>
+                  {row.map((cell, j) => (
+                    <td
+                      key={j}
+                      style={{ whiteSpace: 'pre-line', ...tdStyle }}
+                      className={j > 0 ? 'pdf-mono' : ''}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
-      <div className="pdf-footer">
-        <span>termojet.com.ua</span>
-      </div>
+      <PdfFooter url="termojet.com.ua" />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { SafetyBlockData } from '../../types/instruction';
+import { PdfSectionHeader, PdfFooter } from '../../components/PdfSectionHeader';
 import { safetyFontStyle } from './safetyStyles';
 
 interface Props {
@@ -12,20 +13,19 @@ export function SafetyPreview({ data }: Props) {
 
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header" style={titleStyle}>
-        <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text" style={titleStyle}>
-          {data.title}
-        </div>
-      </div>
+      <PdfSectionHeader
+        eyebrow="Безпека · Загальні положення"
+        title={data.title}
+        titleStyle={titleStyle}
+      />
 
       <div
         style={{
           columnCount: 2,
-          columnGap: '8mm',
-          color: '#2d2d2d',
+          columnGap: '10mm',
+          color: '#0f172a',
           ...bodyStyle,
-          lineHeight: 1.45,
+          lineHeight: 1.55,
         }}
       >
         {data.subsections.map((s, i) => (
@@ -33,26 +33,47 @@ export function SafetyPreview({ data }: Props) {
             key={i}
             style={{
               breakInside: 'avoid',
-              marginBottom: '8px',
+              marginBottom: '12px',
             }}
           >
+            <div
+              style={{
+                fontSize: '9px',
+                fontWeight: 700,
+                color: '#ff6b1a',
+                letterSpacing: '0.1em',
+                marginBottom: '2px',
+                fontFamily: 'JetBrains Mono, monospace',
+              }}
+            >
+              {s.number}
+            </div>
             <h3
               style={{
                 ...headingStyle,
-                color: '#ff6b1a',
-                marginBottom: '2px',
+                color: '#0f172a',
+                margin: 0,
+                marginBottom: '4px',
+                lineHeight: 1.3,
               }}
             >
-              {s.number} {s.heading}
+              {s.heading}
             </h3>
-            <p style={{ whiteSpace: 'pre-wrap', margin: 0, ...bodyStyle }}>{s.body}</p>
+            <p
+              style={{
+                whiteSpace: 'pre-wrap',
+                margin: 0,
+                ...bodyStyle,
+                color: '#475569',
+              }}
+            >
+              {s.body}
+            </p>
           </div>
         ))}
       </div>
 
-      <div className="pdf-footer">
-        <span>termojet.com.ua</span>
-      </div>
+      <PdfFooter url="termojet.com.ua" />
     </div>
   );
 }

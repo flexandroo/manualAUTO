@@ -1,4 +1,5 @@
 import type { ConstructionLegendData } from '../../types/instruction';
+import { PdfSectionHeader, PdfFooter } from '../../components/PdfSectionHeader';
 import { constructionFontStyle } from './constructionLegendStyles';
 
 interface Props {
@@ -13,37 +14,49 @@ export function ConstructionLegendPreview({ data }: Props) {
 
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header" style={headingStyle}>
-        <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text" style={headingStyle}>
-          {data.heading}
-        </div>
-      </div>
+      <PdfSectionHeader
+        eyebrow="Конструкція"
+        title={data.heading}
+        titleStyle={headingStyle}
+      />
 
-      <div style={{ display: 'flex', gap: '14mm', alignItems: 'flex-start' }}>
-        <div style={{ flex: '0 0 45%' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '12mm',
+          alignItems: 'flex-start',
+        }}
+      >
+        {/* Diagram card */}
+        <div
+          style={{
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: '12px',
+            padding: '14px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '120mm',
+          }}
+        >
           {data.imageUrl ? (
             <img
               src={data.imageUrl}
               alt=""
               style={{
-                width: '100%',
-                maxHeight: '160mm',
+                maxWidth: '100%',
+                maxHeight: '150mm',
                 objectFit: 'contain',
-                background: 'white',
               }}
             />
           ) : (
             <div
               style={{
-                width: '100%',
-                height: '120mm',
-                border: '1px dashed #d4d4d4',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#9a9a9a',
+                color: '#94a3b8',
                 fontSize: '11px',
+                fontWeight: 500,
               }}
             >
               [ Схема ]
@@ -51,46 +64,80 @@ export function ConstructionLegendPreview({ data }: Props) {
           )}
         </div>
 
-        <div style={{ flex: 1, lineHeight: 1.6 }}>
-          {data.items.map((it, i) => (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                gap: '8px',
-                marginBottom: '4px',
-              }}
-            >
-              <span
+        {/* Legend card */}
+        <div>
+          <div
+            style={{
+              fontSize: '9px',
+              fontWeight: 700,
+              color: '#ff6b1a',
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              marginBottom: '10px',
+            }}
+          >
+            Компоненти
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {data.items.map((it, i) => (
+              <div
+                key={i}
                 style={{
-                  ...numberStyle,
-                  color: '#ff6b1a',
-                  minWidth: '20px',
+                  display: 'grid',
+                  gridTemplateColumns: '32px 1fr',
+                  gap: '12px',
+                  alignItems: 'baseline',
+                  paddingBottom: '6px',
+                  borderBottom: '1px solid #e2e8f0',
                 }}
               >
-                {it.number} -
-              </span>
-              <span style={{ ...labelStyle, color: '#2d2d2d' }}>{it.label}</span>
-            </div>
-          ))}
+                <div
+                  style={{
+                    ...numberStyle,
+                    color: '#ff6b1a',
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontSize: '13px',
+                  }}
+                >
+                  {String(it.number).padStart(2, '0')}
+                </div>
+                <div style={{ ...labelStyle, color: '#0f172a', lineHeight: 1.45 }}>
+                  {it.label}
+                </div>
+              </div>
+            ))}
+          </div>
 
           {data.flowLines.length > 0 && (
-            <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px solid #e4e4e4' }}>
+            <div style={{ marginTop: '16px' }}>
+              <div
+                style={{
+                  fontSize: '9px',
+                  fontWeight: 700,
+                  color: '#ff6b1a',
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  marginBottom: '8px',
+                }}
+              >
+                Лінії потоку
+              </div>
               {data.flowLines.map((f, i) => (
                 <div
                   key={i}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '10px',
                     marginBottom: '4px',
                     ...flowStyle,
+                    color: '#475569',
                   }}
                 >
                   <span
                     style={{
-                      width: '24px',
-                      height: '4px',
+                      width: '20px',
+                      height: '3px',
                       background: f.color,
                       borderRadius: '2px',
                       display: 'inline-block',
@@ -104,9 +151,7 @@ export function ConstructionLegendPreview({ data }: Props) {
         </div>
       </div>
 
-      <div className="pdf-footer">
-        <span>termojet.com.ua</span>
-      </div>
+      <PdfFooter url="termojet.com.ua" />
     </div>
   );
 }

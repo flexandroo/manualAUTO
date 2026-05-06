@@ -1,4 +1,5 @@
 import type { WarrantyBlockData } from '../../types/instruction';
+import { PdfSectionHeader, PdfFooter } from '../../components/PdfSectionHeader';
 import { warrantyFontStyle } from './warrantyStyles';
 
 interface Props {
@@ -17,92 +18,133 @@ export function WarrantyPreview({ data }: Props) {
 
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header" style={titleStyle}>
-        <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text" style={titleStyle}>
-          {data.title}
-        </div>
-      </div>
+      <PdfSectionHeader
+        eyebrow="Гарантія"
+        title={data.title}
+        titleStyle={titleStyle}
+      />
 
-      <table
+      {/* Form fields card */}
+      <div
         style={{
-          width: '100%',
-          borderCollapse: 'collapse',
-          marginBottom: '18px',
+          background: '#f8fafc',
+          border: '1px solid #e2e8f0',
+          borderRadius: '12px',
+          padding: '6px 18px',
+          marginBottom: '24px',
         }}
       >
-        <tbody>
-          {data.fields.map((f, i) => (
-            <tr key={i}>
-              <td
-                style={{
-                  border: '1px solid #d4d4d4',
-                  padding: '14px 12px',
-                  background: '#f5f5f5',
-                  width: '38%',
-                  ...labelStyle,
-                }}
-              >
-                {f.label}
-              </td>
-              <td
-                style={{
-                  border: '1px solid #d4d4d4',
-                  padding: '14px 12px',
-                  minHeight: '32px',
-                  ...valueStyle,
-                }}
-              >
-                {f.value}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        {data.fields.map((f, i) => (
+          <div
+            key={i}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '40% 1fr',
+              gap: '10mm',
+              padding: '14px 0',
+              borderBottom: i < data.fields.length - 1 ? '1px solid #e2e8f0' : 'none',
+            }}
+          >
+            <div
+              style={{
+                ...labelStyle,
+                color: '#475569',
+                fontSize: '10px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              {f.label}
+            </div>
+            <div style={{ ...valueStyle, color: '#0f172a', minHeight: '14px' }}>
+              {f.value || ' '}
+            </div>
+          </div>
+        ))}
+      </div>
 
+      {/* Highlighted term */}
       <div
         style={{
           ...termStyle,
-          color: '#ff6b1a',
+          color: '#0f172a',
           marginBottom: '6px',
+          paddingLeft: '14px',
+          borderLeft: '3px solid #ff6b1a',
         }}
       >
         {data.termText}
       </div>
-      <div style={{ ...condStyle, marginBottom: '14px', color: '#2d2d2d' }}>
+      <div
+        style={{
+          ...condStyle,
+          color: '#475569',
+          marginBottom: '24px',
+          paddingLeft: '14px',
+        }}
+      >
         {data.conditionText}
       </div>
 
-      <div style={{ ...caseHeadingStyle, marginBottom: '6px', color: '#2d2d2d' }}>
+      <div
+        style={{
+          ...caseHeadingStyle,
+          color: '#0f172a',
+          marginBottom: '10px',
+        }}
+      >
         {data.caseHeading}
       </div>
-      <ul
+      <ol
         style={{
           ...caseDocStyle,
-          lineHeight: 1.6,
-          marginBottom: '14px',
-          paddingLeft: '18px',
+          lineHeight: 1.7,
+          marginBottom: '20px',
+          paddingLeft: '0',
+          listStyle: 'none',
+          color: '#1f2937',
         }}
       >
         {data.caseDocs.map((d, i) => (
-          <li key={i}>{d}</li>
+          <li
+            key={i}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '24px 1fr',
+              gap: '10px',
+              marginBottom: '4px',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'JetBrains Mono, monospace',
+                fontSize: '10px',
+                fontWeight: 700,
+                color: '#ff6b1a',
+              }}
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span>{d}</span>
+          </li>
         ))}
-      </ul>
+      </ol>
 
       <div
         style={{
           ...reviewStyle,
-          color: '#3a3a3a',
-          lineHeight: 1.55,
+          color: '#64748b',
+          lineHeight: 1.6,
           fontStyle: 'italic',
+          paddingTop: '14px',
+          borderTop: '1px solid #e2e8f0',
         }}
       >
         {data.reviewText}
       </div>
 
-      <div className="pdf-footer">
-        <span>termojet.com.ua</span>
-      </div>
+      <PdfFooter url="termojet.com.ua" />
     </div>
   );
 }

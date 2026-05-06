@@ -1,6 +1,17 @@
 :root {
-  --pdf-padding-x: 12mm;
-  --pdf-padding-y: 12mm;
+  /* Premium SaaS-inspired design tokens */
+  --pdf-bg: #ffffff;
+  --pdf-surface: #f8fafc;
+  --pdf-surface-2: #f1f5f9;
+  --pdf-text: #0f172a;
+  --pdf-text-2: #475569;
+  --pdf-text-3: #64748b;
+  --pdf-border: #e2e8f0;
+  --pdf-border-2: #cbd5e1;
+  --pdf-accent: #ff6b1a;
+  --pdf-accent-soft: #fff7ed;
+  --pdf-padding-x: 18mm;
+  --pdf-padding-y: 18mm;
 }
 
 .pdf-page {
@@ -8,8 +19,8 @@
   width: 210mm;
   min-height: 297mm;
   padding: var(--pdf-padding-y) var(--pdf-padding-x);
-  background: white;
-  color: #2d2d2d;
+  background: var(--pdf-bg);
+  color: var(--pdf-text);
   box-sizing: border-box;
   position: relative;
   page-break-after: always;
@@ -19,78 +30,136 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* Editorial section header (replaces old dark plate) */
 .pdf-section-header {
-  display: flex;
-  align-items: stretch;
-  margin-left: calc(-1 * var(--pdf-padding-x));
-  margin-right: 28mm;
-  margin-bottom: 14px;
-  background: #2d2d2d;
-  color: white;
-  font-size: 15px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--pdf-border);
+  position: relative;
+}
+
+.pdf-section-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 48px;
+  height: 2px;
+  background: var(--pdf-accent);
+}
+
+.pdf-section-eyebrow {
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: var(--pdf-accent);
+  margin-bottom: 6px;
 }
 
-.pdf-section-header__bar {
-  width: var(--pdf-padding-x);
-  background: #ff6b1a;
-}
-
-.pdf-section-header__text {
-  padding: 11px 22px;
-  flex: 1;
-}
-
-.pdf-cover-title {
-  color: #ff6b1a;
-  font-size: 56px;
+.pdf-section-title {
+  font-size: 22px;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  color: var(--pdf-text);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0;
 }
 
-.pdf-orange-bar {
-  height: 3px;
-  background: #ff6b1a;
-  width: 100%;
+.pdf-section-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pdf-text-3);
+  margin-top: 6px;
+  line-height: 1.5;
 }
 
+/* Specifications list — clean alternative to Excel tables */
+.pdf-specs-list {
+  display: grid;
+  grid-template-columns: 42% 1fr;
+  border-top: 1px solid var(--pdf-border);
+}
+.pdf-specs-list > div {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--pdf-border);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.pdf-specs-list .pdf-specs-key {
+  color: var(--pdf-text-3);
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-right: 10mm;
+}
+.pdf-specs-list .pdf-specs-value {
+  color: var(--pdf-text);
+  font-weight: 500;
+}
+
+/* Comparison table — minimal, soft separators only */
 .pdf-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 11px;
 }
-
-.pdf-table th,
-.pdf-table td {
-  border: 1px solid #d4d4d4;
-  padding: 7px 10px;
-  text-align: left;
-  vertical-align: top;
+.pdf-table thead {
+  border-bottom: 2px solid var(--pdf-accent);
 }
-
 .pdf-table th {
-  background: #ff6b1a;
-  color: white;
+  text-align: left;
+  padding: 10px 12px 10px 0;
   font-weight: 700;
-  font-size: 11px;
-  text-align: center;
+  color: var(--pdf-text);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+}
+.pdf-table th:first-child {
+  padding-left: 0;
+}
+.pdf-table td {
+  padding: 9px 12px 9px 0;
+  border-bottom: 1px solid var(--pdf-border);
+  vertical-align: top;
+  color: var(--pdf-text);
+}
+.pdf-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.pdf-table td:first-child {
+  font-weight: 600;
+  color: var(--pdf-text);
+  padding-left: 0;
 }
 
+/* Card surface for grouped content */
+.pdf-card {
+  background: var(--pdf-surface);
+  border: 1px solid var(--pdf-border);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+/* Footer */
 .pdf-footer {
   position: absolute;
-  bottom: 8mm;
+  bottom: 10mm;
   left: var(--pdf-padding-x);
   right: var(--pdf-padding-x);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 10px;
-  color: #6b6b6b;
-  border-top: 1px solid #e4e4e4;
-  padding-top: 5px;
+  font-size: 9px;
+  color: var(--pdf-text-3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--pdf-border);
+  padding-top: 8px;
+  font-weight: 600;
 }
 
 @media print {
@@ -103,6 +172,5 @@
   .pdf-page {
     box-shadow: none !important;
     margin: 0 !important;
-    page-break-after: always;
   }
 }

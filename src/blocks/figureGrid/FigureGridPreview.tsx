@@ -1,4 +1,5 @@
 import type { FigureGridBlockData } from '../../types/instruction';
+import { PdfSectionHeader, PdfFooter } from '../../components/PdfSectionHeader';
 import { figureGridFontStyle } from './figureGridStyles';
 
 interface Props {
@@ -11,12 +12,11 @@ export function FigureGridPreview({ data }: Props) {
 
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header" style={headingStyle}>
-        <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text" style={headingStyle}>
-          {data.heading}
-        </div>
-      </div>
+      <PdfSectionHeader
+        eyebrow="Рисунки"
+        title={data.heading}
+        titleStyle={headingStyle}
+      />
 
       <div
         style={{
@@ -27,40 +27,40 @@ export function FigureGridPreview({ data }: Props) {
       >
         {data.figures.map((f) => (
           <div key={f.id} style={{ breakInside: 'avoid' }}>
-            {f.imageUrl ? (
-              <img
-                src={f.imageUrl}
-                alt={f.caption}
-                style={{
-                  width: '100%',
-                  aspectRatio: '4/3',
-                  objectFit: 'contain',
-                  background: 'white',
-                  border: '1px solid #e4e4e4',
-                }}
-              />
-            ) : (
-              <div
-                style={{
-                  width: '100%',
-                  aspectRatio: '4/3',
-                  border: '1px dashed #d4d4d4',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#9a9a9a',
-                  fontSize: '10px',
-                }}
-              >
-                [ зображення ]
-              </div>
-            )}
+            <div
+              style={{
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                borderRadius: '10px',
+                padding: '8px',
+                aspectRatio: '4/3',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+              }}
+            >
+              {f.imageUrl ? (
+                <img
+                  src={f.imageUrl}
+                  alt={f.caption}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                  }}
+                />
+              ) : (
+                <div style={{ color: '#94a3b8', fontSize: '10px' }}>[ зображення ]</div>
+              )}
+            </div>
             <div
               style={{
                 ...captionStyle,
-                marginTop: '4px',
-                color: '#2d2d2d',
+                marginTop: '6px',
+                color: '#475569',
                 textAlign: 'center',
+                letterSpacing: '0.04em',
               }}
             >
               {f.caption}
@@ -69,9 +69,7 @@ export function FigureGridPreview({ data }: Props) {
         ))}
       </div>
 
-      <div className="pdf-footer">
-        <span>termojet.com.ua</span>
-      </div>
+      <PdfFooter url="termojet.com.ua" />
     </div>
   );
 }
