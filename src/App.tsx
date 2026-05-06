@@ -195,14 +195,6 @@ export default function App() {
           backgroundColor: null,
           width: node.offsetWidth,
           height: node.offsetHeight,
-          // foreignObjectRendering uses an SVG <foreignObject> to render
-          // the DOM, which preserves text baselines accurately. Without
-          // this, html2canvas's manual text drawing path shifts text
-          // glyphs ~2 px lower than the live preview.
-          foreignObjectRendering: true,
-          // Disable the user-stylesheet inlining cache so each call
-          // gets a fresh layout calculation.
-          removeContainer: true,
         });
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         if (i > 0) pdf.addPage('a4', 'portrait');
