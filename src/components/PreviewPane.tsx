@@ -51,22 +51,17 @@ export function PreviewPane({ blocks, zoom, onZoomChange }: Props) {
           </span>
         </div>
       </div>
-      <div className="p-6 flex flex-col items-center gap-3">
+      <div className="p-6 flex flex-col items-center gap-4">
         {blocks.map((b, i) => {
           const spec = getBlockSpec(b.type);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const Preview = spec.Preview as any;
           const ctx: PdfDocCtx = { ...baseCtx, pageNumber: i + 1 };
+          // Use CSS `zoom` (Chromium/Safari) so the wrapper takes the
+          // *scaled* layout box height. This prevents tall blocks from
+          // overlapping the next block in preview when content exceeds A4.
           return (
-            <div
-              key={b.id}
-              style={{
-                transform: `scale(${zoom})`,
-                transformOrigin: 'top center',
-                transition: 'transform 0.2s',
-                height: `calc(297mm * ${zoom})`,
-              }}
-            >
+            <div key={b.id} style={{ zoom }}>
               <div style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
                 <PdfDocProvider value={ctx}>
                   <Preview data={b} />
