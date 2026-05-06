@@ -5,6 +5,7 @@ import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { ImageUploader } from '../../components/ui/ImageUploader';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { useEditingDoc } from '../../components/EditingDocContext';
 
 interface Props {
   data: CoverPage;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function CoverPageEditor({ data, onChange }: Props) {
+  const { doc, setDoc } = useEditingDoc();
   const productImages = data.productImages ?? [];
   const bulletPoints = data.bulletPoints ?? [];
 
@@ -41,9 +43,77 @@ export function CoverPageEditor({ data, onChange }: Props) {
 
   return (
     <div>
-      <div className="text-[11px] text-slate-500 italic mb-3">
-        Більшість полів бренду / продукту редагуються в шапці документа (зверху). Тут — лише вміст
-        титульної сторінки.
+      {/* ─── Document-level fields (used by every page header / footer) ─── */}
+      <div
+        className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-3 pb-2 border-b border-slate-800"
+      >
+        Бренд та продукт
+      </div>
+
+      <FieldGroup label="Бренд">
+        <Input
+          value={doc.brand ?? ''}
+          onChange={(e) => setDoc({ ...doc, brand: e.target.value })}
+        />
+      </FieldGroup>
+
+      <ImageUploader
+        label="Логотип бренду (опціонально)"
+        hint="PNG/SVG. Якщо не завантажити — використовується дефолтний TERMOJET-логотип."
+        value={doc.brandLogoUrl}
+        onChange={(url) => setDoc({ ...doc, brandLogoUrl: url })}
+        aspectRatio="3/1"
+      />
+
+      <FieldGroup label="Підпис під логотипом" hint='Наприклад "обладнання для котелень"'>
+        <Input
+          value={doc.brandTagline ?? ''}
+          onChange={(e) => setDoc({ ...doc, brandTagline: e.target.value })}
+        />
+      </FieldGroup>
+
+      <FieldGroup label="Назва продукту">
+        <Input
+          value={doc.productName ?? ''}
+          onChange={(e) => setDoc({ ...doc, productName: e.target.value })}
+        />
+      </FieldGroup>
+
+      <FieldGroup label="Перелік моделей" hint="Кожна модель з нового рядка або через крапку з комою">
+        <Textarea
+          value={(doc.modelCodes ?? []).join('\n')}
+          onChange={(e) =>
+            setDoc({
+              ...doc,
+              modelCodes: e.target.value
+                .split(/[\n;]+/)
+                .map((s) => s.trim())
+                .filter(Boolean),
+            })
+          }
+          rows={3}
+        />
+      </FieldGroup>
+
+      <FieldGroup label="Тип документа" hint='Наприклад "ТЕХНІЧНИЙ ПАСПОРТ"'>
+        <Input
+          value={doc.documentType ?? ''}
+          onChange={(e) => setDoc({ ...doc, documentType: e.target.value })}
+        />
+      </FieldGroup>
+
+      <FieldGroup label="Сайт">
+        <Input
+          value={doc.websiteUrl ?? ''}
+          onChange={(e) => setDoc({ ...doc, websiteUrl: e.target.value })}
+        />
+      </FieldGroup>
+
+      {/* ─── Cover-page-specific fields ─── */}
+      <div
+        className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-6 mb-3 pb-2 border-b border-slate-800"
+      >
+        Вміст титульної
       </div>
 
       <FieldGroup label="Підзаголовок" hint='Наприклад "Інструкція з монтажу та експлуатації"'>
@@ -98,8 +168,6 @@ export function CoverPageEditor({ data, onChange }: Props) {
           ))}
         </div>
       </div>
-
-      <Textarea value="" onChange={() => {}} rows={1} style={{ display: 'none' }} />
     </div>
   );
 }

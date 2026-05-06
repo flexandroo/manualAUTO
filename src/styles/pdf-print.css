@@ -24,7 +24,11 @@
 .pdf-page {
   font-family: 'Montserrat', sans-serif;
   width: 210mm;
-  min-height: 297mm;
+  /* Strict A4 height — content that doesn't fit is clipped via overflow,
+     so the user immediately sees they need to split into another page. */
+  height: 297mm;
+  max-height: 297mm;
+  overflow: hidden;
   background: var(--pdf-bg);
   color: var(--pdf-text);
   box-sizing: border-box;

@@ -8,8 +8,8 @@ import { PAGE_REGISTRY, getPageSpec } from './pages/pageRegistry';
 import { PageList } from './components/PageList';
 import { PageEditorPanel } from './components/PageEditorPanel';
 import { PreviewPane } from './components/PreviewPane';
-import { DocumentHeader } from './components/DocumentHeader';
 import { PdfDocProvider, type PdfDocCtx } from './components/PdfDocContext';
+import { EditingDocProvider } from './components/EditingDocContext';
 import { migrateOldBlocksToPages } from './utils/migration';
 
 const STORAGE_KEY = 'manualAUTO:document:v2';
@@ -22,13 +22,11 @@ function loadFromStorage(): InstructionData | null {
       const parsed = JSON.parse(raw) as InstructionData;
       if (parsed && Array.isArray(parsed.pages)) return parsed;
     }
-    // Legacy v1 (blocks-based) — migrate
     const legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY);
     if (legacyRaw) {
       const legacy = JSON.parse(legacyRaw);
       const migrated = migrateOldBlocksToPages(legacy);
       if (migrated) {
-        // Persist under v2 key, leave legacy intact in case the user wants to roll back
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
         } catch {
@@ -165,90 +163,90 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      <header className="no-print bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-orange-600 rounded flex items-center justify-center font-black text-sm">
-            M
-          </div>
-          <div>
-            <div className="text-sm font-bold tracking-tight">manualAUTO</div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider">
-              Генератор інструкцій · v0.5
+    <EditingDocProvider value={{ doc: data, setDoc: setData }}>
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+        <header className="no-print bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-orange-600 rounded flex items-center justify-center font-black text-sm">
+              M
+            </div>
+            <div>
+              <div className="text-sm font-bold tracking-tight">manualAUTO</div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider">
+                Генератор інструкцій · v0.6
+              </div>
             </div>
           </div>
+
+          <div className="flex items-center gap-2">
+            <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
+              <Upload size={14} /> Імпорт JSON
+              <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
+            </label>
+            <button
+              onClick={handleExportJson}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium"
+            >
+              <Save size={14} /> Експорт JSON
+            </button>
+            <button
+              onClick={handleDownloadPdf}
+              disabled={downloading}
+              className="flex items-center gap-1.5 px-4 py-1.5 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-700 disabled:cursor-wait rounded text-xs font-bold"
+            >
+              {downloading ? (
+                <>
+                  <Loader2 size={14} className="animate-spin" /> Генерація...
+                </>
+              ) : (
+                <>
+                  <FileDown size={14} /> Завантажити PDF
+                </>
+              )}
+            </button>
+          </div>
+        </header>
+
+        <div className="flex-1 flex overflow-hidden no-print">
+          <PageList
+            pages={data.pages}
+            activeId={activeId}
+            onSelect={setActiveId}
+            onAdd={addPage}
+            onRemove={removePage}
+            onMove={movePage}
+          />
+          <PageEditorPanel page={activePage} onChange={updatePage} />
+          <PreviewPane doc={data} zoom={zoom} onZoomChange={setZoom} />
         </div>
 
-        <div className="flex items-center gap-2">
-          <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
-            <Upload size={14} /> Імпорт JSON
-            <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
-          </label>
-          <button
-            onClick={handleExportJson}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium"
-          >
-            <Save size={14} /> Експорт JSON
-          </button>
-          <button
-            onClick={handleDownloadPdf}
-            disabled={downloading}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-orange-600 hover:bg-orange-500 disabled:bg-orange-700 disabled:cursor-wait rounded text-xs font-bold"
-          >
-            {downloading ? (
-              <>
-                <Loader2 size={14} className="animate-spin" /> Генерація...
-              </>
-            ) : (
-              <>
-                <FileDown size={14} /> Завантажити PDF
-              </>
-            )}
-          </button>
+        <div
+          ref={printRef}
+          aria-hidden
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            zIndex: -10,
+            opacity: 0,
+            pointerEvents: 'none',
+            width: '210mm',
+            background: 'white',
+          }}
+        >
+          {data.pages.map((p, i) => {
+            const spec = getPageSpec(p.type);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const Preview = spec.Preview as any;
+            const ctx: PdfDocCtx = { ...baseCtx, pageNumber: i + 1 };
+            return (
+              <PdfDocProvider key={p.id} value={ctx}>
+                <Preview data={p} />
+              </PdfDocProvider>
+            );
+          })}
         </div>
-      </header>
-
-      <DocumentHeader data={data} onChange={setData} />
-
-      <div className="flex-1 flex overflow-hidden no-print">
-        <PageList
-          pages={data.pages}
-          activeId={activeId}
-          onSelect={setActiveId}
-          onAdd={addPage}
-          onRemove={removePage}
-          onMove={movePage}
-        />
-        <PageEditorPanel page={activePage} onChange={updatePage} />
-        <PreviewPane doc={data} zoom={zoom} onZoomChange={setZoom} />
       </div>
-
-      <div
-        ref={printRef}
-        aria-hidden
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          zIndex: -10,
-          opacity: 0,
-          pointerEvents: 'none',
-          width: '210mm',
-          background: 'white',
-        }}
-      >
-        {data.pages.map((p, i) => {
-          const spec = getPageSpec(p.type);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const Preview = spec.Preview as any;
-          const ctx: PdfDocCtx = { ...baseCtx, pageNumber: i + 1 };
-          return (
-            <PdfDocProvider key={p.id} value={ctx}>
-              <Preview data={p} />
-            </PdfDocProvider>
-          );
-        })}
-      </div>
-    </div>
+    </EditingDocProvider>
   );
 }
