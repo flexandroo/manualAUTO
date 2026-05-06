@@ -1,5 +1,10 @@
-:root {
-  /* Brand palette (matched to user's HTML reference design) */
+/* Custom properties live on BOTH :root (so they resolve in normal
+ * browser preview) AND on .pdf-page (so they're captured when html2canvas
+ * clones the page into an SVG <foreignObject> — without this, the cloned
+ * subtree has no access to the :root-scoped variables and pages render
+ * black). The duplication is intentional. */
+:root,
+.pdf-page {
   --pdf-navy: #0D1526;
   --pdf-orange: #F25D2A;
   --pdf-bg: #FAFAF8;
@@ -7,14 +12,13 @@
   --pdf-mid: #8A8F9A;
   --pdf-text: #1A2035;
 
-  /* Legacy aliases used by various blocks */
   --pdf-surface: rgba(13, 21, 38, 0.03);
   --pdf-surface-2: rgba(13, 21, 38, 0.06);
   --pdf-text-2: #475569;
   --pdf-text-3: #8A8F9A;
   --pdf-border: rgba(13, 21, 38, 0.08);
   --pdf-border-2: rgba(13, 21, 38, 0.15);
-  --pdf-accent: var(--pdf-orange);
+  --pdf-accent: #F25D2A;
   --pdf-accent-soft: rgba(242, 93, 42, 0.08);
 
   --pdf-padding-x: 14mm;

@@ -195,6 +195,13 @@ export default function App() {
           backgroundColor: null,
           width: node.offsetWidth,
           height: node.offsetHeight,
+          // Use the browser's native rendering through SVG foreignObject
+          // so text baselines match the live preview exactly. Requires
+          // CSS custom properties to be defined on .pdf-page itself
+          // (they are — see pdf-print.css :root, .pdf-page block) so
+          // the cloned subtree resolves var(--pdf-*) correctly.
+          foreignObjectRendering: true,
+          removeContainer: true,
         });
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         if (i > 0) pdf.addPage('a4', 'portrait');
