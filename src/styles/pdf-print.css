@@ -1,0 +1,86 @@
+.pdf-page {
+  font-family: 'Manrope', sans-serif;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 18mm 16mm;
+  background: white;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  position: relative;
+  page-break-after: always;
+}
+
+.pdf-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.pdf-section-header {
+  background: #0f172a;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 0 28px 28px 0;
+  margin-left: -16mm;
+  margin-right: 30mm;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  position: relative;
+}
+
+.pdf-section-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: #ea580c;
+}
+
+.pdf-cover-title {
+  color: #ea580c;
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.pdf-orange-bar {
+  height: 3px;
+  background: #ea580c;
+  width: 100%;
+}
+
+.pdf-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.pdf-table th,
+.pdf-table td {
+  border: 1px solid #cbd5e1;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.pdf-table th {
+  background: #f1f5f9;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+@media print {
+  body {
+    margin: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .pdf-page {
+    box-shadow: none !important;
+    margin: 0 !important;
+    page-break-after: always;
+  }
+}
