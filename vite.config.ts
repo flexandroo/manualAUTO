@@ -1,14 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Base set to '/' so the build works at the root of any host (Vercel,
-// Netlify, Cloudflare Pages, custom domain). For GitHub Pages under a
-// project sub-path you'd need '/manualAUTO/' instead.
-export default defineConfig({
+// GitHub Pages serves this project at https://flexandroo.github.io/manualAUTO/
+// so production builds need /manualAUTO/ prefix on every asset URL.
+// Dev server keeps '/'.
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: '/',
+  base: command === 'build' ? '/manualAUTO/' : '/',
   server: {
     port: 5173,
     open: false,
   },
-});
+}));
