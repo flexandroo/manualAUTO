@@ -8,19 +8,22 @@ interface Props {
 // Decorative SVG: 3 dashed lines fanning down from the pill bottom-center
 // to the three checkmark circles, spread wide across the page.
 function ConnectorLines() {
+  // SVG viewBox 0..600 maps to the parent's full width via preserveAspectRatio.
+  // Endpoints x=70/300/530 line up roughly with the centers of the three
+  // circles below (which sit inside padding: 0 30mm with space-between).
   return (
     <svg
       width="100%"
-      height="42"
-      viewBox="0 0 600 42"
+      height="40"
+      viewBox="0 0 600 40"
       preserveAspectRatio="none"
       style={{ display: 'block' }}
       aria-hidden
     >
-      <g stroke="#b0b0b0" strokeWidth="1.4" strokeDasharray="3 3" fill="none">
-        <path d="M300 0 L 90 42" />
-        <path d="M300 0 L 300 42" />
-        <path d="M300 0 L 510 42" />
+      <g stroke="#9a9a9a" strokeWidth="1.3" strokeDasharray="3 3" fill="none">
+        <path d="M300 0 L 70 40" />
+        <path d="M300 0 L 300 40" />
+        <path d="M300 0 L 530 40" />
       </g>
     </svg>
   );
@@ -93,14 +96,14 @@ export function CoverPreview({ data }: Props) {
       <div style={{ height: '8px', background: '#ff6b1a' }} />
 
       {/* Title + models + doc type — all centered */}
-      <div style={{ padding: '32px 14mm 0', textAlign: 'center' }}>
+      <div style={{ padding: '28px 14mm 0', textAlign: 'center' }}>
         <h1
           style={{
             color: '#ff6b1a',
-            fontSize: '56px',
+            fontSize: '48px',
             fontWeight: 900,
             letterSpacing: '-0.02em',
-            lineHeight: 1.02,
+            lineHeight: 1.05,
             margin: 0,
           }}
         >
@@ -110,11 +113,14 @@ export function CoverPreview({ data }: Props) {
         {modelCodes.length > 0 && (
           <div
             style={{
-              marginTop: '20px',
-              fontSize: '15px',
+              marginTop: '14px',
+              fontSize: '13px',
               color: '#2d2d2d',
               fontWeight: 700,
               lineHeight: 1.5,
+              maxWidth: '170mm',
+              marginLeft: 'auto',
+              marginRight: 'auto',
             }}
           >
             {modelCodes.join('; ')}
@@ -125,7 +131,7 @@ export function CoverPreview({ data }: Props) {
           <div
             style={{
               marginTop: '4px',
-              fontSize: '15px',
+              fontSize: '14px',
               color: '#2d2d2d',
               fontWeight: 800,
               letterSpacing: '0.04em',
@@ -135,65 +141,69 @@ export function CoverPreview({ data }: Props) {
             {data.documentType}
           </div>
         )}
+      </div>
 
-        {/* Installation pill — wider, centered */}
+      {/* Highlighted middle band: pill + lines + circles */}
+      <div style={{ marginTop: '24px' }}>
+        {/* Installation pill — single line */}
         {data.subtitle && (
-          <div style={{ marginTop: '32px' }}>
+          <div style={{ textAlign: 'center', padding: '0 14mm' }}>
             <div
               style={{
                 display: 'inline-block',
-                padding: '20px 64px',
+                padding: '16px 52px',
                 border: '1.5px dashed #b0b0b0',
                 borderRadius: '999px',
-                fontSize: '22px',
+                fontSize: '18px',
                 fontWeight: 800,
                 color: '#2d2d2d',
-                letterSpacing: '0.04em',
+                letterSpacing: '0.03em',
                 textTransform: 'uppercase',
-                lineHeight: 1.25,
+                lineHeight: 1.2,
+                whiteSpace: 'nowrap',
               }}
             >
               {data.subtitle}
             </div>
           </div>
         )}
-      </div>
 
-      {/* Connector lines from pill bottom to checkmark circles */}
-      <div style={{ padding: '14px 14mm 0' }}>
-        <ConnectorLines />
-      </div>
+        {/* Connector lines from pill bottom-center to checkmark circles */}
+        <div style={{ padding: '10px 14mm 0' }}>
+          <ConnectorLines />
+        </div>
 
-      {/* Three checkmark circles — spread wide */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          padding: '0 22mm',
-          marginTop: '4px',
-        }}
-      >
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            style={{
-              width: '58px',
-              height: '58px',
-              borderRadius: '50%',
-              border: '2.5px solid #ff6b1a',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ff6b1a',
-              fontSize: '28px',
-              fontWeight: 900,
-              lineHeight: 1,
-            }}
-          >
-            ✓
-          </div>
-        ))}
+        {/* Three checkmark circles — symmetrically spread */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '0 30mm',
+            marginTop: '4px',
+          }}
+        >
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '50%',
+                border: '2.2px solid #ff6b1a',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#ff6b1a',
+                fontSize: '24px',
+                fontWeight: 900,
+                lineHeight: 1,
+              }}
+            >
+              ✓
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Product photos area at bottom */}
