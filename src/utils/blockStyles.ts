@@ -3,20 +3,25 @@ import type { TextStyle } from '../types/instruction';
 export interface ResolvedStyle {
   fontSize: string;
   fontWeight: number;
+  color?: string;
 }
 
 // Merges optional user override over the per-element defaults and returns
-// CSS-ready { fontSize, fontWeight }.
+// a CSS-ready style object. `color` is included only if the user set one
+// — otherwise we leave it undefined so the element's CSS class colour
+// (e.g. orange numbers, navy headers) is preserved.
 export function resolveStyle(
   userStyle: TextStyle | undefined,
-  defaults: Required<TextStyle>
+  defaults: Required<Pick<TextStyle, 'fontSize' | 'bold'>>
 ): ResolvedStyle {
   const size = userStyle?.fontSize ?? defaults.fontSize;
   const bold = userStyle?.bold !== undefined ? userStyle.bold : defaults.bold;
-  return {
+  const out: ResolvedStyle = {
     fontSize: `${size}px`,
     fontWeight: bold ? 800 : 400,
   };
+  if (userStyle?.color) out.color = userStyle.color;
+  return out;
 }
 
 // Returns an updater that any block editor can call from a TextStyleControls
@@ -29,7 +34,9 @@ export function makeStyleUpdater<T extends { styles?: Record<string, TextStyle> 
   return (key, next) => {
     const styles = data.styles ?? {};
     const newStyles: Record<string, TextStyle> = { ...styles };
-    if (next.fontSize === undefined && next.bold === undefined) {
+    const empty =
+      next.fontSize === undefined && next.bold === undefined && !next.color;
+    if (empty) {
       delete newStyles[key];
     } else {
       newStyles[key] = next;

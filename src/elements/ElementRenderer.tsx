@@ -139,10 +139,10 @@ function NumberedListRender({ data }: { data: NumberedListElement }) {
         >
           <div
             style={{
-              ...numStyle,
               color: 'var(--pdf-orange)',
               fontFamily: 'JetBrains Mono, monospace',
               lineHeight: 1.1,
+              ...numStyle,
             }}
           >
             {item.number}
@@ -197,12 +197,12 @@ function KvListRender({ data }: { data: KvListElement }) {
       {data.title && (
         <div
           style={{
-            ...titleStyle,
             color: 'var(--pdf-navy)',
             opacity: 0.7,
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
             marginBottom: '2mm',
+            ...titleStyle,
           }}
         >
           {data.title}
@@ -216,9 +216,9 @@ function KvListRender({ data }: { data: KvListElement }) {
                 style={{
                   padding: '1.5mm 0',
                   borderBottom: '0.5px solid rgba(13,21,38,0.07)',
-                  color: 'var(--pdf-navy)',
                   opacity: 0.8,
                   width: '45%',
+                  color: 'var(--pdf-navy)',
                   ...keyStyle,
                 }}
               >
@@ -396,10 +396,10 @@ function ImageRender({ data }: { data: ImageElement }) {
       {data.caption && (
         <div
           style={{
-            ...captionStyle,
             color: 'var(--pdf-navy)',
             opacity: 0.7,
             marginTop: '2mm',
+            ...captionStyle,
           }}
         >
           {data.caption}

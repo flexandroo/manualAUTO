@@ -5,18 +5,30 @@ interface Props {
   onChange: (next: TextStyle) => void;
   defaultSize: number;
   defaultBold: boolean;
+  /** Default colour shown in the picker swatch when the user hasn't picked
+   *  a custom one. Doesn't apply unless they explicitly pick. */
+  defaultColor?: string;
 }
 
-// Inline row of font controls: numeric size input + bold toggle.
-// Size left empty = use default; bold toggle is tri-state via reset link.
-export function TextStyleControls({ value, onChange, defaultSize, defaultBold }: Props) {
+// Inline row of font controls: numeric size input + bold toggle + colour
+// picker. Each control is independent — leaving any of them at default
+// means the element's CSS class wins. Reset link nukes the whole override.
+export function TextStyleControls({
+  value,
+  onChange,
+  defaultSize,
+  defaultBold,
+  defaultColor = '#1A2035',
+}: Props) {
   const v = value ?? {};
   const effectiveSize = v.fontSize ?? defaultSize;
   const effectiveBold = v.bold !== undefined ? v.bold : defaultBold;
-  const isCustom = v.fontSize !== undefined || v.bold !== undefined;
+  const colorActive = !!v.color;
+  const isCustom =
+    v.fontSize !== undefined || v.bold !== undefined || !!v.color;
 
   return (
-    <div className="flex gap-1.5 items-center mt-1">
+    <div className="flex gap-1.5 items-center mt-1 flex-wrap">
       <span className="text-[10px] text-slate-500 uppercase tracking-wider">Стиль:</span>
       <input
         type="number"
@@ -43,10 +55,35 @@ export function TextStyleControls({ value, onChange, defaultSize, defaultBold }:
       >
         B
       </button>
+      <label
+        className="relative inline-flex items-center"
+        title={colorActive ? `Колір: ${v.color}` : 'Колір тексту'}
+      >
+        <input
+          type="color"
+          value={v.color ?? defaultColor}
+          onChange={(e) => onChange({ ...v, color: e.target.value })}
+          className="w-5 h-5 cursor-pointer rounded border border-slate-700 bg-transparent appearance-none p-0"
+          style={{ borderColor: colorActive ? v.color : undefined }}
+        />
+      </label>
+      {colorActive && (
+        <button
+          onClick={() => {
+            const next = { ...v };
+            delete next.color;
+            onChange(next);
+          }}
+          title="Скинути колір"
+          className="text-[10px] text-slate-500 hover:text-orange-400"
+        >
+          ×
+        </button>
+      )}
       {isCustom && (
         <button
           onClick={() => onChange({})}
-          title="Скинути до значення за замовчуванням"
+          title="Скинути все до значень за замовчуванням"
           className="text-[10px] text-slate-500 hover:text-orange-400 underline"
         >
           скинути

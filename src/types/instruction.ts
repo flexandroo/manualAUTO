@@ -3,6 +3,7 @@
 export interface TextStyle {
   fontSize?: number;
   bold?: boolean;
+  color?: string; // CSS hex like #RRGGBB; undefined keeps the element's default
 }
 
 // ─── Page elements (atomic patterns that fill a Standard page) ──────────────

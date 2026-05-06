@@ -149,6 +149,32 @@ export default function App() {
       await new Promise((r) => requestAnimationFrame(() => r(undefined)));
       await new Promise((r) => requestAnimationFrame(() => r(undefined)));
 
+      // Wait for every <img> inside the print container to fully load,
+      // including async-generated GhostImage data URLs. Without this the
+      // canvas snapshot can fire while an image is still 0×0, producing
+      // stretched/misshapen output.
+      const allImgs = Array.from(el.querySelectorAll<HTMLImageElement>('img'));
+      await Promise.all(
+        allImgs.map(
+          (img) =>
+            new Promise<void>((resolve) => {
+              if (img.complete && img.naturalWidth > 0) {
+                resolve();
+                return;
+              }
+              const done = () => {
+                img.removeEventListener('load', done);
+                img.removeEventListener('error', done);
+                resolve();
+              };
+              img.addEventListener('load', done);
+              img.addEventListener('error', done);
+              // Safety: don't block PDF generation forever on a broken image
+              setTimeout(done, 5000);
+            })
+        )
+      );
+
       const pages = Array.from(el.querySelectorAll<HTMLElement>('.pdf-page'));
       if (pages.length === 0) {
         alert('Немає сторінок для експорту');
