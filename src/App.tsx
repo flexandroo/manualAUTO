@@ -13,13 +13,44 @@ import { parsePdfToBlocks, type PdfParseResult } from './parsers/parsePdf';
 
 const STORAGE_KEY = 'manualAUTO:document:v1';
 
+function migrateBlock(block: Block): Block {
+  if (block.type === 'cover') {
+    const c = block as Block & {
+      brand?: string;
+      modelCodes?: string[];
+      productImages?: string[];
+      imageUrl?: string;
+      subtitle?: string;
+      tagline?: string;
+      websiteUrl?: string;
+      documentType?: string;
+    };
+    return {
+      ...block,
+      type: 'cover',
+      brand: c.brand ?? 'TERMOJET',
+      modelCodes: Array.isArray(c.modelCodes) ? c.modelCodes : [],
+      productImages: Array.isArray(c.productImages)
+        ? c.productImages
+        : c.imageUrl
+        ? [c.imageUrl]
+        : [],
+      subtitle: c.subtitle ?? 'Інструкція з монтажу та експлуатації',
+      tagline: c.tagline ?? 'Швидко ● Надійно ● Ефективно',
+      websiteUrl: c.websiteUrl ?? 'WWW.TERMOJET.COM.UA',
+      documentType: c.documentType ?? 'ТЕХНІЧНИЙ СЕРТИФІКАТ',
+    } as Block;
+  }
+  return block;
+}
+
 function loadFromStorage(): InstructionData | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as InstructionData;
     if (!parsed || !Array.isArray(parsed.blocks)) return null;
-    return parsed;
+    return { ...parsed, blocks: parsed.blocks.map(migrateBlock) };
   } catch {
     return null;
   }

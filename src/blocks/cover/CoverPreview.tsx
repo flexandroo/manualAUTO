@@ -10,6 +10,7 @@ export function CoverPreview({ data }: Props) {
     : data.imageUrl
     ? [data.imageUrl]
     : [];
+  const modelCodes = data.modelCodes ?? [];
 
   return (
     <div
@@ -77,7 +78,7 @@ export function CoverPreview({ data }: Props) {
           {data.productName}
         </h1>
 
-        {data.modelCodes.length > 0 && (
+        {modelCodes.length > 0 && (
           <div
             style={{
               marginTop: '14px',
@@ -87,7 +88,7 @@ export function CoverPreview({ data }: Props) {
               lineHeight: 1.5,
             }}
           >
-            {data.modelCodes.join('; ')}
+            {modelCodes.join('; ')}
           </div>
         )}
 

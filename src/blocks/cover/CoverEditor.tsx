@@ -10,8 +10,11 @@ interface Props {
 }
 
 export function CoverEditor({ data, onChange }: Props) {
+  const productImages = data.productImages ?? [];
+  const modelCodes = data.modelCodes ?? [];
+
   const updateProductImage = (i: number, url: string | undefined) => {
-    const next = [...data.productImages];
+    const next = [...productImages];
     if (url === undefined) {
       next.splice(i, 1);
     } else {
@@ -43,7 +46,7 @@ export function CoverEditor({ data, onChange }: Props) {
 
       <FieldGroup label="Перелік моделей" hint="Кожна модель з нового рядка або через крапку з комою">
         <Textarea
-          value={data.modelCodes.join('\n')}
+          value={modelCodes.join('\n')}
           onChange={(e) =>
             onChange({
               ...data,
@@ -79,7 +82,7 @@ export function CoverEditor({ data, onChange }: Props) {
           {[0, 1, 2].map((i) => (
             <ImageUploader
               key={i}
-              value={data.productImages[i]}
+              value={productImages[i]}
               onChange={(url) => updateProductImage(i, url)}
               aspectRatio="3/4"
             />
