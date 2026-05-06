@@ -4,13 +4,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        manrope: ['Manrope', 'sans-serif'],
+        sans: ['Montserrat', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         brand: {
-          orange: '#ea580c',
-          dark: '#0f172a',
+          orange: '#ff6b1a',
+          dark: '#2d2d2d',
         },
       },
     },

@@ -7,89 +7,78 @@ interface Props {
 export function CoverPreview({ data }: Props) {
   return (
     <div className="pdf-page" style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="pdf-section-header">
+        <div className="pdf-section-header__bar" />
+        <div className="pdf-section-header__text">{data.brand}</div>
+      </div>
+
+      <div style={{ marginTop: '8mm' }}>
+        <h1 className="pdf-cover-title">{data.title}</h1>
+        {data.subtitle && (
+          <div
+            style={{
+              marginTop: '6px',
+              fontSize: '13px',
+              fontWeight: 500,
+              color: '#6b6b6b',
+            }}
+          >
+            {data.subtitle}
+          </div>
+        )}
+      </div>
+
       <div
         style={{
-          background: '#0f172a',
-          margin: '-18mm -16mm 0 -16mm',
-          padding: '32px 24px',
+          marginTop: '18px',
+          paddingTop: '14px',
+          borderTop: '2px solid #ff6b1a',
+          fontSize: '11px',
+          fontWeight: 600,
+          color: '#2d2d2d',
+          lineHeight: 1.65,
+        }}
+      >
+        <div
+          style={{
+            fontSize: '10px',
+            fontWeight: 700,
+            color: '#6b6b6b',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            marginBottom: '4px',
+          }}
+        >
+          Перелік моделей
+        </div>
+        {data.models}
+      </div>
+
+      <div
+        style={{
+          marginTop: 'auto',
+          marginBottom: '20mm',
           textAlign: 'center',
         }}
       >
         <div
           style={{
-            color: '#ea580c',
-            fontSize: '36px',
-            fontWeight: 800,
-            letterSpacing: '0.05em',
+            display: 'inline-block',
+            padding: '8px 28px',
+            background: '#2d2d2d',
+            color: 'white',
+            fontSize: '14px',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
           }}
         >
-          ▲▲▲
-          <br />
-          {data.brand}
-        </div>
-      </div>
-      <div className="pdf-orange-bar" style={{ marginLeft: '-16mm', marginRight: '-16mm' }} />
-      <div style={{ marginTop: '40px' }}>
-        <h1 className="pdf-cover-title">{data.title}</h1>
-      </div>
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: '32px',
-          fontSize: '12px',
-          fontWeight: 600,
-          lineHeight: 1.7,
-        }}
-      >
-        {data.models}
-        <div style={{ marginTop: '12px', fontWeight: 700, letterSpacing: '0.05em' }}>
           {data.documentType}
         </div>
-        <div style={{ marginTop: '8px', fontSize: '18px', fontWeight: 700 }}>{data.subtitle}</div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '60px',
-          marginTop: '60px',
-        }}
-      >
-        {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '50%',
-              border: '3px solid #1e293b',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ea580c',
-              fontSize: '28px',
-              fontWeight: 700,
-            }}
-          >
-            ✓
-          </div>
-        ))}
-      </div>
-      <div
-        style={{
-          flex: 1,
-          marginTop: '40px',
-          background: 'linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%)',
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#94a3b8',
-          fontSize: '14px',
-          minHeight: '300px',
-        }}
-      >
-        [ Зображення продукту ]
+
+      <div className="pdf-footer">
+        <span>termojet.com.ua</span>
+        <span>1</span>
       </div>
     </div>
   );

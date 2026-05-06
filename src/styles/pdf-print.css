@@ -1,10 +1,10 @@
 .pdf-page {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   width: 210mm;
   min-height: 297mm;
-  padding: 18mm 16mm;
+  padding: 16mm 14mm 14mm 14mm;
   background: white;
-  color: #1a1a1a;
+  color: #2d2d2d;
   box-sizing: border-box;
   position: relative;
   page-break-after: always;
@@ -15,39 +15,41 @@
 }
 
 .pdf-section-header {
-  background: #0f172a;
-  color: white;
-  padding: 14px 24px;
-  border-radius: 0 28px 28px 0;
-  margin-left: -16mm;
+  display: flex;
+  align-items: stretch;
+  margin-left: -14mm;
   margin-right: 30mm;
-  font-size: 22px;
+  margin-bottom: 18px;
+  background: #2d2d2d;
+  color: white;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  position: relative;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
-.pdf-section-header::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 8px;
-  background: #ea580c;
+.pdf-section-header__bar {
+  width: 14mm;
+  background: #ff6b1a;
+}
+
+.pdf-section-header__text {
+  padding: 12px 24px;
+  flex: 1;
 }
 
 .pdf-cover-title {
-  color: #ea580c;
-  font-size: 56px;
+  color: #2d2d2d;
+  font-size: 28px;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  text-transform: uppercase;
 }
 
 .pdf-orange-bar {
   height: 3px;
-  background: #ea580c;
+  background: #ff6b1a;
   width: 100%;
 }
 
@@ -59,16 +61,32 @@
 
 .pdf-table th,
 .pdf-table td {
-  border: 1px solid #cbd5e1;
-  padding: 10px 12px;
+  border: 1px solid #d4d4d4;
+  padding: 8px 12px;
   text-align: left;
   vertical-align: top;
 }
 
 .pdf-table th {
-  background: #f1f5f9;
+  background: #ff6b1a;
+  color: white;
   font-weight: 700;
   font-size: 11px;
+  text-align: center;
+}
+
+.pdf-footer {
+  position: absolute;
+  bottom: 8mm;
+  left: 14mm;
+  right: 14mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: #6b6b6b;
+  border-top: 1px solid #e4e4e4;
+  padding-top: 6px;
 }
 
 @media print {

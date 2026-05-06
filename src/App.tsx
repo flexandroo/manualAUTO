@@ -53,6 +53,10 @@ export default function App() {
     if (!printRef.current) return;
     setDownloading(true);
     try {
+      // Wait for fonts to be ready so html2canvas captures them correctly.
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
       const filename = `${data.cover.title || 'instruction'}-${Date.now()}.pdf`
         .replace(/[\\/:*?"<>|]/g, '_');
       await html2pdf()
@@ -61,7 +65,7 @@ export default function App() {
           margin: 0,
           filename,
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, logging: false },
+          html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         })
         .save();
@@ -306,8 +310,11 @@ export default function App() {
         aria-hidden
         style={{
           position: 'fixed',
-          left: '-99999px',
           top: 0,
+          left: 0,
+          zIndex: -10,
+          opacity: 0,
+          pointerEvents: 'none',
           width: '210mm',
           background: 'white',
         }}
