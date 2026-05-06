@@ -249,58 +249,45 @@ export function CoverPagePreview({ data }: Props) {
         </div>
       )}
 
-      {/* DRAWINGS strip */}
+      {/* DRAWINGS strip — light "podium" so images render reliably in
+          PDF (no blend-mode / filter tricks; those don't survive
+          html2canvas capture). Smooth visual transition from the
+          dark hero up top to the light strip down here. */}
       <div
         style={{
-          flex: 1,
+          marginTop: 'auto',
+          background: 'linear-gradient(180deg, #ECEAE5 0%, #D8D5CE 100%)',
+          borderTopLeftRadius: '50px',
+          borderTopRightRadius: '50px',
+          padding: '14mm 14mm 12mm',
           display: 'flex',
+          justifyContent: 'center',
           alignItems: 'flex-end',
-          padding: '0 0 6mm',
-          marginTop: '6mm',
-          minHeight: '50mm',
+          gap: '8mm',
+          minHeight: '80mm',
         }}
       >
         {images.length > 0 ? (
           images.map((url, i) => (
-            <div
+            <img
               key={i}
+              src={url}
+              alt=""
               style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                borderRight:
-                  i < images.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
-                padding: '4mm 3mm 0',
+                maxHeight: '70mm',
+                maxWidth: `${Math.floor(95 / images.length)}%`,
+                objectFit: 'contain',
+                display: 'block',
               }}
-            >
-              <img
-                src={url}
-                alt=""
-                style={{
-                  width: '100%',
-                  maxHeight: '75mm',
-                  objectFit: 'contain',
-                  objectPosition: 'bottom',
-                  opacity: 0.22,
-                  filter: 'invert(1) brightness(1.2)',
-                  mixBlendMode: 'screen',
-                  display: 'block',
-                }}
-              />
-            </div>
+            />
           ))
         ) : (
           <div
             style={{
-              flex: 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'rgba(255,255,255,0.25)',
-              fontSize: '8pt',
-              padding: '20mm 0',
+              color: '#9a9a9a',
+              fontSize: '11px',
+              fontWeight: 500,
+              alignSelf: 'center',
             }}
           >
             [ Зображення продуктів з'являться тут ]
