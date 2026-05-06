@@ -5,30 +5,6 @@ interface Props {
   data: CoverBlock;
 }
 
-// Decorative SVG: 3 dashed lines fanning down from the pill bottom-center
-// to the three checkmark circles, spread wide across the page.
-function ConnectorLines() {
-  // SVG viewBox 0..600 maps to the parent's full width via preserveAspectRatio.
-  // Endpoints x=70/300/530 line up roughly with the centers of the three
-  // circles below (which sit inside padding: 0 30mm with space-between).
-  return (
-    <svg
-      width="100%"
-      height="40"
-      viewBox="0 0 600 40"
-      preserveAspectRatio="none"
-      style={{ display: 'block' }}
-      aria-hidden
-    >
-      <g stroke="#9a9a9a" strokeWidth="1.3" strokeDasharray="3 3" fill="none">
-        <path d="M300 0 L 70 40" />
-        <path d="M300 0 L 300 40" />
-        <path d="M300 0 L 530 40" />
-      </g>
-    </svg>
-  );
-}
-
 export function CoverPreview({ data }: Props) {
   const images = data.productImages?.length
     ? data.productImages
@@ -36,6 +12,7 @@ export function CoverPreview({ data }: Props) {
     ? [data.imageUrl]
     : [];
   const modelCodes = data.modelCodes ?? [];
+  const bulletPoints = (data.bulletPoints ?? []).filter((b) => b.trim().length > 0);
 
   return (
     <div
@@ -96,7 +73,7 @@ export function CoverPreview({ data }: Props) {
       <div style={{ height: '8px', background: '#ff6b1a' }} />
 
       {/* Title + models + doc type — all centered */}
-      <div style={{ padding: '28px 14mm 0', textAlign: 'center' }}>
+      <div style={{ padding: '32px 14mm 0', textAlign: 'center' }}>
         <h1
           style={{
             color: '#ff6b1a',
@@ -113,7 +90,7 @@ export function CoverPreview({ data }: Props) {
         {modelCodes.length > 0 && (
           <div
             style={{
-              marginTop: '14px',
+              marginTop: '16px',
               fontSize: '13px',
               color: '#2d2d2d',
               fontWeight: 700,
@@ -143,68 +120,60 @@ export function CoverPreview({ data }: Props) {
         )}
       </div>
 
-      {/* Highlighted middle band: pill + lines + circles */}
-      <div style={{ marginTop: '24px' }}>
-        {/* Installation pill — single line */}
-        {data.subtitle && (
-          <div style={{ textAlign: 'center', padding: '0 14mm' }}>
+      {/* Subtitle + bullet points */}
+      {(data.subtitle || bulletPoints.length > 0) && (
+        <div style={{ padding: '28px 14mm 0', textAlign: 'center' }}>
+          {data.subtitle && (
             <div
               style={{
-                display: 'inline-block',
-                padding: '16px 52px',
-                border: '1.5px dashed #b0b0b0',
-                borderRadius: '999px',
-                fontSize: '18px',
-                fontWeight: 800,
+                fontSize: '14px',
+                fontWeight: 700,
                 color: '#2d2d2d',
                 letterSpacing: '0.03em',
-                textTransform: 'uppercase',
-                lineHeight: 1.2,
-                whiteSpace: 'nowrap',
+                marginBottom: '14px',
               }}
             >
               {data.subtitle}
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Connector lines from pill bottom-center to checkmark circles */}
-        <div style={{ padding: '10px 14mm 0' }}>
-          <ConnectorLines />
-        </div>
-
-        {/* Three checkmark circles — symmetrically spread */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '0 30mm',
-            marginTop: '4px',
-          }}
-        >
-          {[0, 1, 2].map((i) => (
+          {bulletPoints.length > 0 && (
             <div
-              key={i}
               style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '50%',
-                border: '2.2px solid #ff6b1a',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#ff6b1a',
-                fontSize: '24px',
-                fontWeight: 900,
-                lineHeight: 1,
+                display: 'inline-block',
+                textAlign: 'left',
               }}
             >
-              ✓
+              {bulletPoints.map((b, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: '12px',
+                    marginBottom: '6px',
+                    fontSize: '14px',
+                    color: '#2d2d2d',
+                    lineHeight: 1.45,
+                  }}
+                >
+                  <span
+                    style={{
+                      color: '#ff6b1a',
+                      fontSize: '12px',
+                      fontWeight: 800,
+                      flexShrink: 0,
+                    }}
+                  >
+                    ◆
+                  </span>
+                  <span style={{ fontWeight: 600 }}>{b}</span>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-      </div>
+      )}
 
       {/* Product photos area at bottom */}
       <div

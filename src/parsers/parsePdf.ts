@@ -206,6 +206,7 @@ function parseCover(page: PageData | undefined): CoverBlock {
     subtitle,
     modelCodes,
     documentType,
+    bulletPoints: [],
     tagline,
     websiteUrl,
     productImages: [],

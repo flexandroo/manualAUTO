@@ -21,6 +21,7 @@ function migrateBlock(block: Block): Block {
       productImages?: string[];
       imageUrl?: string;
       subtitle?: string;
+      bulletPoints?: string[];
       tagline?: string;
       websiteUrl?: string;
       documentType?: string;
@@ -36,6 +37,7 @@ function migrateBlock(block: Block): Block {
         ? [c.imageUrl]
         : [],
       subtitle: c.subtitle ?? 'Інструкція з монтажу та експлуатації',
+      bulletPoints: Array.isArray(c.bulletPoints) ? c.bulletPoints : [],
       tagline: c.tagline ?? 'Швидко ● Надійно ● Ефективно',
       websiteUrl: c.websiteUrl ?? 'WWW.TERMOJET.COM.UA',
       documentType: c.documentType ?? 'ТЕХНІЧНИЙ СЕРТИФІКАТ',

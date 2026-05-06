@@ -1,8 +1,10 @@
+import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
 import type { CoverBlock } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { ImageUploader } from '../../components/ui/ImageUploader';
+import { IconBtn } from '../../components/ui/IconBtn';
 
 interface Props {
   data: CoverBlock;
@@ -12,6 +14,7 @@ interface Props {
 export function CoverEditor({ data, onChange }: Props) {
   const productImages = data.productImages ?? [];
   const modelCodes = data.modelCodes ?? [];
+  const bulletPoints = data.bulletPoints ?? [];
 
   const updateProductImage = (i: number, url: string | undefined) => {
     const next = [...productImages];
@@ -21,6 +24,23 @@ export function CoverEditor({ data, onChange }: Props) {
       next[i] = url;
     }
     onChange({ ...data, productImages: next });
+  };
+
+  const updateBullet = (i: number, value: string) => {
+    const next = [...bulletPoints];
+    next[i] = value;
+    onChange({ ...data, bulletPoints: next });
+  };
+  const addBullet = () =>
+    onChange({ ...data, bulletPoints: [...bulletPoints, ''] });
+  const removeBullet = (i: number) =>
+    onChange({ ...data, bulletPoints: bulletPoints.filter((_, idx) => idx !== i) });
+  const moveBullet = (i: number, dir: -1 | 1) => {
+    const next = [...bulletPoints];
+    const target = i + dir;
+    if (target < 0 || target >= next.length) return;
+    [next[i], next[target]] = [next[target], next[i]];
+    onChange({ ...data, bulletPoints: next });
   };
 
   return (
@@ -67,12 +87,49 @@ export function CoverEditor({ data, onChange }: Props) {
         />
       </FieldGroup>
 
-      <FieldGroup label="Підзаголовок (текст у пілюлі)" hint='Наприклад "Інструкція з монтажу та експлуатації"'>
+      <FieldGroup label="Підзаголовок" hint='Відображається малим текстом над списком'>
         <Input
           value={data.subtitle}
           onChange={(e) => onChange({ ...data, subtitle: e.target.value })}
         />
       </FieldGroup>
+
+      <div className="mb-5">
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Особливості / переваги ({bulletPoints.length})
+          </label>
+          <IconBtn onClick={addBullet} variant="primary" title="Додати пункт">
+            <Plus size={14} />
+          </IconBtn>
+        </div>
+        <div className="space-y-2">
+          {bulletPoints.map((b, i) => (
+            <div key={i} className="flex gap-2 items-center">
+              <span className="text-orange-400 text-base font-bold w-4 text-center">◆</span>
+              <Input
+                value={b}
+                onChange={(e) => updateBullet(i, e.target.value)}
+                placeholder="Текст пункту"
+              />
+              <IconBtn onClick={() => moveBullet(i, -1)} title="Вгору">
+                <ChevronUp size={14} />
+              </IconBtn>
+              <IconBtn onClick={() => moveBullet(i, 1)} title="Вниз">
+                <ChevronDown size={14} />
+              </IconBtn>
+              <IconBtn onClick={() => removeBullet(i)} variant="danger" title="Видалити">
+                <Trash2 size={14} />
+              </IconBtn>
+            </div>
+          ))}
+          {bulletPoints.length === 0 && (
+            <div className="text-[11px] text-slate-500 italic">
+              Натисніть + щоб додати пункт. Покажуться як список з помаранчевими маркерами на титульній.
+            </div>
+          )}
+        </div>
+      </div>
 
       <div className="mb-5">
         <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">

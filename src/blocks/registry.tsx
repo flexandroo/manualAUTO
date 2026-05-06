@@ -72,6 +72,11 @@ const coverSpec: BlockSpec<CoverBlock> = {
     subtitle: 'Інструкція з монтажу та експлуатації',
     modelCodes: [],
     documentType: 'ТЕХНІЧНИЙ СЕРТИФІКАТ',
+    bulletPoints: [
+      'Просте і надійне з’єднання',
+      'Високоефективний робочий діапазон',
+      'Сертифікована якість матеріалів',
+    ],
     tagline: 'Швидко ● Надійно ● Ефективно',
     websiteUrl: 'WWW.TERMOJET.COM.UA',
     productImages: [],

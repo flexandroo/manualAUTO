@@ -26,6 +26,7 @@ export interface CoverBlock extends BlockBase {
   modelCodes: string[];
   documentType: string;
   subtitle: string;
+  bulletPoints: string[];
   tagline: string;
   websiteUrl: string;
   productImages: string[];
