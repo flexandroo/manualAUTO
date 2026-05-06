@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { createPortal } from 'react-dom';
-import html2pdf from 'html2pdf.js';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { FileDown, Save, Upload, Loader2 } from 'lucide-react';
 import './styles/pdf-print.css';
 import type { InstructionData, Page, PageType } from './types/instruction';
@@ -128,34 +129,60 @@ export default function App() {
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
       }
-      // Two RAF ticks to make sure layout & images are fully painted before
-      // we ask html2canvas to snapshot.
+      // The render target lives off-screen at left: -99999px so html2canvas
+      // can capture it but the user can't see it. Some browsers measure
+      // off-screen elements as zero-size. Briefly move it onscreen but
+      // hidden behind everything (z-index: -1 + visible: hidden); render;
+      // then put it back.
+      const el = printRef.current;
+      const originalCss = el.style.cssText;
+      el.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 210mm;
+        background: white;
+        pointer-events: none;
+      `;
+      // Two RAF ticks for layout / paint / font load to settle.
       await new Promise((r) => requestAnimationFrame(() => r(undefined)));
       await new Promise((r) => requestAnimationFrame(() => r(undefined)));
+
+      const pages = Array.from(el.querySelectorAll<HTMLElement>('.pdf-page'));
+      if (pages.length === 0) {
+        alert('Немає сторінок для експорту');
+        return;
+      }
+
+      // A4 in mm
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const pageW = 210;
+      const pageH = 297;
+
+      for (let i = 0; i < pages.length; i++) {
+        const node = pages[i];
+        const canvas = await html2canvas(node, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: null,
+          width: node.offsetWidth,
+          height: node.offsetHeight,
+        });
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        if (i > 0) pdf.addPage('a4', 'portrait');
+        pdf.addImage(imgData, 'JPEG', 0, 0, pageW, pageH);
+      }
+
+      // Restore the hidden positioning before save dialog closes the focus.
+      el.style.cssText = originalCss;
 
       const filename = `${data.productName || 'instruction'}-${Date.now()}.pdf`.replace(
         /[\\/:*?"<>|]/g,
         '_'
       );
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const options: any = {
-        margin: 0,
-        filename,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          logging: false,
-          backgroundColor: null,
-          // Without windowWidth, html2canvas measures the element using the
-          // current viewport, which can be 0 if the host is offscreen on a
-          // mobile-sized window. Force the canvas to render at A4 width.
-          windowWidth: Math.ceil(210 * 3.7795),
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page' },
-      };
-      await html2pdf().from(printRef.current).set(options).save();
+      pdf.save(filename);
     } finally {
       setDownloading(false);
     }
