@@ -6,13 +6,13 @@
 .pdf-page {
   font-family: 'Montserrat', sans-serif;
   width: 210mm;
+  min-height: 297mm;
   padding: var(--pdf-padding-y) var(--pdf-padding-x);
   background: white;
   color: #2d2d2d;
   box-sizing: border-box;
   position: relative;
-  /* No min-height by default — blocks are as tall as their content. */
-  /* Cover block sets minHeight: 297mm inline because it has a bottom-aligned podium. */
+  page-break-after: always;
 }
 
 .pdf-mono {
@@ -24,7 +24,7 @@
   align-items: stretch;
   margin-left: calc(-1 * var(--pdf-padding-x));
   margin-right: 28mm;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   background: #2d2d2d;
   color: white;
   font-size: 15px;
@@ -39,7 +39,7 @@
 }
 
 .pdf-section-header__text {
-  padding: 10px 20px;
+  padding: 11px 22px;
   flex: 1;
 }
 
@@ -80,7 +80,10 @@
 }
 
 .pdf-footer {
-  margin-top: 14px;
+  position: absolute;
+  bottom: 8mm;
+  left: var(--pdf-padding-x);
+  right: var(--pdf-padding-x);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,5 +103,6 @@
   .pdf-page {
     box-shadow: none !important;
     margin: 0 !important;
+    page-break-after: always;
   }
 }

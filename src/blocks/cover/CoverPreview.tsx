@@ -5,6 +5,28 @@ interface Props {
   data: CoverBlock;
 }
 
+// Decorative SVG: 3 dashed lines fanning down from the pill bottom-center
+// to the three checkmark circles below. Positioned absolutely between the
+// pill and the circles row (filled by the parent flex column).
+function ConnectorLines() {
+  return (
+    <svg
+      width="100%"
+      height="34"
+      viewBox="0 0 600 34"
+      preserveAspectRatio="none"
+      style={{ display: 'block' }}
+      aria-hidden
+    >
+      <g stroke="#b0b0b0" strokeWidth="1.2" strokeDasharray="3 3" fill="none">
+        <path d="M300 0 L160 34" />
+        <path d="M300 0 L300 34" />
+        <path d="M300 0 L440 34" />
+      </g>
+    </svg>
+  );
+}
+
 export function CoverPreview({ data }: Props) {
   const images = data.productImages?.length
     ? data.productImages
@@ -27,7 +49,7 @@ export function CoverPreview({ data }: Props) {
       <div
         style={{
           background: '#0f172a',
-          padding: '22px 14mm 24px',
+          padding: '26px 14mm 30px',
           textAlign: 'center',
         }}
       >
@@ -35,17 +57,17 @@ export function CoverPreview({ data }: Props) {
           <img
             src={data.brandLogoUrl}
             alt={data.brand}
-            style={{ maxHeight: '60px', maxWidth: '70%', objectFit: 'contain' }}
+            style={{ maxHeight: '76px', maxWidth: '70%', objectFit: 'contain' }}
           />
         ) : data.brand === 'TERMOJET' ? (
-          <TermojetLogo height={72} />
+          <TermojetLogo height={86} />
         ) : (
           <>
             <div
               style={{
                 color: '#ff6b1a',
-                fontSize: '14px',
-                letterSpacing: '8px',
+                fontSize: '16px',
+                letterSpacing: '10px',
                 fontWeight: 700,
                 lineHeight: 1,
               }}
@@ -55,10 +77,11 @@ export function CoverPreview({ data }: Props) {
             <div
               style={{
                 color: 'white',
-                fontSize: '34px',
+                fontSize: '42px',
                 fontWeight: 900,
                 letterSpacing: '0.06em',
                 lineHeight: 1.05,
+                marginTop: '4px',
               }}
             >
               {data.brand}
@@ -68,17 +91,17 @@ export function CoverPreview({ data }: Props) {
       </div>
 
       {/* Orange divider bar */}
-      <div style={{ height: '6px', background: '#ff6b1a' }} />
+      <div style={{ height: '8px', background: '#ff6b1a' }} />
 
       {/* Title + models + doc type */}
-      <div style={{ padding: '20px 14mm 0' }}>
+      <div style={{ padding: '26px 14mm 0' }}>
         <h1
           style={{
             color: '#ff6b1a',
-            fontSize: '40px',
+            fontSize: '54px',
             fontWeight: 900,
-            letterSpacing: '-0.01em',
-            lineHeight: 1.05,
+            letterSpacing: '-0.02em',
+            lineHeight: 1.0,
             margin: 0,
           }}
         >
@@ -88,11 +111,12 @@ export function CoverPreview({ data }: Props) {
         {modelCodes.length > 0 && (
           <div
             style={{
-              marginTop: '14px',
-              fontSize: '14px',
+              marginTop: '18px',
+              fontSize: '17px',
               color: '#2d2d2d',
               fontWeight: 700,
               lineHeight: 1.5,
+              textAlign: 'center',
             }}
           >
             {modelCodes.join('; ')}
@@ -103,11 +127,12 @@ export function CoverPreview({ data }: Props) {
           <div
             style={{
               marginTop: '4px',
-              fontSize: '13px',
+              fontSize: '17px',
               color: '#2d2d2d',
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
+              textAlign: 'center',
             }}
           >
             {data.documentType}
@@ -116,19 +141,19 @@ export function CoverPreview({ data }: Props) {
 
         {/* Installation pill */}
         {data.subtitle && (
-          <div style={{ marginTop: '22px', textAlign: 'center' }}>
+          <div style={{ marginTop: '28px', textAlign: 'center' }}>
             <div
               style={{
                 display: 'inline-block',
-                padding: '14px 36px',
+                padding: '18px 44px',
                 border: '1.5px dashed #b0b0b0',
                 borderRadius: '999px',
-                fontSize: '17px',
+                fontSize: '22px',
                 fontWeight: 800,
                 color: '#2d2d2d',
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
-                lineHeight: 1.3,
+                lineHeight: 1.25,
               }}
             >
               {data.subtitle}
@@ -137,13 +162,18 @@ export function CoverPreview({ data }: Props) {
         )}
       </div>
 
+      {/* Connector lines from pill to circles */}
+      <div style={{ padding: '12px 0 0' }}>
+        <ConnectorLines />
+      </div>
+
       {/* Three checkmark circles */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
-          gap: '52px',
-          marginTop: '22px',
+          gap: '70px',
+          marginTop: '0',
           padding: '0 14mm',
         }}
       >
@@ -151,15 +181,15 @@ export function CoverPreview({ data }: Props) {
           <div
             key={i}
             style={{
-              width: '46px',
-              height: '46px',
+              width: '54px',
+              height: '54px',
               borderRadius: '50%',
-              border: '2px solid #ff6b1a',
+              border: '2.5px solid #ff6b1a',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#ff6b1a',
-              fontSize: '22px',
+              fontSize: '26px',
               fontWeight: 900,
               lineHeight: 1,
             }}
@@ -176,7 +206,7 @@ export function CoverPreview({ data }: Props) {
           background: 'linear-gradient(180deg, #f0f0f0 0%, #d8d8d8 100%)',
           borderTopLeftRadius: '60px',
           borderTopRightRadius: '60px',
-          padding: '24px 14mm 18mm',
+          padding: '26px 14mm 18mm',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-end',
