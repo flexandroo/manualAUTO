@@ -53,6 +53,8 @@ function blockToPages(block: Any): Page[] {
     out.push({
       id: block.id ?? newId('cover'),
       type: 'cover',
+      heroPrefix: typeof block.heroPrefix === 'string' ? block.heroPrefix : 'Серія',
+      heroAccent: typeof block.heroAccent === 'string' ? block.heroAccent : '',
       subtitle: block.subtitle ?? 'Інструкція з монтажу та експлуатації',
       bulletPoints: Array.isArray(block.bulletPoints) ? block.bulletPoints : [],
       productImages: Array.isArray(block.productImages)

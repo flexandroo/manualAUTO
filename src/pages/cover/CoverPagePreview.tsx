@@ -115,9 +115,12 @@ export function CoverPagePreview({ data }: Props) {
             color: 'white',
           }}
         >
-          Серія{' '}
+          {data.heroPrefix}
+          {data.heroPrefix && ' '}
           <span style={{ color: ORANGE }}>
-            {modelCodes[0]?.split('-')[0] ?? productName.split(' ')[0]}
+            {data.heroAccent ||
+              modelCodes[0]?.split('-')[0] ||
+              productName.split(' ')[0]}
           </span>
         </div>
 

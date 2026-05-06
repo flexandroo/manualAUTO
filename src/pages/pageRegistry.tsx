@@ -30,6 +30,8 @@ const coverSpec: PageSpec<CoverPage> = {
   createNew: () => ({
     id: newId('cover'),
     type: 'cover',
+    heroPrefix: 'Серія',
+    heroAccent: '',
     subtitle: 'Інструкція з монтажу та експлуатації',
     bulletPoints: [
       'Простота встановлення',

@@ -14,13 +14,16 @@ import type {
   TwoColumnElement,
   WarningElement,
 } from '../types/instruction';
+import { resolveStyle } from '../utils/blockStyles';
+import { ELEMENT_STYLE_DEFAULTS } from './elementStyleDefaults';
 
 interface Props {
   element: PageElement;
 }
 
 // Renders a single PageElement to the print-ready DOM. Each pattern is
-// styled via the existing CSS utility classes in pdf-print.css.
+// styled via the existing CSS utility classes in pdf-print.css. User-
+// configured per-key fontSize/bold overrides come in via element.styles.
 export function ElementRenderer({ element }: Props) {
   switch (element.type) {
     case 'heading':
@@ -52,37 +55,37 @@ export function ElementRenderer({ element }: Props) {
   }
 }
 
-function TwoColumnRender({ data }: { data: TwoColumnElement }) {
-  return (
-    <div className="pdf-two-col" style={{ marginBottom: '4mm' }}>
-      <div>
-        {data.left.map((el) => (
-          <ElementRenderer key={el.id} element={el} />
-        ))}
-      </div>
-      <div>
-        {data.right.map((el) => (
-          <ElementRenderer key={el.id} element={el} />
-        ))}
-      </div>
-    </div>
-  );
+// ─── helpers ─────────────────────────────────────────────────────────────
+
+function s(elType: keyof typeof ELEMENT_STYLE_DEFAULTS, key: string, override?: Record<string, { fontSize?: number; bold?: boolean }>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const def = (ELEMENT_STYLE_DEFAULTS as any)[elType]?.[key] ?? { fontSize: 11, bold: false };
+  return resolveStyle(override?.[key], def);
 }
 
 // ─── individual renderers ────────────────────────────────────────────────
 
 function HeadingRender({ data }: { data: HeadingElement }) {
-  return <div className="pdf-section-bar">{data.text}</div>;
+  return (
+    <div className="pdf-section-bar" style={s('heading', 'text', data.styles)}>
+      {data.text}
+    </div>
+  );
 }
 
 function SubsectionRender({ data }: { data: SubsectionElement }) {
   return (
     <div className="pdf-subsection">
       <div className="pdf-subsection-title">
-        <span className="pdf-subsection-num">{data.number}</span>
-        {data.heading}
+        <span className="pdf-subsection-num" style={s('subsection', 'number', data.styles)}>
+          {data.number}
+        </span>
+        <span style={s('subsection', 'heading', data.styles)}>{data.heading}</span>
       </div>
-      <div className="pdf-subsection-body" style={{ whiteSpace: 'pre-wrap' }}>
+      <div
+        className="pdf-subsection-body"
+        style={{ whiteSpace: 'pre-wrap', ...s('subsection', 'body', data.styles) }}
+      >
         {data.body}
       </div>
     </div>
@@ -93,7 +96,11 @@ function ParagraphRender({ data }: { data: ParagraphElement }) {
   return (
     <div
       className="pdf-subsection-body"
-      style={{ marginBottom: '4mm', whiteSpace: 'pre-wrap' }}
+      style={{
+        marginBottom: '4mm',
+        whiteSpace: 'pre-wrap',
+        ...s('paragraph', 'text', data.styles),
+      }}
     >
       {data.text}
     </div>
@@ -101,16 +108,21 @@ function ParagraphRender({ data }: { data: ParagraphElement }) {
 }
 
 function BulletListRender({ data }: { data: BulletListElement }) {
+  const itemStyle = s('bulletList', 'item', data.styles);
   return (
     <ul className="pdf-bullet-list" style={{ marginBottom: '4mm' }}>
       {data.items.map((item, i) => (
-        <li key={i}>{item}</li>
+        <li key={i} style={itemStyle}>
+          {item}
+        </li>
       ))}
     </ul>
   );
 }
 
 function NumberedListRender({ data }: { data: NumberedListElement }) {
+  const numStyle = s('numberedList', 'number', data.styles);
+  const textStyle = s('numberedList', 'text', data.styles);
   return (
     <div style={{ marginBottom: '4mm' }}>
       {data.items.map((item, i) => (
@@ -127,10 +139,9 @@ function NumberedListRender({ data }: { data: NumberedListElement }) {
         >
           <div
             style={{
+              ...numStyle,
               color: 'var(--pdf-orange)',
               fontFamily: 'JetBrains Mono, monospace',
-              fontWeight: 800,
-              fontSize: '10pt',
               lineHeight: 1.1,
             }}
           >
@@ -138,7 +149,7 @@ function NumberedListRender({ data }: { data: NumberedListElement }) {
           </div>
           <div
             className="pdf-subsection-body"
-            style={{ whiteSpace: 'pre-wrap', margin: 0 }}
+            style={{ whiteSpace: 'pre-wrap', margin: 0, ...textStyle }}
           >
             {item.text}
           </div>
@@ -149,12 +160,16 @@ function NumberedListRender({ data }: { data: NumberedListElement }) {
 }
 
 function TableRender({ data }: { data: TableElement }) {
+  const thStyle = s('table', 'header', data.styles);
+  const tdStyle = s('table', 'cell', data.styles);
   return (
     <table className="pdf-table" style={{ marginBottom: '4mm' }}>
       <thead>
         <tr>
           {data.headers.map((h, i) => (
-            <th key={i}>{h}</th>
+            <th key={i} style={thStyle}>
+              {h}
+            </th>
           ))}
         </tr>
       </thead>
@@ -162,7 +177,7 @@ function TableRender({ data }: { data: TableElement }) {
         {data.rows.map((row, i) => (
           <tr key={i}>
             {row.map((cell, j) => (
-              <td key={j} style={{ whiteSpace: 'pre-line' }}>
+              <td key={j} style={{ whiteSpace: 'pre-line', ...tdStyle }}>
                 {cell}
               </td>
             ))}
@@ -174,13 +189,15 @@ function TableRender({ data }: { data: TableElement }) {
 }
 
 function KvListRender({ data }: { data: KvListElement }) {
+  const titleStyle = s('kvList', 'title', data.styles);
+  const keyStyle = s('kvList', 'key', data.styles);
+  const valueStyle = s('kvList', 'value', data.styles);
   return (
     <div style={{ marginBottom: '4mm' }}>
       {data.title && (
         <div
           style={{
-            fontSize: '7pt',
-            fontWeight: 700,
+            ...titleStyle,
             color: 'var(--pdf-navy)',
             opacity: 0.7,
             textTransform: 'uppercase',
@@ -191,7 +208,7 @@ function KvListRender({ data }: { data: KvListElement }) {
           {data.title}
         </div>
       )}
-      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '7.5pt' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <tbody>
           {data.rows.map((r, i) => (
             <tr key={i}>
@@ -199,10 +216,10 @@ function KvListRender({ data }: { data: KvListElement }) {
                 style={{
                   padding: '1.5mm 0',
                   borderBottom: '0.5px solid rgba(13,21,38,0.07)',
-                  fontWeight: 600,
                   color: 'var(--pdf-navy)',
                   opacity: 0.8,
                   width: '45%',
+                  ...keyStyle,
                 }}
               >
                 {r.key}
@@ -211,6 +228,7 @@ function KvListRender({ data }: { data: KvListElement }) {
                 style={{
                   padding: '1.5mm 0',
                   borderBottom: '0.5px solid rgba(13,21,38,0.07)',
+                  ...valueStyle,
                 }}
               >
                 {r.value}
@@ -224,6 +242,9 @@ function KvListRender({ data }: { data: KvListElement }) {
 }
 
 function SchemeRender({ data }: { data: SchemeElement }) {
+  const numStyle = s('scheme', 'number', data.styles);
+  const labelStyle = s('scheme', 'label', data.styles);
+  const flowStyle = s('scheme', 'flow', data.styles);
   return (
     <div
       style={{
@@ -248,11 +269,7 @@ function SchemeRender({ data }: { data: SchemeElement }) {
           <img
             src={data.imageUrl}
             alt=""
-            style={{
-              maxWidth: '100%',
-              maxHeight: '90mm',
-              objectFit: 'contain',
-            }}
+            style={{ maxWidth: '100%', maxHeight: '90mm', objectFit: 'contain' }}
           />
         ) : (
           <div
@@ -286,8 +303,10 @@ function SchemeRender({ data }: { data: SchemeElement }) {
         <ul className="pdf-component-list">
           {data.items.map((it, i) => (
             <li key={i}>
-              <span className="pdf-component-num">{it.number}</span>
-              <span>{it.label}</span>
+              <span className="pdf-component-num" style={numStyle}>
+                {it.number}
+              </span>
+              <span style={labelStyle}>{it.label}</span>
             </li>
           ))}
         </ul>
@@ -307,7 +326,7 @@ function SchemeRender({ data }: { data: SchemeElement }) {
                   alignItems: 'center',
                   gap: '8px',
                   marginBottom: '2mm',
-                  fontSize: '7pt',
+                  ...flowStyle,
                 }}
               >
                 <span
@@ -336,7 +355,7 @@ function ImageRender({ data }: { data: ImageElement }) {
   const align = data.align ?? 'center';
   const justify =
     align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : 'center';
-
+  const captionStyle = s('image', 'caption', data.styles);
   return (
     <div
       style={{
@@ -377,8 +396,7 @@ function ImageRender({ data }: { data: ImageElement }) {
       {data.caption && (
         <div
           style={{
-            fontSize: '7pt',
-            fontWeight: 600,
+            ...captionStyle,
             color: 'var(--pdf-navy)',
             opacity: 0.7,
             marginTop: '2mm',
@@ -392,6 +410,7 @@ function ImageRender({ data }: { data: ImageElement }) {
 }
 
 function ImageGridRender({ data }: { data: ImageGridElement }) {
+  const captionStyle = s('imageGrid', 'caption', data.styles);
   return (
     <div
       style={{
@@ -403,7 +422,9 @@ function ImageGridRender({ data }: { data: ImageGridElement }) {
     >
       {data.items.map((f) => (
         <div key={f.id} className="pdf-drawing-card">
-          <div className="pdf-drawing-card-title">{f.caption}</div>
+          <div className="pdf-drawing-card-title" style={captionStyle}>
+            {f.caption}
+          </div>
           {f.imageUrl ? (
             <img
               src={f.imageUrl}
@@ -434,24 +455,43 @@ function ImageGridRender({ data }: { data: ImageGridElement }) {
 }
 
 function WarningRender({ data }: { data: WarningElement }) {
+  const titleStyle = s('warning', 'title', data.styles);
+  const bodyStyle = s('warning', 'body', data.styles);
   if (data.level === 'danger') {
     return (
       <div className="pdf-forbidden-box">
-        <div className="pdf-forbidden-title">
+        <div className="pdf-forbidden-title" style={titleStyle}>
           <span>🚫</span>
           {data.title}
         </div>
-        <div style={{ fontSize: '7.5pt', lineHeight: 1.55 }}>{data.body}</div>
+        <div style={{ ...bodyStyle, lineHeight: 1.55 }}>{data.body}</div>
       </div>
     );
   }
   const icon = data.level === 'info' ? 'ℹ' : '⚠';
   return (
     <div className="pdf-warning-box">
-      <strong>
+      <strong style={titleStyle}>
         {icon} {data.title}
       </strong>
-      <div style={{ marginTop: '1mm' }}>{data.body}</div>
+      <div style={{ marginTop: '1mm', ...bodyStyle }}>{data.body}</div>
+    </div>
+  );
+}
+
+function TwoColumnRender({ data }: { data: TwoColumnElement }) {
+  return (
+    <div className="pdf-two-col" style={{ marginBottom: '4mm' }}>
+      <div>
+        {data.left.map((el) => (
+          <ElementRenderer key={el.id} element={el} />
+        ))}
+      </div>
+      <div>
+        {data.right.map((el) => (
+          <ElementRenderer key={el.id} element={el} />
+        ))}
+      </div>
     </div>
   );
 }

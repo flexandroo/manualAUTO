@@ -12,6 +12,7 @@ import type {
   SchemeElement,
   SubsectionElement,
   TableElement,
+  TextStyle,
   TwoColumnElement,
   WarningElement,
 } from '../types/instruction';
@@ -20,8 +21,40 @@ import { Input } from '../components/ui/Input';
 import { Textarea } from '../components/ui/Textarea';
 import { ImageUploader } from '../components/ui/ImageUploader';
 import { IconBtn } from '../components/ui/IconBtn';
+import { TextStyleControls } from '../components/ui/TextStyleControls';
 import { newId } from '../utils/id';
+import { makeStyleUpdater } from '../utils/blockStyles';
+import { ELEMENT_STYLE_DEFAULTS } from './elementStyleDefaults';
 import { ElementListEditor } from '../components/ElementListEditor';
+
+// Helper: render style controls under a text input. `elType` and `key` look up
+// the per-element default; the user override goes into `data.styles[key]`.
+function StyleRow<
+  T extends { styles?: Record<string, TextStyle> },
+  K extends keyof typeof ELEMENT_STYLE_DEFAULTS,
+>({
+  data,
+  onChange,
+  elType,
+  styleKey,
+}: {
+  data: T;
+  onChange: (next: T) => void;
+  elType: K;
+  styleKey: string;
+}) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const def = (ELEMENT_STYLE_DEFAULTS as any)[elType][styleKey] as Required<TextStyle>;
+  const update = makeStyleUpdater(data, onChange);
+  return (
+    <TextStyleControls
+      value={data.styles?.[styleKey]}
+      onChange={(s) => update(styleKey, s)}
+      defaultSize={def.fontSize}
+      defaultBold={def.bold}
+    />
+  );
+}
 
 interface Props {
   element: PageElement;
@@ -99,6 +132,7 @@ function HeadingEd({ data, onChange }: EdProps<HeadingElement>) {
   return (
     <FieldGroup label="Текст заголовка">
       <Input value={data.text} onChange={(e) => onChange({ ...data, text: e.target.value })} />
+      <StyleRow data={data} onChange={onChange} elType="heading" styleKey="text" />
     </FieldGroup>
   );
 }
@@ -112,12 +146,14 @@ function SubsectionEd({ data, onChange }: EdProps<SubsectionElement>) {
           onChange={(e) => onChange({ ...data, number: e.target.value })}
           placeholder="1.1"
         />
+        <StyleRow data={data} onChange={onChange} elType="subsection" styleKey="number" />
       </FieldGroup>
       <FieldGroup label="Заголовок">
         <Input
           value={data.heading}
           onChange={(e) => onChange({ ...data, heading: e.target.value })}
         />
+        <StyleRow data={data} onChange={onChange} elType="subsection" styleKey="heading" />
       </FieldGroup>
       <FieldGroup label="Текст">
         <Textarea
@@ -125,6 +161,7 @@ function SubsectionEd({ data, onChange }: EdProps<SubsectionElement>) {
           onChange={(e) => onChange({ ...data, body: e.target.value })}
           rows={6}
         />
+        <StyleRow data={data} onChange={onChange} elType="subsection" styleKey="body" />
       </FieldGroup>
     </>
   );
@@ -138,6 +175,7 @@ function ParagraphEd({ data, onChange }: EdProps<ParagraphElement>) {
         onChange={(e) => onChange({ ...data, text: e.target.value })}
         rows={6}
       />
+      <StyleRow data={data} onChange={onChange} elType="paragraph" styleKey="text" />
     </FieldGroup>
   );
 }
@@ -184,6 +222,9 @@ function BulletListEd({ data, onChange }: EdProps<BulletListElement>) {
             </IconBtn>
           </div>
         ))}
+      </div>
+      <div className="mt-2">
+        <StyleRow data={data} onChange={onChange} elType="bulletList" styleKey="item" />
       </div>
     </div>
   );
@@ -248,6 +289,12 @@ function NumberedListEd({ data, onChange }: EdProps<NumberedListElement>) {
             />
           </div>
         ))}
+      </div>
+      <div className="mt-3 space-y-1">
+        <div className="text-[11px] text-slate-400">Номер кроку:</div>
+        <StyleRow data={data} onChange={onChange} elType="numberedList" styleKey="number" />
+        <div className="text-[11px] text-slate-400 mt-1">Текст кроку:</div>
+        <StyleRow data={data} onChange={onChange} elType="numberedList" styleKey="text" />
       </div>
     </div>
   );
@@ -350,6 +397,12 @@ function TableEd({ data, onChange }: EdProps<TableElement>) {
           </tbody>
         </table>
       </div>
+      <div className="mt-3 space-y-1">
+        <div className="text-[11px] text-slate-400">Заголовки колонок:</div>
+        <StyleRow data={data} onChange={onChange} elType="table" styleKey="header" />
+        <div className="text-[11px] text-slate-400 mt-1">Клітинки:</div>
+        <StyleRow data={data} onChange={onChange} elType="table" styleKey="cell" />
+      </div>
     </div>
   );
 }
@@ -370,6 +423,7 @@ function KvListEd({ data, onChange }: EdProps<KvListElement>) {
           value={data.title ?? ''}
           onChange={(e) => onChange({ ...data, title: e.target.value })}
         />
+        <StyleRow data={data} onChange={onChange} elType="kvList" styleKey="title" />
       </FieldGroup>
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
@@ -398,6 +452,12 @@ function KvListEd({ data, onChange }: EdProps<KvListElement>) {
               </IconBtn>
             </div>
           ))}
+        </div>
+        <div className="mt-3 space-y-1">
+          <div className="text-[11px] text-slate-400">Стиль ключів:</div>
+          <StyleRow data={data} onChange={onChange} elType="kvList" styleKey="key" />
+          <div className="text-[11px] text-slate-400 mt-1">Стиль значень:</div>
+          <StyleRow data={data} onChange={onChange} elType="kvList" styleKey="value" />
         </div>
       </div>
     </>
@@ -508,6 +568,14 @@ function SchemeEd({ data, onChange }: EdProps<SchemeElement>) {
             </div>
           ))}
         </div>
+        <div className="mt-3 space-y-1">
+          <div className="text-[11px] text-slate-400">Номер виноски:</div>
+          <StyleRow data={data} onChange={onChange} elType="scheme" styleKey="number" />
+          <div className="text-[11px] text-slate-400 mt-1">Назва компонента:</div>
+          <StyleRow data={data} onChange={onChange} elType="scheme" styleKey="label" />
+          <div className="text-[11px] text-slate-400 mt-1">Лінії потоку:</div>
+          <StyleRow data={data} onChange={onChange} elType="scheme" styleKey="flow" />
+        </div>
       </div>
     </>
   );
@@ -527,6 +595,7 @@ function ImageEd({ data, onChange }: EdProps<ImageElement>) {
           value={data.caption ?? ''}
           onChange={(e) => onChange({ ...data, caption: e.target.value })}
         />
+        <StyleRow data={data} onChange={onChange} elType="image" styleKey="caption" />
       </FieldGroup>
       <FieldGroup label="Розмір">
         <div className="flex gap-2">
@@ -641,6 +710,10 @@ function ImageGridEd({ data, onChange }: EdProps<ImageGridElement>) {
             </div>
           ))}
         </div>
+        <div className="mt-3">
+          <div className="text-[11px] text-slate-400 mb-1">Підпис карток:</div>
+          <StyleRow data={data} onChange={onChange} elType="imageGrid" styleKey="caption" />
+        </div>
       </div>
     </>
   );
@@ -671,6 +744,7 @@ function WarningEd({ data, onChange }: EdProps<WarningElement>) {
       </FieldGroup>
       <FieldGroup label="Заголовок">
         <Input value={data.title} onChange={(e) => onChange({ ...data, title: e.target.value })} />
+        <StyleRow data={data} onChange={onChange} elType="warning" styleKey="title" />
       </FieldGroup>
       <FieldGroup label="Текст">
         <Textarea
@@ -678,6 +752,7 @@ function WarningEd({ data, onChange }: EdProps<WarningElement>) {
           onChange={(e) => onChange({ ...data, body: e.target.value })}
           rows={4}
         />
+        <StyleRow data={data} onChange={onChange} elType="warning" styleKey="body" />
       </FieldGroup>
     </>
   );

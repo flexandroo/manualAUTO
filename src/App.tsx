@@ -136,7 +136,15 @@ export default function App() {
         margin: 0,
         filename,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          // null = let element backgrounds win; some pages (Cover,
+          // Warranty hero band) need their own dark/orange background
+          // and a forced white here would paint over them.
+          backgroundColor: null,
+        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page' },
       };
@@ -228,12 +236,14 @@ export default function App() {
           style={{
             position: 'fixed',
             top: 0,
-            left: 0,
-            zIndex: -10,
-            opacity: 0,
+            // True off-screen positioning. Earlier we used opacity: 0
+            // to hide the printRef, but html2canvas captures transparent
+            // pixels — the resulting PDF was blank. Moving the element
+            // far to the left keeps it fully rendered (so html2canvas
+            // sees it) but invisible to the user.
+            left: '-99999px',
             pointerEvents: 'none',
             width: '210mm',
-            background: 'white',
           }}
         >
           {data.pages.map((p, i) => {

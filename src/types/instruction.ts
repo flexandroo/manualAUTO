@@ -158,6 +158,11 @@ export interface PageBase {
 
 export interface CoverPage extends PageBase {
   type: 'cover';
+  /** Big white text to the left of the orange accent (e.g. "Серія"). */
+  heroPrefix: string;
+  /** Orange accent text following the prefix (e.g. "ГС"). Empty string
+   *  means: derive from the first model code or product name word. */
+  heroAccent: string;
   subtitle: string;
   bulletPoints: string[]; // shown as 3-column features grid
   productImages: string[];

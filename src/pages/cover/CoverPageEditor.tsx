@@ -135,6 +135,23 @@ export function CoverPageEditor({ data, onChange }: Props) {
         Вміст титульної
       </div>
 
+      <FieldGroup label="Hero — білий префікс" hint='Наприклад "Серія" або "Модель"'>
+        <Input
+          value={data.heroPrefix}
+          onChange={(e) => onChange({ ...data, heroPrefix: e.target.value })}
+        />
+      </FieldGroup>
+      <FieldGroup
+        label="Hero — помаранчевий акцент"
+        hint="Залиште порожнім — підставиться автоматично з першої моделі або назви продукту"
+      >
+        <Input
+          value={data.heroAccent}
+          onChange={(e) => onChange({ ...data, heroAccent: e.target.value })}
+          placeholder={(doc.modelCodes ?? [])[0]?.split('-')[0] ?? ''}
+        />
+      </FieldGroup>
+
       <FieldGroup label="Підзаголовок" hint='Наприклад "Інструкція з монтажу та експлуатації"'>
         <Input
           value={data.subtitle}
