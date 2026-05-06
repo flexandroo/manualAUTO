@@ -1,12 +1,13 @@
 import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
-import type { CoverBlock, CoverTextStyles, TextStyle } from '../../types/instruction';
+import type { CoverBlock, TextStyle } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { ImageUploader } from '../../components/ui/ImageUploader';
 import { IconBtn } from '../../components/ui/IconBtn';
 import { TextStyleControls } from '../../components/ui/TextStyleControls';
-import { COVER_DEFAULT_STYLES } from './coverStyles';
+import { makeStyleUpdater } from '../../utils/blockStyles';
+import { COVER_DEFAULTS } from './coverStyles';
 
 interface Props {
   data: CoverBlock;
@@ -46,21 +47,14 @@ export function CoverEditor({ data, onChange }: Props) {
     onChange({ ...data, bulletPoints: next });
   };
 
-  const updateStyle = (key: keyof CoverTextStyles, next: TextStyle) => {
-    const newStyles = { ...styles, [key]: next };
-    // Clean up: drop key if both fields are undefined
-    if (next.fontSize === undefined && next.bold === undefined) {
-      delete newStyles[key];
-    }
-    onChange({ ...data, styles: newStyles });
-  };
+  const updateStyle = makeStyleUpdater(data, onChange);
 
-  const styleControlsFor = (key: keyof CoverTextStyles) => (
+  const styleControlsFor = (key: string) => (
     <TextStyleControls
       value={styles[key]}
-      onChange={(s) => updateStyle(key, s)}
-      defaultSize={COVER_DEFAULT_STYLES[key].fontSize}
-      defaultBold={COVER_DEFAULT_STYLES[key].bold}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={COVER_DEFAULTS[key].fontSize}
+      defaultBold={COVER_DEFAULTS[key].bold}
     />
   );
 

@@ -1,15 +1,23 @@
 import type { ConstructionLegendData } from '../../types/instruction';
+import { constructionFontStyle } from './constructionLegendStyles';
 
 interface Props {
   data: ConstructionLegendData;
 }
 
 export function ConstructionLegendPreview({ data }: Props) {
+  const headingStyle = constructionFontStyle(data, 'heading');
+  const numberStyle = constructionFontStyle(data, 'itemNumber');
+  const labelStyle = constructionFontStyle(data, 'itemLabel');
+  const flowStyle = constructionFontStyle(data, 'flowLine');
+
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header">
+      <div className="pdf-section-header" style={headingStyle}>
         <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text">{data.heading}</div>
+        <div className="pdf-section-header__text" style={headingStyle}>
+          {data.heading}
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: '14mm', alignItems: 'flex-start' }}>
@@ -43,7 +51,7 @@ export function ConstructionLegendPreview({ data }: Props) {
           )}
         </div>
 
-        <div style={{ flex: 1, fontSize: '11px', lineHeight: 1.6 }}>
+        <div style={{ flex: 1, lineHeight: 1.6 }}>
           {data.items.map((it, i) => (
             <div
               key={i}
@@ -55,14 +63,14 @@ export function ConstructionLegendPreview({ data }: Props) {
             >
               <span
                 style={{
-                  fontWeight: 800,
+                  ...numberStyle,
                   color: '#ff6b1a',
                   minWidth: '20px',
                 }}
               >
                 {it.number} -
               </span>
-              <span style={{ color: '#2d2d2d' }}>{it.label}</span>
+              <span style={{ ...labelStyle, color: '#2d2d2d' }}>{it.label}</span>
             </div>
           ))}
 
@@ -76,6 +84,7 @@ export function ConstructionLegendPreview({ data }: Props) {
                     alignItems: 'center',
                     gap: '8px',
                     marginBottom: '4px',
+                    ...flowStyle,
                   }}
                 >
                   <span

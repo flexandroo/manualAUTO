@@ -1,9 +1,12 @@
 import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
-import type { FigureGridBlockData, FigureGridItem } from '../../types/instruction';
+import type { FigureGridBlockData, FigureGridItem, TextStyle } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { ImageUploader } from '../../components/ui/ImageUploader';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { makeStyleUpdater } from '../../utils/blockStyles';
+import { FIGURE_GRID_DEFAULTS } from './figureGridStyles';
 import { newId } from '../../utils/id';
 
 interface Props {
@@ -12,6 +15,17 @@ interface Props {
 }
 
 export function FigureGridEditor({ data, onChange }: Props) {
+  const styles = data.styles ?? {};
+  const updateStyle = makeStyleUpdater(data, onChange);
+  const styleFor = (key: string) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={FIGURE_GRID_DEFAULTS[key].fontSize}
+      defaultBold={FIGURE_GRID_DEFAULTS[key].bold}
+    />
+  );
+
   const updateFig = (i: number, patch: Partial<FigureGridItem>) => {
     const next = [...data.figures];
     next[i] = { ...next[i], ...patch };
@@ -43,6 +57,7 @@ export function FigureGridEditor({ data, onChange }: Props) {
           value={data.heading}
           onChange={(e) => onChange({ ...data, heading: e.target.value })}
         />
+        {styleFor('heading')}
       </FieldGroup>
 
       <FieldGroup label="Колонок у сітці">
@@ -98,6 +113,10 @@ export function FigureGridEditor({ data, onChange }: Props) {
               />
             </div>
           ))}
+        </div>
+        <div className="mt-3">
+          <div className="text-[11px] text-slate-400 mb-1">Підпис під рисунком:</div>
+          {styleFor('caption')}
         </div>
       </div>
     </div>

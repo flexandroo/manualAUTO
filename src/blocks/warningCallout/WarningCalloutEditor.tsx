@@ -1,7 +1,10 @@
-import type { WarningCalloutData } from '../../types/instruction';
+import type { TextStyle, WarningCalloutData } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { makeStyleUpdater } from '../../utils/blockStyles';
+import { WARNING_DEFAULTS } from './warningCalloutStyles';
 
 interface Props {
   data: WarningCalloutData;
@@ -15,6 +18,17 @@ const LEVELS: { value: WarningCalloutData['level']; label: string; color: string
 ];
 
 export function WarningCalloutEditor({ data, onChange }: Props) {
+  const styles = data.styles ?? {};
+  const updateStyle = makeStyleUpdater(data, onChange);
+  const styleFor = (key: string) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={WARNING_DEFAULTS[key].fontSize}
+      defaultBold={WARNING_DEFAULTS[key].bold}
+    />
+  );
+
   return (
     <div>
       <FieldGroup label="Рівень">
@@ -39,6 +53,7 @@ export function WarningCalloutEditor({ data, onChange }: Props) {
           value={data.title}
           onChange={(e) => onChange({ ...data, title: e.target.value })}
         />
+        {styleFor('title')}
       </FieldGroup>
       <FieldGroup label="Текст">
         <Textarea
@@ -46,6 +61,7 @@ export function WarningCalloutEditor({ data, onChange }: Props) {
           onChange={(e) => onChange({ ...data, body: e.target.value })}
           rows={5}
         />
+        {styleFor('body')}
       </FieldGroup>
     </div>
   );

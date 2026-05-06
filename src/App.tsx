@@ -44,7 +44,7 @@ function migrateBlock(block: Block): Block {
       tagline: c.tagline ?? 'Швидко ● Надійно ● Ефективно',
       websiteUrl: c.websiteUrl ?? 'WWW.TERMOJET.COM.UA',
       documentType: c.documentType ?? 'ТЕХНІЧНИЙ СЕРТИФІКАТ',
-      styles: (c.styles && typeof c.styles === 'object' ? c.styles : {}) as never,
+      styles: (c.styles && typeof c.styles === 'object' ? c.styles : {}) as Record<string, never>,
     } as Block;
   }
   return block;

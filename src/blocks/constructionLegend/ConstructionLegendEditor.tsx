@@ -1,9 +1,12 @@
 import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
-import type { ConstructionLegendData } from '../../types/instruction';
+import type { ConstructionLegendData, TextStyle } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { ImageUploader } from '../../components/ui/ImageUploader';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { makeStyleUpdater } from '../../utils/blockStyles';
+import { CONSTRUCTION_DEFAULTS } from './constructionLegendStyles';
 
 interface Props {
   data: ConstructionLegendData;
@@ -11,6 +14,17 @@ interface Props {
 }
 
 export function ConstructionLegendEditor({ data, onChange }: Props) {
+  const styles = data.styles ?? {};
+  const updateStyle = makeStyleUpdater(data, onChange);
+  const styleFor = (key: string) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={CONSTRUCTION_DEFAULTS[key].fontSize}
+      defaultBold={CONSTRUCTION_DEFAULTS[key].bold}
+    />
+  );
+
   const updateItem = (i: number, field: 'number' | 'label', value: string) => {
     const next = [...data.items];
     if (field === 'number') {
@@ -51,6 +65,7 @@ export function ConstructionLegendEditor({ data, onChange }: Props) {
           value={data.heading}
           onChange={(e) => onChange({ ...data, heading: e.target.value })}
         />
+        {styleFor('heading')}
       </FieldGroup>
 
       <ImageUploader
@@ -96,6 +111,12 @@ export function ConstructionLegendEditor({ data, onChange }: Props) {
             </div>
           ))}
         </div>
+        <div className="mt-3 space-y-1">
+          <div className="text-[11px] text-slate-400">Номер виноски:</div>
+          {styleFor('itemNumber')}
+          <div className="text-[11px] text-slate-400 mt-2">Назва компонента:</div>
+          {styleFor('itemLabel')}
+        </div>
       </div>
 
       <div className="mb-5">
@@ -127,6 +148,7 @@ export function ConstructionLegendEditor({ data, onChange }: Props) {
             </div>
           ))}
         </div>
+        <div className="mt-2">{styleFor('flowLine')}</div>
       </div>
     </div>
   );

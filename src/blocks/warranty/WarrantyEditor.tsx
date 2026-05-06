@@ -1,9 +1,12 @@
 import { Plus, Trash2, RotateCcw } from 'lucide-react';
-import type { WarrantyBlockData } from '../../types/instruction';
+import type { TextStyle, WarrantyBlockData } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { makeStyleUpdater } from '../../utils/blockStyles';
+import { WARRANTY_DEFAULTS } from './warrantyStyles';
 import { WARRANTY_TEMPLATE, WARRANTY_BLOCK_TITLE } from '../../templates/warrantyBlock';
 import { confirmAction } from '../../utils/confirm';
 
@@ -13,6 +16,17 @@ interface Props {
 }
 
 export function WarrantyEditor({ data, onChange }: Props) {
+  const styles = data.styles ?? {};
+  const updateStyle = makeStyleUpdater(data, onChange);
+  const styleFor = (key: string) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={WARRANTY_DEFAULTS[key].fontSize}
+      defaultBold={WARRANTY_DEFAULTS[key].bold}
+    />
+  );
+
   const updateField = (i: number, key: 'label' | 'value', value: string) => {
     const next = [...data.fields];
     next[i] = { ...next[i], [key]: value };
@@ -51,6 +65,7 @@ export function WarrantyEditor({ data, onChange }: Props) {
     <div>
       <FieldGroup label="Заголовок розділу">
         <Input value={data.title} onChange={(e) => onChange({ ...data, title: e.target.value })} />
+        {styleFor('title')}
       </FieldGroup>
 
       <div className="mb-4">
@@ -90,6 +105,12 @@ export function WarrantyEditor({ data, onChange }: Props) {
             </div>
           ))}
         </div>
+        <div className="mt-3 space-y-1">
+          <div className="text-[11px] text-slate-400">Назва поля:</div>
+          {styleFor('fieldLabel')}
+          <div className="text-[11px] text-slate-400 mt-2">Значення поля:</div>
+          {styleFor('fieldValue')}
+        </div>
       </div>
 
       <FieldGroup label="Гарантійний термін">
@@ -97,18 +118,21 @@ export function WarrantyEditor({ data, onChange }: Props) {
           value={data.termText}
           onChange={(e) => onChange({ ...data, termText: e.target.value })}
         />
+        {styleFor('termText')}
       </FieldGroup>
       <FieldGroup label="Умова надання">
         <Input
           value={data.conditionText}
           onChange={(e) => onChange({ ...data, conditionText: e.target.value })}
         />
+        {styleFor('conditionText')}
       </FieldGroup>
       <FieldGroup label="Заголовок переліку документів">
         <Input
           value={data.caseHeading}
           onChange={(e) => onChange({ ...data, caseHeading: e.target.value })}
         />
+        {styleFor('caseHeading')}
       </FieldGroup>
 
       <div className="mb-5">
@@ -130,6 +154,7 @@ export function WarrantyEditor({ data, onChange }: Props) {
             </div>
           ))}
         </div>
+        <div className="mt-2">{styleFor('caseDoc')}</div>
       </div>
 
       <FieldGroup label="Текст про термін розгляду">
@@ -138,6 +163,7 @@ export function WarrantyEditor({ data, onChange }: Props) {
           onChange={(e) => onChange({ ...data, reviewText: e.target.value })}
           rows={3}
         />
+        {styleFor('reviewText')}
       </FieldGroup>
     </div>
   );

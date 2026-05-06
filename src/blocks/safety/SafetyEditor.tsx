@@ -1,10 +1,13 @@
 import { Plus, Trash2, ChevronUp, ChevronDown, RotateCcw } from 'lucide-react';
-import type { SafetyBlockData, SafetySubsection } from '../../types/instruction';
+import type { SafetyBlockData, SafetySubsection, TextStyle } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { makeStyleUpdater } from '../../utils/blockStyles';
 import { SAFETY_TEMPLATE, SAFETY_BLOCK_TITLE } from '../../templates/safetyBlock';
+import { SAFETY_DEFAULTS } from './safetyStyles';
 import { confirmAction } from '../../utils/confirm';
 
 interface Props {
@@ -13,6 +16,17 @@ interface Props {
 }
 
 export function SafetyEditor({ data, onChange }: Props) {
+  const styles = data.styles ?? {};
+  const updateStyle = makeStyleUpdater(data, onChange);
+  const styleFor = (key: string) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={SAFETY_DEFAULTS[key].fontSize}
+      defaultBold={SAFETY_DEFAULTS[key].bold}
+    />
+  );
+
   const updateItem = <K extends keyof SafetySubsection>(
     i: number,
     field: K,
@@ -54,6 +68,7 @@ export function SafetyEditor({ data, onChange }: Props) {
     <div>
       <FieldGroup label="Заголовок розділу">
         <Input value={data.title} onChange={(e) => onChange({ ...data, title: e.target.value })} />
+        {styleFor('title')}
       </FieldGroup>
 
       <div className="mb-4">
@@ -107,6 +122,18 @@ export function SafetyEditor({ data, onChange }: Props) {
             />
           </div>
         ))}
+      </div>
+
+      <div className="mt-5 pt-4 border-t border-slate-800">
+        <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">
+          Стиль підрозділів (на всі)
+        </div>
+        <div className="space-y-1">
+          <div className="text-[11px] text-slate-400">Заголовок підрозділу:</div>
+          {styleFor('subsectionHeading')}
+          <div className="text-[11px] text-slate-400 mt-2">Текст підрозділу:</div>
+          {styleFor('subsectionBody')}
+        </div>
       </div>
     </div>
   );

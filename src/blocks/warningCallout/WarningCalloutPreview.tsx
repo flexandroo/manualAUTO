@@ -1,4 +1,5 @@
 import type { WarningCalloutData } from '../../types/instruction';
+import { warningFontStyle } from './warningCalloutStyles';
 
 interface Props {
   data: WarningCalloutData;
@@ -15,6 +16,8 @@ const STYLE: Record<
 
 export function WarningCalloutPreview({ data }: Props) {
   const s = STYLE[data.level];
+  const titleStyle = warningFontStyle(data, 'title');
+  const bodyStyle = warningFontStyle(data, 'body');
   return (
     <div className="pdf-page">
       <div
@@ -27,8 +30,7 @@ export function WarningCalloutPreview({ data }: Props) {
       >
         <div
           style={{
-            fontSize: '13px',
-            fontWeight: 800,
+            ...titleStyle,
             color: s.titleColor,
             textTransform: 'uppercase',
             letterSpacing: '0.04em',
@@ -39,7 +41,7 @@ export function WarningCalloutPreview({ data }: Props) {
         </div>
         <div
           style={{
-            fontSize: '11px',
+            ...bodyStyle,
             lineHeight: 1.55,
             color: '#2d2d2d',
             whiteSpace: 'pre-wrap',

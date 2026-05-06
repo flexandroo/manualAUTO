@@ -1,9 +1,12 @@
 import { Plus, Trash2 } from 'lucide-react';
-import type { TechSpecsBlockData } from '../../types/instruction';
+import type { TechSpecsBlockData, TextStyle } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { makeStyleUpdater } from '../../utils/blockStyles';
+import { TECH_SPECS_DEFAULTS } from './techSpecsStyles';
 
 interface Props {
   data: TechSpecsBlockData;
@@ -11,6 +14,17 @@ interface Props {
 }
 
 export function TechSpecsEditor({ data, onChange }: Props) {
+  const styles = data.styles ?? {};
+  const updateStyle = makeStyleUpdater(data, onChange);
+  const styleFor = (key: string) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={TECH_SPECS_DEFAULTS[key].fontSize}
+      defaultBold={TECH_SPECS_DEFAULTS[key].bold}
+    />
+  );
+
   const updateProp = (i: number, field: 'key' | 'value', value: string) => {
     const next = [...data.properties];
     next[i] = { ...next[i], [field]: value };
@@ -68,6 +82,7 @@ export function TechSpecsEditor({ data, onChange }: Props) {
           value={data.heading}
           onChange={(e) => onChange({ ...data, heading: e.target.value })}
         />
+        {styleFor('heading')}
       </FieldGroup>
       <FieldGroup label="Стандарти" hint="Через кому">
         <Textarea
@@ -75,6 +90,7 @@ export function TechSpecsEditor({ data, onChange }: Props) {
           onChange={(e) => onChange({ ...data, standards: e.target.value })}
           rows={2}
         />
+        {styleFor('standards')}
       </FieldGroup>
 
       <div className="mb-5">
@@ -105,6 +121,7 @@ export function TechSpecsEditor({ data, onChange }: Props) {
             </div>
           ))}
         </div>
+        <div className="ml-1 mt-2">{styleFor('property')}</div>
       </div>
 
       <div className="mb-5">
@@ -172,6 +189,12 @@ export function TechSpecsEditor({ data, onChange }: Props) {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="mt-3 space-y-1">
+          <div className="text-[11px] text-slate-400">Заголовки таблиці:</div>
+          {styleFor('tableHeader')}
+          <div className="text-[11px] text-slate-400 mt-2">Клітинки таблиці:</div>
+          {styleFor('tableCell')}
         </div>
       </div>
     </div>

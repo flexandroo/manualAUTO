@@ -1,22 +1,30 @@
 import type { TechSpecsBlockData } from '../../types/instruction';
+import { techSpecsFontStyle } from './techSpecsStyles';
 
 interface Props {
   data: TechSpecsBlockData;
 }
 
 export function TechSpecsPreview({ data }: Props) {
+  const headingStyle = techSpecsFontStyle(data, 'heading');
+  const standardsStyle = techSpecsFontStyle(data, 'standards');
+  const propStyle = techSpecsFontStyle(data, 'property');
+  const thStyle = techSpecsFontStyle(data, 'tableHeader');
+  const tdStyle = techSpecsFontStyle(data, 'tableCell');
+
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header">
+      <div className="pdf-section-header" style={headingStyle}>
         <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text">{data.heading}</div>
+        <div className="pdf-section-header__text" style={headingStyle}>
+          {data.heading}
+        </div>
       </div>
 
       {data.standards && (
         <div
           style={{
-            marginTop: '6px',
-            fontSize: '11px',
+            ...standardsStyle,
             color: '#2d2d2d',
             lineHeight: 1.5,
             marginBottom: '12px',
@@ -30,7 +38,7 @@ export function TechSpecsPreview({ data }: Props) {
       {data.properties.length > 0 && (
         <ul
           style={{
-            fontSize: '11px',
+            ...propStyle,
             lineHeight: 1.7,
             paddingLeft: '18px',
             listStyleType: 'square',
@@ -50,7 +58,9 @@ export function TechSpecsPreview({ data }: Props) {
           <thead>
             <tr>
               {data.table.headers.map((h, i) => (
-                <th key={i}>{h}</th>
+                <th key={i} style={thStyle}>
+                  {h}
+                </th>
               ))}
             </tr>
           </thead>
@@ -60,7 +70,7 @@ export function TechSpecsPreview({ data }: Props) {
                 {row.map((cell, j) => (
                   <td
                     key={j}
-                    style={{ whiteSpace: 'pre-line' }}
+                    style={{ whiteSpace: 'pre-line', ...tdStyle }}
                     className={j > 0 ? 'pdf-mono' : ''}
                   >
                     {j === 0 ? <strong>{cell}</strong> : cell}

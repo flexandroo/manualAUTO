@@ -1,15 +1,21 @@
 import type { FigureGridBlockData } from '../../types/instruction';
+import { figureGridFontStyle } from './figureGridStyles';
 
 interface Props {
   data: FigureGridBlockData;
 }
 
 export function FigureGridPreview({ data }: Props) {
+  const headingStyle = figureGridFontStyle(data, 'heading');
+  const captionStyle = figureGridFontStyle(data, 'caption');
+
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header">
+      <div className="pdf-section-header" style={headingStyle}>
         <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text">{data.heading}</div>
+        <div className="pdf-section-header__text" style={headingStyle}>
+          {data.heading}
+        </div>
       </div>
 
       <div
@@ -51,9 +57,8 @@ export function FigureGridPreview({ data }: Props) {
             )}
             <div
               style={{
+                ...captionStyle,
                 marginTop: '4px',
-                fontSize: '10.5px',
-                fontWeight: 600,
                 color: '#2d2d2d',
                 textAlign: 'center',
               }}

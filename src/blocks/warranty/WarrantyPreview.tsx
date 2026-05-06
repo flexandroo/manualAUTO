@@ -1,22 +1,33 @@
 import type { WarrantyBlockData } from '../../types/instruction';
+import { warrantyFontStyle } from './warrantyStyles';
 
 interface Props {
   data: WarrantyBlockData;
 }
 
 export function WarrantyPreview({ data }: Props) {
+  const titleStyle = warrantyFontStyle(data, 'title');
+  const labelStyle = warrantyFontStyle(data, 'fieldLabel');
+  const valueStyle = warrantyFontStyle(data, 'fieldValue');
+  const termStyle = warrantyFontStyle(data, 'termText');
+  const condStyle = warrantyFontStyle(data, 'conditionText');
+  const caseHeadingStyle = warrantyFontStyle(data, 'caseHeading');
+  const caseDocStyle = warrantyFontStyle(data, 'caseDoc');
+  const reviewStyle = warrantyFontStyle(data, 'reviewText');
+
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header">
+      <div className="pdf-section-header" style={titleStyle}>
         <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text">{data.title}</div>
+        <div className="pdf-section-header__text" style={titleStyle}>
+          {data.title}
+        </div>
       </div>
 
       <table
         style={{
           width: '100%',
           borderCollapse: 'collapse',
-          fontSize: '11px',
           marginBottom: '18px',
         }}
       >
@@ -27,9 +38,9 @@ export function WarrantyPreview({ data }: Props) {
                 style={{
                   border: '1px solid #d4d4d4',
                   padding: '14px 12px',
-                  fontWeight: 700,
                   background: '#f5f5f5',
                   width: '38%',
+                  ...labelStyle,
                 }}
               >
                 {f.label}
@@ -39,6 +50,7 @@ export function WarrantyPreview({ data }: Props) {
                   border: '1px solid #d4d4d4',
                   padding: '14px 12px',
                   minHeight: '32px',
+                  ...valueStyle,
                 }}
               >
                 {f.value}
@@ -50,22 +62,28 @@ export function WarrantyPreview({ data }: Props) {
 
       <div
         style={{
-          fontSize: '12px',
-          fontWeight: 700,
+          ...termStyle,
           color: '#ff6b1a',
           marginBottom: '6px',
         }}
       >
         {data.termText}
       </div>
-      <div style={{ fontSize: '11px', marginBottom: '14px', color: '#2d2d2d' }}>
+      <div style={{ ...condStyle, marginBottom: '14px', color: '#2d2d2d' }}>
         {data.conditionText}
       </div>
 
-      <div style={{ fontSize: '11px', fontWeight: 700, marginBottom: '6px', color: '#2d2d2d' }}>
+      <div style={{ ...caseHeadingStyle, marginBottom: '6px', color: '#2d2d2d' }}>
         {data.caseHeading}
       </div>
-      <ul style={{ fontSize: '11px', lineHeight: 1.6, marginBottom: '14px', paddingLeft: '18px' }}>
+      <ul
+        style={{
+          ...caseDocStyle,
+          lineHeight: 1.6,
+          marginBottom: '14px',
+          paddingLeft: '18px',
+        }}
+      >
         {data.caseDocs.map((d, i) => (
           <li key={i}>{d}</li>
         ))}
@@ -73,7 +91,7 @@ export function WarrantyPreview({ data }: Props) {
 
       <div
         style={{
-          fontSize: '10.5px',
+          ...reviewStyle,
           color: '#3a3a3a',
           lineHeight: 1.55,
           fontStyle: 'italic',

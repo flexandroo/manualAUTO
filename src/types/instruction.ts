@@ -16,20 +16,12 @@ export type BlockType =
 export interface BlockBase {
   id: string;
   type: BlockType;
+  styles?: Record<string, TextStyle>;
 }
 
 export interface TextStyle {
-  fontSize?: number; // pixels; undefined means use default
-  bold?: boolean; // undefined means use default
-}
-
-export interface CoverTextStyles {
-  brandTagline?: TextStyle;
-  productName?: TextStyle;
-  modelCodes?: TextStyle;
-  documentType?: TextStyle;
-  subtitle?: TextStyle;
-  bulletPoints?: TextStyle;
+  fontSize?: number;
+  bold?: boolean;
 }
 
 export interface CoverBlock extends BlockBase {
@@ -45,7 +37,6 @@ export interface CoverBlock extends BlockBase {
   tagline: string;
   websiteUrl: string;
   productImages: string[];
-  styles: CoverTextStyles;
   /** @deprecated use productImages */
   imageUrl?: string;
 }

@@ -1,24 +1,31 @@
 import type { SafetyBlockData } from '../../types/instruction';
+import { safetyFontStyle } from './safetyStyles';
 
 interface Props {
   data: SafetyBlockData;
 }
 
 export function SafetyPreview({ data }: Props) {
+  const titleStyle = safetyFontStyle(data, 'title');
+  const headingStyle = safetyFontStyle(data, 'subsectionHeading');
+  const bodyStyle = safetyFontStyle(data, 'subsectionBody');
+
   return (
     <div className="pdf-page">
-      <div className="pdf-section-header">
+      <div className="pdf-section-header" style={titleStyle}>
         <div className="pdf-section-header__bar" />
-        <div className="pdf-section-header__text">{data.title}</div>
+        <div className="pdf-section-header__text" style={titleStyle}>
+          {data.title}
+        </div>
       </div>
 
       <div
         style={{
           columnCount: 2,
           columnGap: '8mm',
-          fontSize: '9.5px',
-          lineHeight: 1.45,
           color: '#2d2d2d',
+          ...bodyStyle,
+          lineHeight: 1.45,
         }}
       >
         {data.subsections.map((s, i) => (
@@ -31,15 +38,14 @@ export function SafetyPreview({ data }: Props) {
           >
             <h3
               style={{
-                fontSize: '10px',
-                fontWeight: 700,
+                ...headingStyle,
                 color: '#ff6b1a',
                 marginBottom: '2px',
               }}
             >
               {s.number} {s.heading}
             </h3>
-            <p style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{s.body}</p>
+            <p style={{ whiteSpace: 'pre-wrap', margin: 0, ...bodyStyle }}>{s.body}</p>
           </div>
         ))}
       </div>

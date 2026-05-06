@@ -2,11 +2,15 @@ import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
 import type {
   InstallationStep,
   InstallationStepsBlockData,
+  TextStyle,
 } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { makeStyleUpdater } from '../../utils/blockStyles';
+import { INSTALLATION_DEFAULTS } from './installationStepsStyles';
 
 interface Props {
   data: InstallationStepsBlockData;
@@ -14,6 +18,17 @@ interface Props {
 }
 
 export function InstallationStepsEditor({ data, onChange }: Props) {
+  const styles = data.styles ?? {};
+  const updateStyle = makeStyleUpdater(data, onChange);
+  const styleFor = (key: string) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s: TextStyle) => updateStyle(key, s)}
+      defaultSize={INSTALLATION_DEFAULTS[key].fontSize}
+      defaultBold={INSTALLATION_DEFAULTS[key].bold}
+    />
+  );
+
   const updateStep = <K extends keyof InstallationStep>(
     i: number,
     field: K,
@@ -46,6 +61,7 @@ export function InstallationStepsEditor({ data, onChange }: Props) {
           value={data.heading}
           onChange={(e) => onChange({ ...data, heading: e.target.value })}
         />
+        {styleFor('heading')}
       </FieldGroup>
       <FieldGroup label="Вступний абзац" hint="Опціонально">
         <Textarea
@@ -53,6 +69,7 @@ export function InstallationStepsEditor({ data, onChange }: Props) {
           onChange={(e) => onChange({ ...data, intro: e.target.value })}
           rows={3}
         />
+        {styleFor('intro')}
       </FieldGroup>
 
       <div className="mb-2 flex items-center justify-between">
@@ -92,6 +109,18 @@ export function InstallationStepsEditor({ data, onChange }: Props) {
             />
           </div>
         ))}
+      </div>
+
+      <div className="mt-5 pt-4 border-t border-slate-800">
+        <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">
+          Стиль кроків (на всі)
+        </div>
+        <div className="space-y-1">
+          <div className="text-[11px] text-slate-400">Номер кроку:</div>
+          {styleFor('stepNumber')}
+          <div className="text-[11px] text-slate-400 mt-2">Текст кроку:</div>
+          {styleFor('stepBody')}
+        </div>
       </div>
     </div>
   );
