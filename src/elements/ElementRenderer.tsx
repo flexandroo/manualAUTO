@@ -11,6 +11,7 @@ import type {
   SeparatorElement,
   SubsectionElement,
   TableElement,
+  TwoColumnElement,
   WarningElement,
 } from '../types/instruction';
 
@@ -44,9 +45,28 @@ export function ElementRenderer({ element }: Props) {
       return <ImageGridRender data={element} />;
     case 'warning':
       return <WarningRender data={element} />;
+    case 'twoColumn':
+      return <TwoColumnRender data={element} />;
     case 'separator':
       return <SeparatorRender data={element} />;
   }
+}
+
+function TwoColumnRender({ data }: { data: TwoColumnElement }) {
+  return (
+    <div className="pdf-two-col" style={{ marginBottom: '4mm' }}>
+      <div>
+        {data.left.map((el) => (
+          <ElementRenderer key={el.id} element={el} />
+        ))}
+      </div>
+      <div>
+        {data.right.map((el) => (
+          <ElementRenderer key={el.id} element={el} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 // ─── individual renderers ────────────────────────────────────────────────

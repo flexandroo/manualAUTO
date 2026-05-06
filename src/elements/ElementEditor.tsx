@@ -12,6 +12,7 @@ import type {
   SchemeElement,
   SubsectionElement,
   TableElement,
+  TwoColumnElement,
   WarningElement,
 } from '../types/instruction';
 import { FieldGroup } from '../components/ui/FieldGroup';
@@ -20,6 +21,7 @@ import { Textarea } from '../components/ui/Textarea';
 import { ImageUploader } from '../components/ui/ImageUploader';
 import { IconBtn } from '../components/ui/IconBtn';
 import { newId } from '../utils/id';
+import { ElementListEditor } from '../components/ElementListEditor';
 
 interface Props {
   element: PageElement;
@@ -50,6 +52,8 @@ export function ElementEditor({ element, onChange }: Props) {
       return <ImageGridEd data={element} onChange={onChange} />;
     case 'warning':
       return <WarningEd data={element} onChange={onChange} />;
+    case 'twoColumn':
+      return <TwoColumnEd data={element} onChange={onChange} />;
     case 'separator':
       return (
         <div className="text-[11px] text-slate-500 italic">
@@ -57,6 +61,36 @@ export function ElementEditor({ element, onChange }: Props) {
         </div>
       );
   }
+}
+
+function TwoColumnEd({ data, onChange }: EdProps<TwoColumnElement>) {
+  return (
+    <div>
+      <div className="text-[11px] text-slate-500 italic mb-3">
+        Контейнер ділить ширину на дві колонки. У кожну колонку додавайте свої елементи.
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="bg-slate-950 border border-slate-800 rounded p-2">
+          <div className="text-[10px] uppercase tracking-wider text-orange-400 font-bold mb-2 px-1">
+            Ліва колонка
+          </div>
+          <ElementListEditor
+            elements={data.left}
+            onChange={(left) => onChange({ ...data, left })}
+          />
+        </div>
+        <div className="bg-slate-950 border border-slate-800 rounded p-2">
+          <div className="text-[10px] uppercase tracking-wider text-orange-400 font-bold mb-2 px-1">
+            Права колонка
+          </div>
+          <ElementListEditor
+            elements={data.right}
+            onChange={(right) => onChange({ ...data, right })}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 type EdProps<T> = { data: T; onChange: (next: T) => void };

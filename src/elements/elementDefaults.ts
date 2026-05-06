@@ -71,6 +71,8 @@ export function createElement(type: PageElementType): PageElement {
       };
     case 'warning':
       return { id: newId('w'), type, level: 'warning', title: 'Увага!', body: '' };
+    case 'twoColumn':
+      return { id: newId('tc'), type, left: [], right: [] };
     case 'separator':
       return { id: newId('sep'), type };
   }

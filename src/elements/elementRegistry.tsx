@@ -11,6 +11,7 @@ import {
   AlertTriangle,
   Minus,
   Hash,
+  Columns2,
   type LucideIcon,
 } from 'lucide-react';
 import type { PageElementType } from '../types/instruction';
@@ -89,6 +90,12 @@ export const ELEMENT_SPECS: Record<PageElementType, Spec> = {
     hint: 'Увага / небезпека / інфо',
     icon: AlertTriangle,
   },
+  twoColumn: {
+    type: 'twoColumn',
+    label: 'Дві колонки',
+    hint: 'Контейнер з елементами в 2 колонки',
+    icon: Columns2,
+  },
   separator: {
     type: 'separator',
     label: 'Розділювач',
@@ -103,6 +110,7 @@ export const ELEMENT_ORDER: PageElementType[] = [
   'paragraph',
   'bulletList',
   'numberedList',
+  'twoColumn',
   'table',
   'kvList',
   'scheme',

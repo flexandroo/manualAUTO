@@ -176,6 +176,8 @@ function summary(el: PageElement): string {
       return `· ${el.items.length} карток`;
     case 'warning':
       return el.level === 'danger' ? '· заборонено' : el.level === 'info' ? '· інфо' : '· увага';
+    case 'twoColumn':
+      return `· ${el.left.length}/${el.right.length} елементів`;
     case 'separator':
       return '';
   }

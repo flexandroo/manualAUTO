@@ -19,6 +19,7 @@ export type PageElementType =
   | 'image'
   | 'imageGrid'
   | 'warning'
+  | 'twoColumn'
   | 'separator';
 
 export interface PageElementBase {
@@ -124,6 +125,12 @@ export interface SeparatorElement extends PageElementBase {
   type: 'separator';
 }
 
+export interface TwoColumnElement extends PageElementBase {
+  type: 'twoColumn';
+  left: PageElement[];
+  right: PageElement[];
+}
+
 export type PageElement =
   | HeadingElement
   | SubsectionElement
@@ -136,6 +143,7 @@ export type PageElement =
   | ImageElement
   | ImageGridElement
   | WarningElement
+  | TwoColumnElement
   | SeparatorElement;
 
 // ─── Pages (top-level units) ────────────────────────────────────────────────
