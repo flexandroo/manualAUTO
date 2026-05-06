@@ -202,6 +202,7 @@ function parseCover(page: PageData | undefined): CoverBlock {
     id: newId('cover'),
     type: 'cover',
     brand: 'TERMOJET',
+    brandTagline: 'обладнання для котелень',
     productName: title || 'Назва продукту',
     subtitle,
     modelCodes,
@@ -210,6 +211,7 @@ function parseCover(page: PageData | undefined): CoverBlock {
     tagline,
     websiteUrl,
     productImages: [],
+    styles: {},
   };
 }
 

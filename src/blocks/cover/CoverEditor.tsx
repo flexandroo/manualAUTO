@@ -1,10 +1,12 @@
 import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
-import type { CoverBlock } from '../../types/instruction';
+import type { CoverBlock, CoverTextStyles, TextStyle } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { ImageUploader } from '../../components/ui/ImageUploader';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { TextStyleControls } from '../../components/ui/TextStyleControls';
+import { COVER_DEFAULT_STYLES } from './coverStyles';
 
 interface Props {
   data: CoverBlock;
@@ -15,6 +17,7 @@ export function CoverEditor({ data, onChange }: Props) {
   const productImages = data.productImages ?? [];
   const modelCodes = data.modelCodes ?? [];
   const bulletPoints = data.bulletPoints ?? [];
+  const styles = data.styles ?? {};
 
   const updateProductImage = (i: number, url: string | undefined) => {
     const next = [...productImages];
@@ -43,6 +46,24 @@ export function CoverEditor({ data, onChange }: Props) {
     onChange({ ...data, bulletPoints: next });
   };
 
+  const updateStyle = (key: keyof CoverTextStyles, next: TextStyle) => {
+    const newStyles = { ...styles, [key]: next };
+    // Clean up: drop key if both fields are undefined
+    if (next.fontSize === undefined && next.bold === undefined) {
+      delete newStyles[key];
+    }
+    onChange({ ...data, styles: newStyles });
+  };
+
+  const styleControlsFor = (key: keyof CoverTextStyles) => (
+    <TextStyleControls
+      value={styles[key]}
+      onChange={(s) => updateStyle(key, s)}
+      defaultSize={COVER_DEFAULT_STYLES[key].fontSize}
+      defaultBold={COVER_DEFAULT_STYLES[key].bold}
+    />
+  );
+
   return (
     <div>
       <FieldGroup label="Бренд">
@@ -57,11 +78,20 @@ export function CoverEditor({ data, onChange }: Props) {
         aspectRatio="3/1"
       />
 
+      <FieldGroup label="Підпис під логотипом" hint='Наприклад "обладнання для котелень"'>
+        <Input
+          value={data.brandTagline}
+          onChange={(e) => onChange({ ...data, brandTagline: e.target.value })}
+        />
+        {styleControlsFor('brandTagline')}
+      </FieldGroup>
+
       <FieldGroup label="Назва продукту">
         <Input
           value={data.productName}
           onChange={(e) => onChange({ ...data, productName: e.target.value })}
         />
+        {styleControlsFor('productName')}
       </FieldGroup>
 
       <FieldGroup label="Перелік моделей" hint="Кожна модель з нового рядка або через крапку з комою">
@@ -78,6 +108,7 @@ export function CoverEditor({ data, onChange }: Props) {
           }
           rows={4}
         />
+        {styleControlsFor('modelCodes')}
       </FieldGroup>
 
       <FieldGroup label="Тип документа" hint='Наприклад "ТЕХНІЧНИЙ СЕРТИФІКАТ"'>
@@ -85,13 +116,15 @@ export function CoverEditor({ data, onChange }: Props) {
           value={data.documentType}
           onChange={(e) => onChange({ ...data, documentType: e.target.value })}
         />
+        {styleControlsFor('documentType')}
       </FieldGroup>
 
-      <FieldGroup label="Підзаголовок" hint='Відображається малим текстом над списком'>
+      <FieldGroup label="Підзаголовок" hint="Відображається малим текстом над списком">
         <Input
           value={data.subtitle}
           onChange={(e) => onChange({ ...data, subtitle: e.target.value })}
         />
+        {styleControlsFor('subtitle')}
       </FieldGroup>
 
       <div className="mb-5">
@@ -129,6 +162,7 @@ export function CoverEditor({ data, onChange }: Props) {
             </div>
           )}
         </div>
+        <div className="ml-6 mt-2">{styleControlsFor('bulletPoints')}</div>
       </div>
 
       <div className="mb-5">

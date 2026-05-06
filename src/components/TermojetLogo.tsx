@@ -12,7 +12,7 @@ export function TermojetLogo({ height = 70, color = '#ff6b1a' }: Props) {
   return (
     <svg
       viewBox="0 0 600 200"
-      style={{ height, width: 'auto', display: 'block' }}
+      style={{ height, width: 'auto', display: 'block', margin: '0 auto' }}
       xmlns="http://www.w3.org/2000/svg"
       aria-label="TERMOJET"
     >

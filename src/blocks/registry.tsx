@@ -68,6 +68,7 @@ const coverSpec: BlockSpec<CoverBlock> = {
     id: newId('cover'),
     type: 'cover',
     brand: 'TERMOJET',
+    brandTagline: 'обладнання для котелень',
     productName: 'Назва продукту',
     subtitle: 'Інструкція з монтажу та експлуатації',
     modelCodes: [],
@@ -80,6 +81,7 @@ const coverSpec: BlockSpec<CoverBlock> = {
     tagline: 'Швидко ● Надійно ● Ефективно',
     websiteUrl: 'WWW.TERMOJET.COM.UA',
     productImages: [],
+    styles: {},
   }),
 };
 

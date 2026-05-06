@@ -18,10 +18,25 @@ export interface BlockBase {
   type: BlockType;
 }
 
+export interface TextStyle {
+  fontSize?: number; // pixels; undefined means use default
+  bold?: boolean; // undefined means use default
+}
+
+export interface CoverTextStyles {
+  brandTagline?: TextStyle;
+  productName?: TextStyle;
+  modelCodes?: TextStyle;
+  documentType?: TextStyle;
+  subtitle?: TextStyle;
+  bulletPoints?: TextStyle;
+}
+
 export interface CoverBlock extends BlockBase {
   type: 'cover';
   brand: string;
   brandLogoUrl?: string;
+  brandTagline: string;
   productName: string;
   modelCodes: string[];
   documentType: string;
@@ -30,6 +45,7 @@ export interface CoverBlock extends BlockBase {
   tagline: string;
   websiteUrl: string;
   productImages: string[];
+  styles: CoverTextStyles;
   /** @deprecated use productImages */
   imageUrl?: string;
 }

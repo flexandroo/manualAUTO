@@ -17,6 +17,7 @@ function migrateBlock(block: Block): Block {
   if (block.type === 'cover') {
     const c = block as Block & {
       brand?: string;
+      brandTagline?: string;
       modelCodes?: string[];
       productImages?: string[];
       imageUrl?: string;
@@ -25,11 +26,13 @@ function migrateBlock(block: Block): Block {
       tagline?: string;
       websiteUrl?: string;
       documentType?: string;
+      styles?: Record<string, unknown>;
     };
     return {
       ...block,
       type: 'cover',
       brand: c.brand ?? 'TERMOJET',
+      brandTagline: c.brandTagline ?? 'обладнання для котелень',
       modelCodes: Array.isArray(c.modelCodes) ? c.modelCodes : [],
       productImages: Array.isArray(c.productImages)
         ? c.productImages
@@ -41,6 +44,7 @@ function migrateBlock(block: Block): Block {
       tagline: c.tagline ?? 'Швидко ● Надійно ● Ефективно',
       websiteUrl: c.websiteUrl ?? 'WWW.TERMOJET.COM.UA',
       documentType: c.documentType ?? 'ТЕХНІЧНИЙ СЕРТИФІКАТ',
+      styles: (c.styles && typeof c.styles === 'object' ? c.styles : {}) as never,
     } as Block;
   }
   return block;

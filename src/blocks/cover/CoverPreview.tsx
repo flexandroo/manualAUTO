@@ -1,5 +1,6 @@
 import type { CoverBlock } from '../../types/instruction';
 import { TermojetLogo } from '../../components/TermojetLogo';
+import { coverFontStyle } from './coverStyles';
 
 interface Props {
   data: CoverBlock;
@@ -28,7 +29,7 @@ export function CoverPreview({ data }: Props) {
       <div
         style={{
           background: '#0f172a',
-          padding: '32px 14mm 36px',
+          padding: '32px 14mm 30px',
           textAlign: 'center',
         }}
       >
@@ -36,7 +37,13 @@ export function CoverPreview({ data }: Props) {
           <img
             src={data.brandLogoUrl}
             alt={data.brand}
-            style={{ maxHeight: '90px', maxWidth: '70%', objectFit: 'contain' }}
+            style={{
+              maxHeight: '90px',
+              maxWidth: '70%',
+              objectFit: 'contain',
+              display: 'block',
+              margin: '0 auto',
+            }}
           />
         ) : data.brand === 'TERMOJET' ? (
           <TermojetLogo height={96} />
@@ -67,6 +74,21 @@ export function CoverPreview({ data }: Props) {
             </div>
           </>
         )}
+
+        {data.brandTagline && (
+          <div
+            style={{
+              ...coverFontStyle(data, 'brandTagline'),
+              color: '#ff6b1a',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              marginTop: '12px',
+              lineHeight: 1.2,
+            }}
+          >
+            {data.brandTagline}
+          </div>
+        )}
       </div>
 
       {/* Orange divider bar */}
@@ -76,9 +98,8 @@ export function CoverPreview({ data }: Props) {
       <div style={{ padding: '32px 14mm 0', textAlign: 'center' }}>
         <h1
           style={{
+            ...coverFontStyle(data, 'productName'),
             color: '#ff6b1a',
-            fontSize: '48px',
-            fontWeight: 900,
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
             margin: 0,
@@ -90,10 +111,9 @@ export function CoverPreview({ data }: Props) {
         {modelCodes.length > 0 && (
           <div
             style={{
+              ...coverFontStyle(data, 'modelCodes'),
               marginTop: '16px',
-              fontSize: '13px',
               color: '#2d2d2d',
-              fontWeight: 700,
               lineHeight: 1.5,
               maxWidth: '170mm',
               marginLeft: 'auto',
@@ -107,10 +127,9 @@ export function CoverPreview({ data }: Props) {
         {data.documentType && (
           <div
             style={{
+              ...coverFontStyle(data, 'documentType'),
               marginTop: '4px',
-              fontSize: '14px',
               color: '#2d2d2d',
-              fontWeight: 800,
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
             }}
@@ -126,8 +145,7 @@ export function CoverPreview({ data }: Props) {
           {data.subtitle && (
             <div
               style={{
-                fontSize: '14px',
-                fontWeight: 700,
+                ...coverFontStyle(data, 'subtitle'),
                 color: '#2d2d2d',
                 letterSpacing: '0.03em',
                 marginBottom: '14px',
@@ -144,32 +162,35 @@ export function CoverPreview({ data }: Props) {
                 textAlign: 'left',
               }}
             >
-              {bulletPoints.map((b, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    gap: '12px',
-                    marginBottom: '6px',
-                    fontSize: '14px',
-                    color: '#2d2d2d',
-                    lineHeight: 1.45,
-                  }}
-                >
-                  <span
+              {bulletPoints.map((b, i) => {
+                const fs = coverFontStyle(data, 'bulletPoints');
+                return (
+                  <div
+                    key={i}
                     style={{
-                      color: '#ff6b1a',
-                      fontSize: '12px',
-                      fontWeight: 800,
-                      flexShrink: 0,
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: '12px',
+                      marginBottom: '6px',
+                      color: '#2d2d2d',
+                      lineHeight: 1.45,
+                      fontSize: fs.fontSize,
                     }}
                   >
-                    ◆
-                  </span>
-                  <span style={{ fontWeight: 600 }}>{b}</span>
-                </div>
-              ))}
+                    <span
+                      style={{
+                        color: '#ff6b1a',
+                        fontSize: '12px',
+                        fontWeight: 800,
+                        flexShrink: 0,
+                      }}
+                    >
+                      ◆
+                    </span>
+                    <span style={{ fontWeight: fs.fontWeight }}>{b}</span>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
