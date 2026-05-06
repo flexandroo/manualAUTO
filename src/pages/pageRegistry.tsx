@@ -37,6 +37,7 @@ const coverSpec: PageSpec<CoverPage> = {
       'Сертифікована якість',
     ],
     productImages: [],
+    elements: [],
   }),
 };
 

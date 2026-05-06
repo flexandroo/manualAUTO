@@ -1,6 +1,7 @@
 import type { CoverPage, InstructionData } from '../../types/instruction';
 import { TermojetLogo } from '../../components/TermojetLogo';
 import { usePdfDoc } from '../../components/PdfDocContext';
+import { ElementRenderer } from '../../elements/ElementRenderer';
 
 interface Props {
   data: CoverPage;
@@ -30,6 +31,8 @@ export function CoverPagePreview({ data }: Props) {
   const documentType = (ctx as { documentType?: string }).documentType ?? '';
   const brandTagline = (ctx as { brandTagline?: string }).brandTagline ?? '';
   const modelCodes = (ctx as { modelCodes?: string[] }).modelCodes ?? [];
+  const coverCopyright = (ctx as { coverCopyright?: string }).coverCopyright ?? '';
+  const coverLanguage = (ctx as { coverLanguage?: string }).coverLanguage ?? '';
 
   const images = data.productImages?.length ? data.productImages : [];
   const features = (data.bulletPoints ?? []).filter((b) => b.trim().length > 0);
@@ -229,6 +232,20 @@ export function CoverPagePreview({ data }: Props) {
         </div>
       )}
 
+      {/* CUSTOM elements zone */}
+      {(data.elements ?? []).length > 0 && (
+        <div
+          style={{
+            padding: '4mm 14mm 0',
+            color: 'rgba(255,255,255,0.85)',
+          }}
+        >
+          {(data.elements ?? []).map((el) => (
+            <ElementRenderer key={el.id} element={el} />
+          ))}
+        </div>
+      )}
+
       {/* DRAWINGS strip */}
       <div
         style={{
@@ -307,10 +324,10 @@ export function CoverPagePreview({ data }: Props) {
             color: 'white',
           }}
         >
-          {brand} © {new Date().getFullYear()} — {websiteUrl}
+          {coverCopyright || `${brand} © ${new Date().getFullYear()} — ${websiteUrl}`}
         </div>
         <div style={{ fontSize: '7pt', opacity: 0.5, fontWeight: 500, color: 'white' }}>
-          UA | Українська мова
+          {coverLanguage || 'UA | Українська мова'}
         </div>
       </div>
     </div>

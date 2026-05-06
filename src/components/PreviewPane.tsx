@@ -15,6 +15,11 @@ export function PreviewPane({ doc, zoom, onZoomChange }: Props) {
     brand: doc.brand,
     brandLogoUrl: doc.brandLogoUrl,
     websiteUrl: doc.websiteUrl,
+    documentType: doc.documentType,
+    brandTagline: doc.brandTagline,
+    modelCodes: doc.modelCodes,
+    coverCopyright: doc.coverCopyright,
+    coverLanguage: doc.coverLanguage,
     productSubtitle:
       doc.modelCodes.length > 0
         ? doc.modelCodes.slice(0, 2).join('…') +
@@ -51,16 +56,9 @@ export function PreviewPane({ doc, zoom, onZoomChange }: Props) {
           const spec = getPageSpec(p.type);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const Preview = spec.Preview as any;
-          const ctx: PdfDocCtx & {
-            documentType?: string;
-            brandTagline?: string;
-            modelCodes?: string[];
-          } = {
+          const ctx: PdfDocCtx = {
             ...baseCtx,
             pageNumber: i + 1,
-            documentType: doc.documentType,
-            brandTagline: doc.brandTagline,
-            modelCodes: doc.modelCodes,
           };
           return (
             <div key={p.id} style={{ zoom }}>

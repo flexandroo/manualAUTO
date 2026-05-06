@@ -154,6 +154,8 @@ export default function App() {
     documentType: data.documentType,
     brandTagline: data.brandTagline,
     modelCodes: data.modelCodes,
+    coverCopyright: data.coverCopyright,
+    coverLanguage: data.coverLanguage,
     productSubtitle:
       data.modelCodes.length > 0
         ? data.modelCodes.slice(0, 2).join('…') +
@@ -164,7 +166,7 @@ export default function App() {
 
   return (
     <EditingDocProvider value={{ doc: data, setDoc: setData }}>
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+      <div className="h-screen bg-slate-950 text-slate-100 flex flex-col overflow-hidden">
         <header className="no-print bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-orange-600 rounded flex items-center justify-center font-black text-sm">

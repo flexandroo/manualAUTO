@@ -53,6 +53,8 @@ export function makeInitialData(): InstructionData {
     modelCodes: [],
     documentType: 'ТЕХНІЧНИЙ ПАСПОРТ',
     websiteUrl: 'TERMOJET.COM.UA',
+    coverCopyright: '',
+    coverLanguage: 'UA | Українська мова',
     pages: [cover, safety, safety2, warranty],
   };
 }

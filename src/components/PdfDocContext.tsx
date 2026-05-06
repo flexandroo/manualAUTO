@@ -11,6 +11,8 @@ export interface PdfDocCtx {
   documentType?: string;
   modelCodes?: string[];
   websiteUrl?: string;
+  coverCopyright?: string;
+  coverLanguage?: string;
 }
 
 const Ctx = createContext<PdfDocCtx>({});

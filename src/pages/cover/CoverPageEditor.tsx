@@ -5,6 +5,7 @@ import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
 import { ImageUploader } from '../../components/ui/ImageUploader';
 import { IconBtn } from '../../components/ui/IconBtn';
+import { ElementListEditor } from '../../components/ElementListEditor';
 import { useEditingDoc } from '../../components/EditingDocContext';
 
 interface Props {
@@ -109,6 +110,24 @@ export function CoverPageEditor({ data, onChange }: Props) {
         />
       </FieldGroup>
 
+      <FieldGroup
+        label="Копірайт (нижня плашка титулки)"
+        hint='Залиште порожнім — використається "<бренд> © <рік> — <сайт>"'
+      >
+        <Input
+          value={doc.coverCopyright ?? ''}
+          onChange={(e) => setDoc({ ...doc, coverCopyright: e.target.value })}
+          placeholder={`${doc.brand ?? 'TERMOJET'} © ${new Date().getFullYear()} — ${doc.websiteUrl ?? 'TERMOJET.COM.UA'}`}
+        />
+      </FieldGroup>
+
+      <FieldGroup label="Мова" hint="Текст справа на нижній плашці титулки">
+        <Input
+          value={doc.coverLanguage ?? ''}
+          onChange={(e) => setDoc({ ...doc, coverLanguage: e.target.value })}
+        />
+      </FieldGroup>
+
       {/* ─── Cover-page-specific fields ─── */}
       <div
         className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-6 mb-3 pb-2 border-b border-slate-800"
@@ -168,6 +187,17 @@ export function CoverPageEditor({ data, onChange }: Props) {
           ))}
         </div>
       </div>
+
+      <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-6 mb-3 pb-2 border-b border-slate-800">
+        Додаткові елементи на титулці
+      </div>
+      <div className="text-[11px] text-slate-500 italic mb-3">
+        Будь-які елементи, які ви додасте сюди, з'являться між блоком фічей та смужкою з фото.
+      </div>
+      <ElementListEditor
+        elements={data.elements ?? []}
+        onChange={(elements) => onChange({ ...data, elements })}
+      />
     </div>
   );
 }

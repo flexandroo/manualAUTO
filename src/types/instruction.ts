@@ -161,6 +161,10 @@ export interface CoverPage extends PageBase {
   subtitle: string;
   bulletPoints: string[]; // shown as 3-column features grid
   productImages: string[];
+  /** Custom elements rendered between the features grid and the drawings
+   *  strip — lets users add free-form content (badges, certifications,
+   *  notes) on the cover without having to edit code. */
+  elements: PageElement[];
 }
 
 export interface StandardPage extends PageBase {
@@ -207,5 +211,10 @@ export interface InstructionData {
   modelCodes: string[];
   documentType: string;
   websiteUrl: string;
+  /** Bottom-band copyright text on the cover page. Empty string means
+   *  the renderer falls back to a derived "<brand> © <year> — <url>". */
+  coverCopyright: string;
+  /** Language label rendered next to the copyright on the cover page. */
+  coverLanguage: string;
   pages: Page[];
 }

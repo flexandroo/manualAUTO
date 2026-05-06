@@ -60,6 +60,7 @@ function blockToPages(block: Any): Page[] {
         : block.imageUrl
         ? [block.imageUrl]
         : [],
+      elements: Array.isArray(block.elements) ? block.elements : [],
     } satisfies CoverPage);
     return out;
   }
@@ -282,6 +283,9 @@ export function migrateOldBlocksToPages(raw: Any): InstructionData | null {
     documentType: doc.documentType!,
     websiteUrl: doc.websiteUrl!,
     brandLogoUrl: doc.brandLogoUrl,
+    coverCopyright: typeof raw.coverCopyright === 'string' ? raw.coverCopyright : '',
+    coverLanguage:
+      typeof raw.coverLanguage === 'string' ? raw.coverLanguage : 'UA | Українська мова',
     pages,
   };
 }
