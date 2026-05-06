@@ -1,7 +1,8 @@
-// Default Termojet brand mark used on Cover when user hasn't uploaded a custom
-// logo. Approximates the official TERMOJET wordmark + 3 upward arrows.
-// For pixel-accurate logo, user should upload their PNG/SVG via the Cover
-// editor's "Логотип бренду" field.
+// HTML/CSS-based brand mark used on Cover and Warranty when no custom
+// brandLogoUrl is uploaded. Originally an inline SVG with <text>, but
+// html2canvas renders SVG <text> unreliably (faded glyphs, missing
+// fonts) — switching to plain styled HTML guarantees the captured PDF
+// looks identical to live preview.
 
 interface Props {
   height?: number;
@@ -9,29 +10,43 @@ interface Props {
 }
 
 export function TermojetLogo({ height = 70, color = '#F25D2A' }: Props) {
+  // Geometric scaling — the logo is roughly 3:1 wide:tall, with the
+  // arrow row at ~22 % of total height and the wordmark at ~50 %.
+  const arrowSize = Math.round(height * 0.22);
+  const wordSize = Math.round(height * 0.55);
   return (
-    <svg
-      viewBox="0 0 600 200"
-      style={{ height, width: 'auto', display: 'block', margin: '0 auto' }}
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      style={{
+        display: 'inline-flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        lineHeight: 1,
+        color,
+        fontFamily: 'Montserrat, sans-serif',
+      }}
       aria-label="TERMOJET"
     >
-      <g fill={color}>
-        <polygon points="195,40 215,5 235,40 225,40 225,80 205,80 205,40" />
-        <polygon points="285,40 305,5 325,40 315,40 315,80 295,80 295,40" />
-        <polygon points="375,40 395,5 415,40 405,40 405,80 385,80 385,40" />
-        <text
-          x="300"
-          y="180"
-          textAnchor="middle"
-          fontSize="100"
-          fontFamily="Montserrat, system-ui, sans-serif"
-          fontWeight="900"
-          letterSpacing="-2"
-        >
-          TERMOJET
-        </text>
-      </g>
-    </svg>
+      <div
+        style={{
+          fontSize: `${arrowSize}px`,
+          letterSpacing: `${arrowSize * 0.4}px`,
+          paddingLeft: `${arrowSize * 0.4}px`,
+          fontWeight: 700,
+          marginBottom: `${arrowSize * 0.1}px`,
+        }}
+      >
+        ▲▲▲
+      </div>
+      <div
+        style={{
+          fontSize: `${wordSize}px`,
+          fontWeight: 900,
+          letterSpacing: '0.04em',
+          // Slight optical kerning matching the reference logo
+        }}
+      >
+        TERMOJET
+      </div>
+    </div>
   );
 }
