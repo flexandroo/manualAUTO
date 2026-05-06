@@ -1,64 +1,25 @@
 import type { InstructionData } from '../types/instruction';
+import { BLOCK_REGISTRY } from '../blocks/registry';
+import { newId } from '../utils/id';
 
-export const initialData: InstructionData = {
-  cover: {
-    brand: 'TERMOJET',
-    title: 'Роздільники гідравлічні',
-    models:
-      'ГС-30; ГС-31G; ГС-32G; ГС-33G; ГС-34G; ГС-31F; ГС-32F; ГС-33F; ГС-34F; ГС-31K; ГС-32K; ГС-33K; ГС-34K.',
-    documentType: 'ТЕХНІЧНИЙ СЕРТИФІКАТ',
-    subtitle: 'Інструкція з монтажу та експлуатації',
-  },
-  techSpecs: {
-    title: 'Технічні характеристики та опис виробу',
-    standards: 'EN ISO 15614-1:2004/A2:2012, EN 12266-1:2012, EN 1092-1:2018',
-    properties: [
-      { key: 'Матеріал', value: 'чорна вуглецева сталь' },
-      { key: 'Зварювання', value: 'напівавтоматичне в середовищі CO₂' },
-      { key: 'Гідравлічне випробування', value: 'не менше ніж 7,5 кг/см² (0,75 МПа)' },
-      { key: 'Максимальний робочий тиск', value: '6 бар' },
-      { key: 'Максимальна робоча температура', value: '110 °C' },
-      { key: 'Теплоносій', value: 'вода або водний розчин гліколю' },
-      { key: 'Покриття', value: 'порошкове' },
-      { key: 'Гарантійний термін', value: '24 місяці з дати продажу' },
-    ],
-    table: {
-      headers: ['Модель', 'ГС - 31 (G/F/K)', 'ГС - 32 (G/F/K)', 'ГС - 33 (G/F/K)', 'ГС - 34 (G/F/K)'],
-      rows: [
-        [
-          'Артикул',
-          '84040031G\n84040031F\n84040031K',
-          '84040032G\n84040032F\n84040032K',
-          '84040033G\n84040033F\n84040033K',
-          '84040034G\n84040034F\n84040034K',
-        ],
-        [
-          'Qmax (ΔT=10°C / ΔT=20°C)',
-          '500 / 1000 кВт',
-          '800 / 1650 кВт',
-          '1000 / 2000 кВт',
-          '1400 / 2800 кВт',
-        ],
-        ['Gmax (F/G)', '46 м³/год', '73 м³/год', '88 м³/год', '122 м³/год'],
-        ['Діаметр підключення', 'DN80', 'DN100', 'DN125', 'DN150'],
-      ],
-    },
-  },
-  sections: {
-    title: 'Основні положення',
-    items: [
-      {
-        heading: 'Загальна інформація про документ',
-        text: 'Цей документ містить основні інструкції з монтажу та експлуатації виробу.',
-      },
-      {
-        heading: 'Обмеження відповідальності',
-        text: 'Виробник обладнання не несе відповідальності за збитки, спричинені неправильною експлуатацією.',
-      },
-      {
-        heading: 'Інструкції з безпеки',
-        text: 'Експлуатацію цього пристрою повинні виконувати лише особи з відповідним досвідом.',
-      },
-    ],
-  },
-};
+// Default new instruction: Cover + Safety + Text(Призначення) + Installation + Warranty.
+// This matches the canonical TERMOJET spine identified in the analysis.
+export function makeInitialData(): InstructionData {
+  const cover = BLOCK_REGISTRY.cover.createNew();
+  const safety = BLOCK_REGISTRY.safety.createNew();
+  const purpose = BLOCK_REGISTRY.text.createNew();
+  purpose.heading = 'Призначення';
+
+  const install = BLOCK_REGISTRY.installationSteps.createNew();
+  const warranty = BLOCK_REGISTRY.warranty.createNew();
+
+  return {
+    productName: cover.productName,
+    blocks: [cover, safety, purpose, install, warranty].map((b) => ({
+      ...b,
+      id: b.id || newId(),
+    })),
+  };
+}
+
+export const initialData: InstructionData = makeInitialData();

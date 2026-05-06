@@ -1,54 +1,84 @@
-export interface CoverData {
-  brand: string;
-  title: string;
-  models: string;
-  documentType: string;
-  subtitle: string;
+// Discriminated union for all block types in an instruction document.
+// Adding a new block type: extend BlockType, add interface, add to Block union,
+// register Editor + Preview in src/blocks/registry.ts.
+
+export type BlockType =
+  | 'cover'
+  | 'safety'
+  | 'text'
+  | 'installationSteps'
+  | 'warranty';
+
+export interface BlockBase {
+  id: string;
+  type: BlockType;
 }
 
-export interface TechSpecProperty {
-  key: string;
+export interface CoverBlock extends BlockBase {
+  type: 'cover';
+  productName: string;
+  modelCodes: string[];
+  documentType: string;
+  subtitle: string;
+  tagline: string;
+  websiteUrl: string;
+  imageUrl?: string;
+}
+
+export interface SafetySubsection {
+  number: string;
+  heading: string;
+  body: string;
+}
+
+export interface SafetyBlockData extends BlockBase {
+  type: 'safety';
+  title: string;
+  subsections: SafetySubsection[];
+}
+
+export interface TextBlockData extends BlockBase {
+  type: 'text';
+  heading: string;
+  body: string;
+}
+
+export interface InstallationStep {
+  number: string;
+  body: string;
+}
+
+export interface InstallationStepsBlockData extends BlockBase {
+  type: 'installationSteps';
+  heading: string;
+  intro: string;
+  steps: InstallationStep[];
+}
+
+export interface WarrantyField {
+  label: string;
   value: string;
 }
 
-export interface TechSpecsTable {
-  headers: string[];
-  rows: string[][];
-}
-
-export interface TechSpecsData {
+export interface WarrantyBlockData extends BlockBase {
+  type: 'warranty';
   title: string;
-  standards: string;
-  properties: TechSpecProperty[];
-  table: TechSpecsTable;
+  fields: WarrantyField[];
+  termText: string;
+  conditionText: string;
+  caseHeading: string;
+  caseDocs: string[];
+  reviewText: string;
 }
 
-export interface SectionItem {
-  heading: string;
-  text: string;
-}
-
-export interface SectionsData {
-  title: string;
-  items: SectionItem[];
-}
+export type Block =
+  | CoverBlock
+  | SafetyBlockData
+  | TextBlockData
+  | InstallationStepsBlockData
+  | WarrantyBlockData;
 
 export interface InstructionData {
-  cover: CoverData;
-  techSpecs: TechSpecsData;
-  sections: SectionsData;
+  productName: string;
+  blocks: Block[];
 }
-
-export interface ParseReport {
-  cover: { title: boolean; models: boolean; documentType: boolean };
-  techSpecs: { standards: boolean; properties: number; tableHeaders: number; tableRows: number };
-  sections: { items: number };
-}
-
-export interface ParseResult {
-  data: InstructionData;
-  report: ParseReport;
-  pages: number;
-}
-
-export type BlockId = 'cover' | 'techSpecs' | 'sections';
