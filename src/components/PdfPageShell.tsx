@@ -44,7 +44,7 @@ export function PdfPageShell({
       : '');
 
   return (
-    <>
+    <div className="pdf-page">
       {!hideHeader && (
         <div className="pdf-page-header">
           {ctx.brandLogoUrl ? (
@@ -74,7 +74,7 @@ export function PdfPageShell({
           <div>{pageStr}</div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
