@@ -342,21 +342,13 @@
   opacity: 0.85;
 }
 .pdf-component-num {
-  background: #F25D2A;
-  color: white;
+  color: #F25D2A;
   font-weight: 800;
   font-size: 8pt;
-  line-height: 1;
-  width: 6mm;
-  height: 6mm;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 0.3mm;
   font-family: 'JetBrains Mono', monospace;
-  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 /* ─── Drawing card ─── */

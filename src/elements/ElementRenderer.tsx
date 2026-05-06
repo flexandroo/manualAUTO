@@ -304,7 +304,7 @@ function SchemeRender({ data }: { data: SchemeElement }) {
           {data.items.map((it, i) => (
             <li key={i}>
               <span className="pdf-component-num" style={numStyle}>
-                {it.number}
+                {it.number} —
               </span>
               <span style={labelStyle}>{it.label}</span>
             </li>
