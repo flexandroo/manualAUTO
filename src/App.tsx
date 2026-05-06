@@ -185,22 +185,20 @@ export default function App() {
         /[\\/:*?"<>|]/g,
         '_'
       );
-      await html2pdf()
-        .from(printRef.current)
-        .set({
-          margin: 0,
-          filename,
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-          // Honour `page-break-after: always` on .pdf-page so each block
-          // starts a fresh A4 page. Without this html2pdf concatenates the
-          // entire printRef into one tall canvas and slices arbitrarily,
-          // causing content to overlap page boundaries.
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page' } as any,
-        })
-        .save();
+      // Honour `page-break-after: always` on .pdf-page so each block
+      // starts a fresh A4 page. Without this html2pdf concatenates the
+      // entire printRef into one tall canvas and slices arbitrarily,
+      // causing content to overlap page boundaries.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const options: any = {
+        margin: 0,
+        filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'], before: '.pdf-page' },
+      };
+      await html2pdf().from(printRef.current).set(options).save();
     } finally {
       setDownloading(false);
     }
