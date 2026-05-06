@@ -195,11 +195,12 @@ export default function App() {
           backgroundColor: null,
           width: node.offsetWidth,
           height: node.offsetHeight,
-          // Use the browser's native rendering through SVG foreignObject
-          // so text baselines match the live preview exactly. Requires
-          // CSS custom properties to be defined on .pdf-page itself
-          // (they are — see pdf-print.css :root, .pdf-page block) so
-          // the cloned subtree resolves var(--pdf-*) correctly.
+          // Use the browser's native rendering through SVG <foreignObject>
+          // so text baselines match the live preview exactly. All colours
+          // in pdf-print.css and the inline element-renderer styles are
+          // now hex/rgba (not var()) — foreignObject doesn't propagate
+          // CSS custom properties into its cloned subtree, so vars used
+          // to render as black. Hex avoids that pitfall entirely.
           foreignObjectRendering: true,
           removeContainer: true,
         });

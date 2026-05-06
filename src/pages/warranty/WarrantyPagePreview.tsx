@@ -11,12 +11,12 @@ export function WarrantyPagePreview({ data }: Props) {
   return (
     <div
       className="pdf-page"
-      style={{ background: 'var(--pdf-bg)', padding: 0, minHeight: '297mm' }}
+      style={{ background: '#FAFAF8', padding: 0, minHeight: '297mm' }}
     >
       {/* Orange hero band */}
       <div
         style={{
-          background: 'var(--pdf-orange)',
+          background: '#F25D2A',
           padding: '7mm 14mm 6mm',
           display: 'flex',
           alignItems: 'center',
@@ -80,7 +80,7 @@ export function WarrantyPagePreview({ data }: Props) {
                   style={{
                     fontSize: '6.5pt',
                     fontWeight: 700,
-                    color: 'var(--pdf-mid)',
+                    color: '#8A8F9A',
                     textTransform: 'uppercase',
                     letterSpacing: '0.08em',
                     marginBottom: '1.5mm',
@@ -91,7 +91,7 @@ export function WarrantyPagePreview({ data }: Props) {
                 <div
                   style={{
                     fontSize: '9pt',
-                    color: 'var(--pdf-navy)',
+                    color: '#0D1526',
                     marginBottom: '2mm',
                     minHeight: '5mm',
                   }}
@@ -117,7 +117,7 @@ export function WarrantyPagePreview({ data }: Props) {
               style={{
                 fontSize: '6.5pt',
                 fontWeight: 700,
-                color: 'var(--pdf-mid)',
+                color: '#8A8F9A',
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
                 marginBottom: '1.5mm',
@@ -138,7 +138,7 @@ export function WarrantyPagePreview({ data }: Props) {
               style={{
                 fontSize: '6.5pt',
                 fontWeight: 700,
-                color: 'var(--pdf-mid)',
+                color: '#8A8F9A',
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
                 marginBottom: '1.5mm',

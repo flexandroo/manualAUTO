@@ -139,7 +139,7 @@ function NumberedListRender({ data }: { data: NumberedListElement }) {
         >
           <div
             style={{
-              color: 'var(--pdf-orange)',
+              color: '#F25D2A',
               fontFamily: 'JetBrains Mono, monospace',
               lineHeight: 1.1,
               ...numStyle,
@@ -197,7 +197,7 @@ function KvListRender({ data }: { data: KvListElement }) {
       {data.title && (
         <div
           style={{
-            color: 'var(--pdf-navy)',
+            color: '#0D1526',
             opacity: 0.7,
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
@@ -218,7 +218,7 @@ function KvListRender({ data }: { data: KvListElement }) {
                   borderBottom: '0.5px solid rgba(13,21,38,0.07)',
                   opacity: 0.8,
                   width: '45%',
-                  color: 'var(--pdf-navy)',
+                  color: '#0D1526',
                   ...keyStyle,
                 }}
               >
@@ -274,7 +274,7 @@ function SchemeRender({ data }: { data: SchemeElement }) {
         ) : (
           <div
             style={{
-              color: 'var(--pdf-mid)',
+              color: '#8A8F9A',
               fontSize: '7pt',
               fontFamily: 'monospace',
               border: '1px dashed rgba(13,21,38,0.15)',
@@ -291,7 +291,7 @@ function SchemeRender({ data }: { data: SchemeElement }) {
           style={{
             fontSize: '7pt',
             fontWeight: 700,
-            color: 'var(--pdf-navy)',
+            color: '#0D1526',
             opacity: 0.7,
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
@@ -385,7 +385,7 @@ function ImageRender({ data }: { data: ImageElement }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--pdf-mid)',
+            color: '#8A8F9A',
             fontSize: '7pt',
             fontFamily: 'monospace',
           }}
@@ -396,7 +396,7 @@ function ImageRender({ data }: { data: ImageElement }) {
       {data.caption && (
         <div
           style={{
-            color: 'var(--pdf-navy)',
+            color: '#0D1526',
             opacity: 0.7,
             marginTop: '2mm',
             ...captionStyle,
@@ -434,13 +434,13 @@ function ImageGridRender({ data }: { data: ImageGridElement }) {
           ) : (
             <div
               style={{
-                background: 'var(--pdf-light)',
+                background: '#F0EEE9',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 minHeight: '40mm',
                 fontSize: '7pt',
-                color: 'var(--pdf-mid)',
+                color: '#8A8F9A',
                 fontFamily: 'monospace',
                 border: '1px dashed rgba(13,21,38,0.15)',
               }}
