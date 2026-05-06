@@ -207,6 +207,14 @@ export default function App() {
               .pdf-page-footer-band {
                 transform: translateY(-2px);
               }
+              /* Numbers inside the orange scheme-legend circles drift
+                 down within the flex-centered container. Box-sizing
+                 border-box keeps the 6mm circle, padding-bottom pulls
+                 the centered glyph up. */
+              .pdf-component-num {
+                box-sizing: border-box;
+                padding-bottom: 1.5mm;
+              }
             `;
             clonedDoc.head.appendChild(style);
           },
