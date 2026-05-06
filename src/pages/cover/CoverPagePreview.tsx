@@ -1,5 +1,6 @@
 import type { CoverPage, InstructionData } from '../../types/instruction';
 import { TermojetLogo } from '../../components/TermojetLogo';
+import { GhostImage } from '../../components/GhostImage';
 import { usePdfDoc } from '../../components/PdfDocContext';
 import { ElementRenderer } from '../../elements/ElementRenderer';
 
@@ -249,45 +250,58 @@ export function CoverPagePreview({ data }: Props) {
         </div>
       )}
 
-      {/* DRAWINGS strip — light "podium" so images render reliably in
-          PDF (no blend-mode / filter tricks; those don't survive
-          html2canvas capture). Smooth visual transition from the
-          dark hero up top to the light strip down here. */}
+      {/* DRAWINGS strip — dark navy with ghost-effect product photos.
+          GhostImage applies the invert + alpha effect once via canvas
+          and outputs a regular PNG, so it captures correctly in PDF
+          (unlike CSS mix-blend-mode which html2canvas drops). */}
       <div
         style={{
-          marginTop: 'auto',
-          background: 'linear-gradient(180deg, #ECEAE5 0%, #D8D5CE 100%)',
-          borderTopLeftRadius: '50px',
-          borderTopRightRadius: '50px',
-          padding: '14mm 14mm 12mm',
+          flex: 1,
           display: 'flex',
-          justifyContent: 'center',
           alignItems: 'flex-end',
-          gap: '8mm',
-          minHeight: '80mm',
+          padding: '0 0 6mm',
+          marginTop: '6mm',
+          minHeight: '50mm',
         }}
       >
         {images.length > 0 ? (
           images.map((url, i) => (
-            <img
+            <div
               key={i}
-              src={url}
-              alt=""
               style={{
-                maxHeight: '70mm',
-                maxWidth: `${Math.floor(95 / images.length)}%`,
-                objectFit: 'contain',
-                display: 'block',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                borderRight:
+                  i < images.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                padding: '4mm 3mm 0',
               }}
-            />
+            >
+              <GhostImage
+                src={url}
+                alpha={0.45}
+                style={{
+                  width: '100%',
+                  maxHeight: '75mm',
+                  objectFit: 'contain',
+                  objectPosition: 'bottom',
+                  display: 'block',
+                }}
+              />
+            </div>
           ))
         ) : (
           <div
             style={{
-              color: '#9a9a9a',
-              fontSize: '11px',
-              fontWeight: 500,
-              alignSelf: 'center',
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'rgba(255,255,255,0.25)',
+              fontSize: '8pt',
+              padding: '20mm 0',
             }}
           >
             [ Зображення продуктів з'являться тут ]

@@ -1,5 +1,6 @@
 import { useRef, useState, type ChangeEvent, type ClipboardEvent, type DragEvent } from 'react';
-import { ImagePlus, X, Upload } from 'lucide-react';
+import { ImagePlus, X, Upload, Eraser } from 'lucide-react';
+import { BackgroundRemoverModal } from '../BackgroundRemoverModal';
 
 interface Props {
   value: string | undefined;
@@ -24,6 +25,7 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
   const inputRef = useRef<HTMLInputElement>(null);
   const [hovering, setHovering] = useState(false);
   const [error, setError] = useState('');
+  const [bgModalOpen, setBgModalOpen] = useState(false);
 
   const accept = (file: File | null | undefined) => {
     setError('');
@@ -99,6 +101,13 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
               <X size={14} />
             </button>
             <button
+              onClick={() => setBgModalOpen(true)}
+              className="absolute bottom-2 left-2 bg-slate-900/90 hover:bg-slate-700 text-white rounded px-2 py-1 text-[11px] flex items-center gap-1.5 shadow-lg"
+              title="Прибрати фон"
+            >
+              <Eraser size={12} /> Прибрати фон
+            </button>
+            <button
               onClick={() => inputRef.current?.click()}
               className="absolute bottom-2 right-2 bg-slate-900/90 hover:bg-slate-700 text-white rounded px-2 py-1 text-[11px] flex items-center gap-1.5 shadow-lg"
             >
@@ -128,6 +137,17 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
       />
       {error && <div className="text-[11px] text-red-400 mt-1">{error}</div>}
       {!error && hint && <div className="text-[11px] text-slate-500 mt-1">{hint}</div>}
+
+      {bgModalOpen && value && (
+        <BackgroundRemoverModal
+          src={value}
+          onClose={() => setBgModalOpen(false)}
+          onSave={(newSrc) => {
+            onChange(newSrc);
+            setBgModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }
