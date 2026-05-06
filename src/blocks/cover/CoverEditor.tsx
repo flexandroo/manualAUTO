@@ -2,6 +2,7 @@ import type { CoverBlock } from '../../types/instruction';
 import { FieldGroup } from '../../components/ui/FieldGroup';
 import { Input } from '../../components/ui/Input';
 import { Textarea } from '../../components/ui/Textarea';
+import { ImageUploader } from '../../components/ui/ImageUploader';
 
 interface Props {
   data: CoverBlock;
@@ -56,6 +57,13 @@ export function CoverEditor({ data, onChange }: Props) {
           onChange={(e) => onChange({ ...data, websiteUrl: e.target.value })}
         />
       </FieldGroup>
+      <ImageUploader
+        label="Фото продукту"
+        hint="PNG/JPG до 8 МБ. Можна перетягнути файл або вставити з буфера (Ctrl+V)."
+        value={data.imageUrl}
+        onChange={(url) => onChange({ ...data, imageUrl: url })}
+        aspectRatio="4/3"
+      />
     </div>
   );
 }

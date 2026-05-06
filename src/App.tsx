@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import html2pdf from 'html2pdf.js';
-import { FileDown, Save, Upload, Loader2 } from 'lucide-react';
+import { FileDown, Save, Upload, Loader2, FileUp, AlertCircle } from 'lucide-react';
 import './styles/pdf-print.css';
 import type { Block, BlockType, InstructionData } from './types/instruction';
 import { initialData } from './data/initialData';
@@ -8,6 +8,8 @@ import { BLOCK_REGISTRY, getBlockSpec } from './blocks/registry';
 import { BlockList } from './components/BlockList';
 import { BlockEditorPanel } from './components/BlockEditorPanel';
 import { PreviewPane } from './components/PreviewPane';
+import { ImportReport } from './components/ImportReport';
+import { parsePdfToBlocks, type PdfParseResult } from './parsers/parsePdf';
 
 const STORAGE_KEY = 'manualAUTO:document:v1';
 
@@ -28,6 +30,9 @@ export default function App() {
   const [activeId, setActiveId] = useState<string | null>(data.blocks[0]?.id ?? null);
   const [zoom, setZoom] = useState(0.65);
   const [downloading, setDownloading] = useState(false);
+  const [pdfParsing, setPdfParsing] = useState(false);
+  const [pdfError, setPdfError] = useState('');
+  const [pendingImport, setPendingImport] = useState<PdfParseResult | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
 
   // Local autosave.
@@ -83,6 +88,35 @@ export default function App() {
     a.download = `${data.productName || 'instruction'}-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const handleImportPdf = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    setPdfParsing(true);
+    setPdfError('');
+    try {
+      const result = await parsePdfToBlocks(file);
+      setPendingImport(result);
+    } catch (err) {
+      console.error(err);
+      setPdfError(err instanceof Error ? err.message : 'Не вдалося розпарсити PDF');
+    } finally {
+      setPdfParsing(false);
+    }
+  };
+
+  const applyPdfImport = () => {
+    if (!pendingImport) return;
+    const newCover = pendingImport.blocks.find((b) => b.type === 'cover');
+    setData({
+      productName:
+        newCover && newCover.type === 'cover' ? newCover.productName : data.productName,
+      blocks: pendingImport.blocks,
+    });
+    setActiveId(pendingImport.blocks[0]?.id ?? null);
+    setPendingImport(null);
   };
 
   const handleImportJson = (e: ChangeEvent<HTMLInputElement>) => {
@@ -144,6 +178,32 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-2">
+          <label
+            className={`cursor-pointer flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+              pdfParsing
+                ? 'bg-orange-600/30 text-orange-300 cursor-wait'
+                : 'bg-orange-600/20 hover:bg-orange-600/30 text-orange-300 border border-orange-600/40'
+            }`}
+            title="Витягне з PDF титульну, основні положення, інструкцію з монтажу і гарантію"
+          >
+            {pdfParsing ? (
+              <>
+                <Loader2 size={14} className="animate-spin" /> Парсинг...
+              </>
+            ) : (
+              <>
+                <FileUp size={14} /> Імпорт з PDF
+              </>
+            )}
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={handleImportPdf}
+              className="hidden"
+              disabled={pdfParsing}
+            />
+          </label>
+
           <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium transition-colors">
             <Upload size={14} /> Імпорт JSON
             <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
@@ -172,6 +232,15 @@ export default function App() {
         </div>
       </header>
 
+      {pdfError && (
+        <div className="no-print bg-red-950/50 border-b border-red-800 px-6 py-2 text-sm text-red-300 flex items-center gap-2">
+          <AlertCircle size={16} /> Помилка PDF: {pdfError}
+          <button onClick={() => setPdfError('')} className="ml-auto text-xs underline">
+            ×
+          </button>
+        </div>
+      )}
+
       <div className="flex-1 flex overflow-hidden no-print">
         <BlockList
           blocks={data.blocks}
@@ -184,6 +253,14 @@ export default function App() {
         <BlockEditorPanel block={activeBlock} onChange={updateBlock} />
         <PreviewPane blocks={data.blocks} zoom={zoom} onZoomChange={setZoom} />
       </div>
+
+      {pendingImport && (
+        <ImportReport
+          report={pendingImport.report}
+          onClose={() => setPendingImport(null)}
+          onApply={applyPdfImport}
+        />
+      )}
 
       <div
         ref={printRef}
