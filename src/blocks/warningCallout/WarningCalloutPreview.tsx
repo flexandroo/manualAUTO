@@ -16,7 +16,7 @@ const STYLE: Record<
 export function WarningCalloutPreview({ data }: Props) {
   const s = STYLE[data.level];
   return (
-    <div className="pdf-page" style={{ minHeight: 'auto', padding: '14mm' }}>
+    <div className="pdf-page">
       <div
         style={{
           background: s.bg,

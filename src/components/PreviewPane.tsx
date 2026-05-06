@@ -32,20 +32,20 @@ export function PreviewPane({ blocks, zoom, onZoomChange }: Props) {
           </span>
         </div>
       </div>
-      <div className="p-6 flex flex-col items-center gap-2">
+      <div className="p-6 flex flex-col items-center gap-3">
         {blocks.map((b) => {
           const spec = getBlockSpec(b.type);
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const Preview = spec.Preview as any;
+          // CSS `zoom` (vs transform: scale) actually changes the layout box
+          // size, so the wrapper takes only the scaled height — no leftover
+          // A4-shaped empty space when blocks are short. Supported in
+          // Chromium-based browsers and Safari.
           return (
             <div
               key={b.id}
               style={{
-                transform: `scale(${zoom})`,
-                transformOrigin: 'top center',
-                transition: 'transform 0.2s',
-                height: `calc(297mm * ${zoom})`,
-                marginBottom: '8px',
+                zoom,
               }}
             >
               <div style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>

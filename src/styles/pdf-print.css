@@ -1,13 +1,18 @@
+:root {
+  --pdf-padding-x: 12mm;
+  --pdf-padding-y: 12mm;
+}
+
 .pdf-page {
   font-family: 'Montserrat', sans-serif;
   width: 210mm;
-  min-height: 297mm;
-  padding: 16mm 14mm 14mm 14mm;
+  padding: var(--pdf-padding-y) var(--pdf-padding-x);
   background: white;
   color: #2d2d2d;
   box-sizing: border-box;
   position: relative;
-  page-break-after: always;
+  /* No min-height by default — blocks are as tall as their content. */
+  /* Cover block sets minHeight: 297mm inline because it has a bottom-aligned podium. */
 }
 
 .pdf-mono {
@@ -17,34 +22,33 @@
 .pdf-section-header {
   display: flex;
   align-items: stretch;
-  margin-left: -14mm;
-  margin-right: 30mm;
-  margin-bottom: 18px;
+  margin-left: calc(-1 * var(--pdf-padding-x));
+  margin-right: 28mm;
+  margin-bottom: 12px;
   background: #2d2d2d;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 
 .pdf-section-header__bar {
-  width: 14mm;
+  width: var(--pdf-padding-x);
   background: #ff6b1a;
 }
 
 .pdf-section-header__text {
-  padding: 12px 24px;
+  padding: 10px 20px;
   flex: 1;
 }
 
 .pdf-cover-title {
-  color: #2d2d2d;
-  font-size: 28px;
+  color: #ff6b1a;
+  font-size: 56px;
   font-weight: 800;
-  letter-spacing: 0.01em;
-  line-height: 1.15;
-  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
 }
 
 .pdf-orange-bar {
@@ -62,7 +66,7 @@
 .pdf-table th,
 .pdf-table td {
   border: 1px solid #d4d4d4;
-  padding: 8px 12px;
+  padding: 7px 10px;
   text-align: left;
   vertical-align: top;
 }
@@ -76,17 +80,14 @@
 }
 
 .pdf-footer {
-  position: absolute;
-  bottom: 8mm;
-  left: 14mm;
-  right: 14mm;
+  margin-top: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 10px;
   color: #6b6b6b;
   border-top: 1px solid #e4e4e4;
-  padding-top: 6px;
+  padding-top: 5px;
 }
 
 @media print {
@@ -99,6 +100,5 @@
   .pdf-page {
     box-shadow: none !important;
     margin: 0 !important;
-    page-break-after: always;
   }
 }

@@ -70,7 +70,7 @@ export async function parsePdfToBlocks(file: File): Promise<PdfParseResult> {
 
   // 3) Installation steps (2.1, 2.2, ...)
   const install = parseInstallationSteps(pages);
-  if (install && install.steps.length >= 2) {
+  if (install && install.steps.length >= 1) {
     blocks.push(install);
     detected.push({
       type: 'installationSteps',
@@ -111,7 +111,7 @@ export async function parsePdfToBlocks(file: File): Promise<PdfParseResult> {
 
   // 5) Construction legend (Конструкція + 1-N виносок)
   const construction = parseConstructionLegend(pages);
-  if (construction && construction.items.length >= 2) {
+  if (construction && construction.items.length >= 1) {
     blocks.push(construction);
     detected.push({
       type: 'constructionLegend',
@@ -294,7 +294,11 @@ function makeDefaultSafety(): SafetyBlockData {
 // ---- Installation steps (2.1, 2.2, ...) ----
 
 function parseInstallationSteps(pages: PageData[]): InstallationStepsBlockData | null {
-  const installPages = pages.filter((p) => /Інструкція\s+по\s+монтажу|Інструкція\s+з\s+монтажу|Монтаж\s+/i.test(p.text));
+  const installPages = pages.filter((p) =>
+    /Інструкц[іи]я\s+(?:по|з)\s+монтаж|Монтаж\s+(?:колектора|механічної|насосної|обладнання)|^\s*\d\.\s*Монтаж\b/im.test(
+      p.text
+    )
+  );
   if (installPages.length === 0) return null;
 
   const allText = installPages.map((p) => p.text).join('\n');
@@ -443,9 +447,7 @@ function parseTechSpecs(pages: PageData[]): TechSpecsBlockData | null {
 
 function parseConstructionLegend(pages: PageData[]): ConstructionLegendData | null {
   const target = pages.find((p) =>
-    /Конструкція\s+(?:колектора|виробу|роздільника|групи|модуля)|Будова\s+(?:роздільника|виробу)/i.test(
-      p.text
-    )
+    /(?:^|\n)\s*\d?\.?\s*(?:Конструкц[іи]я|Будова)\b/i.test(p.text)
   );
   if (!target) return null;
 

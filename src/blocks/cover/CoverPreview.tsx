@@ -16,7 +16,12 @@ export function CoverPreview({ data }: Props) {
   return (
     <div
       className="pdf-page"
-      style={{ padding: 0, display: 'flex', flexDirection: 'column' }}
+      style={{
+        padding: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '297mm',
+      }}
     >
       {/* Brand header */}
       <div
