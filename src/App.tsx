@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { createPortal } from 'react-dom';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { FileDown, Save, Upload, Loader2, Undo2, Redo2 } from 'lucide-react';
+import { FileDown, Save, Upload, Loader2, Undo2, Redo2, FileCode2 } from 'lucide-react';
 import './styles/pdf-print.css';
 import type { InstructionData, Page, PageType } from './types/instruction';
 import { initialData } from './data/initialData';
@@ -15,6 +15,7 @@ import { EditingDocProvider } from './components/EditingDocContext';
 import { migrateOldBlocksToPages } from './utils/migration';
 import { useHistory } from './utils/useHistory';
 import { TemplateMenu } from './components/TemplateMenu';
+import { MarkdownImportModal } from './components/MarkdownImportModal';
 
 const STORAGE_KEY = 'manualAUTO:document:v2';
 const LEGACY_STORAGE_KEY = 'manualAUTO:document:v1';
@@ -55,6 +56,7 @@ export default function App() {
   const [downloadProgress, setDownloadProgress] = useState<{ done: number; total: number } | null>(
     null
   );
+  const [mdImportOpen, setMdImportOpen] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -303,6 +305,13 @@ export default function App() {
                 setActiveId(d.pages[0]?.id ?? null);
               }}
             />
+            <button
+              onClick={() => setMdImportOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium"
+              title="Імпорт із Markdown"
+            >
+              <FileCode2 size={14} /> Markdown
+            </button>
             <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
               <Upload size={14} /> Імпорт JSON
               <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
@@ -347,6 +356,21 @@ export default function App() {
           <PreviewPane doc={data} zoom={zoom} onZoomChange={setZoom} />
         </div>
 
+        {mdImportOpen && (
+          <MarkdownImportModal
+            onClose={() => setMdImportOpen(false)}
+            onImport={(newPages, mode) => {
+              setData(
+                (d) => ({
+                  ...d,
+                  pages: mode === 'replace' ? newPages : [...d.pages, ...newPages],
+                }),
+                { coalesce: false }
+              );
+              setActiveId(newPages[0]?.id ?? activeId);
+            }}
+          />
+        )}
       </div>
       {/* Print container is portaled directly to <body> so it lives
           outside the App container and isn't affected by the
