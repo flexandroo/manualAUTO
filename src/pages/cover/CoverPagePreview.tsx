@@ -3,14 +3,15 @@ import { TermojetLogo } from '../../components/TermojetLogo';
 import { GhostImage } from '../../components/GhostImage';
 import { usePdfDoc } from '../../components/PdfDocContext';
 import { ElementRenderer } from '../../elements/ElementRenderer';
+import { PALETTE } from '../../styles/tokens';
 
 interface Props {
   data: CoverPage;
 }
 
-const NAVY = '#0D1526';
-const ORANGE = '#F25D2A';
-const WHITE = '#FAFAF8';
+const NAVY = PALETTE.navy;
+const ORANGE = PALETTE.orange;
+const WHITE = PALETTE.cream;
 
 export function CoverPagePreview({ data }: Props) {
   const ctx = usePdfDoc();
