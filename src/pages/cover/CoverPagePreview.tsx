@@ -283,10 +283,13 @@ export function CoverPagePreview({ data }: Props) {
                 src={url}
                 alpha={0.45}
                 style={{
-                  width: '100%',
+                  // Use max-width/max-height with auto sizing: this preserves
+                  // the natural aspect ratio without depending on object-fit
+                  // (which html2canvas does not honour on <img>).
+                  maxWidth: '100%',
                   maxHeight: '75mm',
-                  objectFit: 'contain',
-                  objectPosition: 'bottom',
+                  width: 'auto',
+                  height: 'auto',
                   display: 'block',
                 }}
               />
