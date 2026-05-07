@@ -12,45 +12,28 @@ import { PageEditorPanel } from './components/PageEditorPanel';
 import { PreviewPane } from './components/PreviewPane';
 import { PdfDocProvider, type PdfDocCtx } from './components/PdfDocContext';
 import { EditingDocProvider } from './components/EditingDocContext';
-import { migrateOldBlocksToPages } from './utils/migration';
 import { useHistory } from './utils/useHistory';
 import { TemplateMenu } from './components/TemplateMenu';
 import { MarkdownImportModal } from './components/MarkdownImportModal';
 import { parsePdfToPages } from './utils/pdfImport';
-
-const STORAGE_KEY = 'manualAUTO:document:v2';
-const LEGACY_STORAGE_KEY = 'manualAUTO:document:v1';
-
-function loadFromStorage(): InstructionData | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw) as InstructionData;
-      if (parsed && Array.isArray(parsed.pages)) return parsed;
-    }
-    const legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY);
-    if (legacyRaw) {
-      const legacy = JSON.parse(legacyRaw);
-      const migrated = migrateOldBlocksToPages(legacy);
-      if (migrated) {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
-        } catch {
-          /* quota */
-        }
-        return migrated;
-      }
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
+import { DocumentSwitcher } from './components/DocumentSwitcher';
+import { migrateOldBlocksToPages } from './utils/migration';
+import {
+  putDocument,
+  deleteDocument,
+  setMeta,
+  type DocumentRow,
+} from './utils/storage';
+import { migrateLocalStorageToIdb } from './utils/docMigration';
+import { newId } from './utils/id';
 
 export default function App() {
-  const history = useHistory<InstructionData>(loadFromStorage() ?? initialData);
+  const history = useHistory<InstructionData>(initialData);
   const data = history.state;
   const setData = history.set;
+  const [docs, setDocs] = useState<DocumentRow[]>([]);
+  const [activeDocId, setActiveDocId] = useState<string | null>(null);
+  const [hydrated, setHydrated] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(data.pages[0]?.id ?? null);
   const [zoom, setZoom] = useState(0.65);
   const [downloading, setDownloading] = useState(false);
@@ -60,6 +43,24 @@ export default function App() {
   const [mdImportOpen, setMdImportOpen] = useState(false);
   const [pdfImporting, setPdfImporting] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+
+  // ─── Hydrate documents on mount ─────────────────────────────────────────
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { active, all } = await migrateLocalStorageToIdb();
+      if (cancelled || !active) return;
+      setDocs(all);
+      setActiveDocId(active.id);
+      history.reset(active.data);
+      setActiveId(active.data.pages[0]?.id ?? null);
+      setHydrated(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleImportPdf = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -89,18 +90,83 @@ export default function App() {
     }
   };
 
+  // Persist active doc to IndexedDB whenever the editor changes; keep
+  // the in-memory docs list in sync so DocumentSwitcher shows fresh
+  // data. Use the functional setDocs form so we always read the latest
+  // docs array, sidestepping the closed-over-stale race that caused
+  // first-edit saves to overwrite the doc name with the placeholder.
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch {
-      /* quota exceeded */
-    }
-  }, [data]);
+    if (!hydrated || !activeDocId) return;
+    setDocs((curr) => {
+      const target = curr.find((d) => d.id === activeDocId);
+      if (!target) return curr;
+      const updated: DocumentRow = {
+        ...target,
+        data,
+        updatedAt: Date.now(),
+      };
+      putDocument(updated);
+      return curr.map((d) => (d.id === activeDocId ? updated : d));
+    });
+  }, [data, hydrated, activeDocId]);
 
   const activePage = useMemo(
     () => data.pages.find((p) => p.id === activeId) ?? null,
     [data.pages, activeId]
   );
+
+  // ─── Multi-doc handlers ─────────────────────────────────────────────────
+
+  const handleSwitchDoc = (id: string) => {
+    if (id === activeDocId) return;
+    const target = docs.find((d) => d.id === id);
+    if (!target) return;
+    setActiveDocId(id);
+    setMeta('activeDocId', id);
+    history.reset(target.data);
+    setActiveId(target.data.pages[0]?.id ?? null);
+  };
+
+  const handleCreateDoc = async () => {
+    const name = prompt('Назва нового документа:', 'Новий документ');
+    if (name === null) return;
+    const seed: DocumentRow = {
+      id: newId('doc'),
+      name: name.trim() || 'Без назви',
+      data: initialData,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    };
+    await putDocument(seed);
+    await setMeta('activeDocId', seed.id);
+    setDocs((curr) => [seed, ...curr]);
+    setActiveDocId(seed.id);
+    history.reset(seed.data);
+    setActiveId(seed.data.pages[0]?.id ?? null);
+  };
+
+  const handleDeleteDoc = async (id: string) => {
+    await deleteDocument(id);
+    const remaining = docs.filter((d) => d.id !== id);
+    setDocs(remaining);
+    if (activeDocId === id && remaining.length > 0) {
+      handleSwitchDoc(remaining[0].id);
+    }
+  };
+
+  const handleRenameDoc = async (id: string, name: string) => {
+    const target = docs.find((d) => d.id === id);
+    if (!target) return;
+    const updated = { ...target, name, updatedAt: Date.now() };
+    await putDocument(updated);
+    setDocs((curr) => curr.map((d) => (d.id === id ? updated : d)));
+  };
+
+  const handleLoadFromTemplate = async (templateData: InstructionData) => {
+    if (!activeDocId) return;
+    history.reset(templateData);
+    setActiveId(templateData.pages[0]?.id ?? null);
+  };
 
   const updatePage = (next: Page) => {
     setData((d) => ({ ...d, pages: d.pages.map((p) => (p.id === next.id ? next : p)) }));
@@ -302,12 +368,21 @@ export default function App() {
             <div className="w-8 h-8 bg-orange-600 rounded flex items-center justify-center font-black text-sm">
               M
             </div>
-            <div>
+            <div className="hidden xl:block">
               <div className="text-sm font-bold tracking-tight">manualAUTO</div>
               <div className="text-[10px] text-slate-500 uppercase tracking-wider">
-                Генератор інструкцій · v0.6
+                Генератор інструкцій · v0.7
               </div>
             </div>
+            <div className="w-px h-6 bg-slate-800 mx-1" />
+            <DocumentSwitcher
+              docs={docs}
+              activeId={activeDocId}
+              onSwitch={handleSwitchDoc}
+              onCreate={handleCreateDoc}
+              onDelete={handleDeleteDoc}
+              onRename={handleRenameDoc}
+            />
           </div>
 
           <div className="flex items-center gap-2">
@@ -328,13 +403,7 @@ export default function App() {
               <Redo2 size={14} />
             </button>
             <div className="w-px h-6 bg-slate-800 mx-1" />
-            <TemplateMenu
-              currentDoc={data}
-              onLoad={(d) => {
-                setData(d, { coalesce: false });
-                setActiveId(d.pages[0]?.id ?? null);
-              }}
-            />
+            <TemplateMenu currentDoc={data} onLoad={handleLoadFromTemplate} />
             <button
               onClick={() => setMdImportOpen(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium"

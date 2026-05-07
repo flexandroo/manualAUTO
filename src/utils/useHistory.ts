@@ -13,6 +13,7 @@ const COALESCE_MS = 600;
 interface HistoryAPI<T> {
   state: T;
   set: (next: T | ((prev: T) => T), opts?: { coalesce?: boolean }) => void;
+  reset: (newState: T) => void;
   undo: () => void;
   redo: () => void;
   canUndo: boolean;
@@ -59,6 +60,14 @@ export function useHistory<T>(initial: T): HistoryAPI<T> {
     forceRender((n) => n + 1);
   }, []);
 
+  const reset = useCallback((newState: T) => {
+    past.current = [];
+    future.current = [];
+    lastChangeAt.current = 0;
+    setStateRaw(newState);
+    forceRender((n) => n + 1);
+  }, []);
+
   const redo = useCallback(() => {
     if (future.current.length === 0) return;
     setStateRaw((curr) => {
@@ -102,6 +111,7 @@ export function useHistory<T>(initial: T): HistoryAPI<T> {
   return {
     state,
     set,
+    reset,
     undo,
     redo,
     canUndo: past.current.length > 0,
