@@ -60,6 +60,14 @@
 
 .pdf-page-content {
   flex: 1;
+  /* Without min-height:0 a flex child's default min-height is "auto"
+     (content size), so an overflowing block grows the content area
+     beyond the page and pushes the footer past 297mm where the page's
+     overflow:hidden clips it. min-height:0 lets the flex child stay
+     within the available space and clip its own overflow instead, so
+     the footer stays anchored at the bottom of every page. */
+  min-height: 0;
+  overflow: hidden;
   padding: 9mm 14mm 6mm;
 }
 
