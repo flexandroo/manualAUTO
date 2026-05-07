@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { createPortal } from 'react-dom';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { FileDown, Save, Upload, Loader2, Undo2, Redo2, FileCode2 } from 'lucide-react';
+import { FileDown, Save, Upload, Loader2, Undo2, Redo2, FileCode2, FileInput } from 'lucide-react';
 import './styles/pdf-print.css';
 import type { InstructionData, Page, PageType } from './types/instruction';
 import { initialData } from './data/initialData';
@@ -16,6 +16,7 @@ import { migrateOldBlocksToPages } from './utils/migration';
 import { useHistory } from './utils/useHistory';
 import { TemplateMenu } from './components/TemplateMenu';
 import { MarkdownImportModal } from './components/MarkdownImportModal';
+import { parsePdfToPages } from './utils/pdfImport';
 
 const STORAGE_KEY = 'manualAUTO:document:v2';
 const LEGACY_STORAGE_KEY = 'manualAUTO:document:v1';
@@ -57,7 +58,36 @@ export default function App() {
     null
   );
   const [mdImportOpen, setMdImportOpen] = useState(false);
+  const [pdfImporting, setPdfImporting] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
+
+  const handleImportPdf = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    if (
+      data.pages.length > 0 &&
+      !confirm(
+        `Імпорт із PDF додасть ${file.name} як нові сторінки в кінець документа. Продовжити?`
+      )
+    ) {
+      return;
+    }
+    setPdfImporting(true);
+    try {
+      const newPages = await parsePdfToPages(file);
+      if (newPages.length === 0) {
+        alert('Не вдалось видобути текст з PDF');
+        return;
+      }
+      setData((d) => ({ ...d, pages: [...d.pages, ...newPages] }), { coalesce: false });
+      setActiveId(newPages[0]?.id ?? activeId);
+    } catch (err) {
+      alert('Помилка читання PDF: ' + (err as Error).message);
+    } finally {
+      setPdfImporting(false);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -312,6 +342,22 @@ export default function App() {
             >
               <FileCode2 size={14} /> Markdown
             </button>
+            <label
+              className={`cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium ${
+                pdfImporting ? 'opacity-50 cursor-wait' : ''
+              }`}
+              title="Імпорт текстового вмісту з існуючого PDF"
+            >
+              {pdfImporting ? <Loader2 size={14} className="animate-spin" /> : <FileInput size={14} />}
+              {pdfImporting ? 'Парсинг…' : 'Імпорт PDF'}
+              <input
+                type="file"
+                accept="application/pdf,.pdf"
+                onChange={handleImportPdf}
+                disabled={pdfImporting}
+                className="hidden"
+              />
+            </label>
             <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
               <Upload size={14} /> Імпорт JSON
               <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
