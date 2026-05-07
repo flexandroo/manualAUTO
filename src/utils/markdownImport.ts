@@ -7,40 +7,74 @@ import type {
   BulletListElement,
   NumberedListElement,
   WarningElement,
+  TableElement,
+  KvListElement,
+  ImageElement,
+  ImageGridElement,
+  SchemeElement,
+  SeparatorElement,
 } from '../types/instruction';
 import { newId } from './id';
 
-// Lightweight Markdown-flavoured parser that turns plain-text into
-// Standard pages full of typed elements. The supported syntax is a
-// small subset:
+// Markdown-flavoured parser that produces Standard pages full of typed
+// elements. Designed for paste-from-Notion/Word workflows AND for
+// hand-written content that needs every element type our editor
+// supports — not a full CommonMark implementation.
 //
-//   # Page title              → starts a new Standard page
-//   ## 1.1 Subsection title   → SubsectionElement (number + heading)
-//                                Body text follows on next lines until
-//                                the next block-level marker.
-//   ### Heading               → HeadingElement
-//   - bullet                  → BulletListElement (consecutive lines
-//                                merge into one list)
-//   1. step                   → NumberedListElement
-//   > warning text            → WarningElement
-//   any other text            → ParagraphElement
+// SUPPORTED SYNTAX
+// ──────────────────────────────────────────────────────────────────────
+// # Page title              → starts a new Standard page
+// ## 1.1 Subsection title   → SubsectionElement (number optional)
+//   body text               → extends the previous subsection's body
+// ### Heading               → HeadingElement
+// - bullet                  → BulletListElement (consecutive merge)
+// 1. step / 1.1 step        → NumberedListElement (consecutive merge)
+// > [danger] text           → WarningElement (level: danger|warning|info)
+// > text                    → WarningElement (default level: warning)
+// ---                       → SeparatorElement
 //
-// Designed for paste-from-Notion/-Word style content. Not a full CommonMark.
+// | a | b | c |             ┐
+// |---|---|---|             │  TableElement (markdown-style)
+// | 1 | 2 | 3 |             ┘
+//
+// [kv: Title]               ┐
+// Key: Value                │  KvListElement
+// Other: 42                 ┘
+//
+// [image: підпис]           → ImageElement placeholder (user attaches
+//                             the actual file via the editor afterward)
+//
+// [grid: 3]                 ┐
+// - підпис 1                │  ImageGridElement (number = column count)
+// - підпис 2                ┘
+//
+// [scheme]                  ┐
+// 1. Підключення котла      │  SchemeElement
+// 2. Захисний клапан        ┘
+//
+// Anything else             → ParagraphElement (joins consecutive lines)
 
 export interface ParsedDocument {
   pages: StandardPage[];
 }
+
+type BlockKind = 'kv' | 'grid' | 'scheme' | 'table' | null;
 
 export function parseMarkdownToPages(input: string): ParsedDocument {
   const lines = input.replace(/\r\n/g, '\n').split('\n');
   const pages: StandardPage[] = [];
   let current: StandardPage | null = null;
 
-  // Buffers used to merge consecutive lines of the same kind.
   let bulletBuf: string[] = [];
   let numberedBuf: { number: string; text: string }[] = [];
   let pendingSubsection: SubsectionElement | null = null;
   let paragraphBuf: string[] = [];
+
+  // Multi-line block context (kv, grid, scheme, table). Only one is
+  // ever active at a time; opening a new one flushes the previous.
+  let blockKind: BlockKind = null;
+  let blockMeta: string = '';
+  let blockLines: string[] = [];
 
   const ensurePage = () => {
     if (!current) {
@@ -50,25 +84,27 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
     return current;
   };
 
+  const pushElement = (el: PageElement) => {
+    ensurePage().elements.push(el);
+  };
+
   const flushBullets = () => {
     if (bulletBuf.length === 0) return;
-    const el: BulletListElement = {
+    pushElement({
       id: newId('bl'),
       type: 'bulletList',
       items: bulletBuf.slice(),
-    };
-    pushElement(el);
+    } satisfies BulletListElement);
     bulletBuf = [];
   };
 
   const flushNumbered = () => {
     if (numberedBuf.length === 0) return;
-    const el: NumberedListElement = {
+    pushElement({
       id: newId('nl'),
       type: 'numberedList',
       items: numberedBuf.slice(),
-    };
-    pushElement(el);
+    } satisfies NumberedListElement);
     numberedBuf = [];
   };
 
@@ -78,14 +114,12 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
     paragraphBuf = [];
     if (!text) return;
     if (pendingSubsection) {
-      // Plain text right after a subsection header becomes its body.
       pendingSubsection.body = pendingSubsection.body
         ? pendingSubsection.body + ' ' + text
         : text;
       return;
     }
-    const el: ParagraphElement = { id: newId('p'), type: 'paragraph', text };
-    pushElement(el);
+    pushElement({ id: newId('p'), type: 'paragraph', text } satisfies ParagraphElement);
   };
 
   const flushSubsection = () => {
@@ -94,30 +128,122 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
     pendingSubsection = null;
   };
 
+  const flushBlock = () => {
+    if (!blockKind) return;
+    switch (blockKind) {
+      case 'kv':
+        pushElement(buildKvList(blockMeta, blockLines));
+        break;
+      case 'grid':
+        pushElement(buildImageGrid(blockMeta, blockLines));
+        break;
+      case 'scheme':
+        pushElement(buildScheme(blockLines));
+        break;
+      case 'table':
+        pushElement(buildTable(blockLines));
+        break;
+    }
+    blockKind = null;
+    blockMeta = '';
+    blockLines = [];
+  };
+
   const flushAll = () => {
     flushBullets();
     flushNumbered();
     flushParagraph();
     flushSubsection();
+    flushBlock();
   };
 
-  const pushElement = (el: PageElement) => {
-    ensurePage().elements.push(el);
-  };
-
-  for (const rawLine of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const rawLine = lines[i];
     const line = rawLine.trimEnd();
 
+    // Inside a multi-line block (except table, which sniffs separately)?
+    if (blockKind && blockKind !== 'table') {
+      // A blank line ends the block.
+      if (line === '') {
+        flushBlock();
+        continue;
+      }
+      blockLines.push(line);
+      continue;
+    }
+
+    // Table detection: starts with `|...|` and the NEXT line is a
+    // separator like `|---|`. If we're already inside a table, just
+    // keep accumulating until a non-pipe line arrives.
+    if (blockKind === 'table') {
+      if (line.startsWith('|')) {
+        blockLines.push(line);
+        continue;
+      }
+      flushBlock();
+      // fall through to re-process this line
+    }
+
     if (line === '') {
-      // Blank line breaks running buffers (paragraph, lists) but keeps
-      // a pending subsection open so its body can extend across blanks.
       flushBullets();
       flushNumbered();
       flushParagraph();
       continue;
     }
 
-    // # Page title
+    // ─── Block openers ────────────────────────────────────────────────
+
+    const tableStart =
+      line.startsWith('|') && lines[i + 1]?.replace(/\s/g, '').match(/^\|[-:|]+\|$/);
+    if (tableStart) {
+      flushAll();
+      blockKind = 'table';
+      blockLines = [line];
+      continue;
+    }
+
+    const kvOpen = line.match(/^\[kv(?::\s*(.+))?\]\s*$/i);
+    if (kvOpen) {
+      flushAll();
+      blockKind = 'kv';
+      blockMeta = (kvOpen[1] ?? '').trim();
+      blockLines = [];
+      continue;
+    }
+
+    const gridOpen = line.match(/^\[grid(?::\s*(\d+))?\]\s*$/i);
+    if (gridOpen) {
+      flushAll();
+      blockKind = 'grid';
+      blockMeta = gridOpen[1] ?? '3';
+      blockLines = [];
+      continue;
+    }
+
+    const schemeOpen = line.match(/^\[scheme\]\s*$/i);
+    if (schemeOpen) {
+      flushAll();
+      blockKind = 'scheme';
+      blockMeta = '';
+      blockLines = [];
+      continue;
+    }
+
+    const imageOpen = line.match(/^\[image(?::\s*(.+))?\]\s*$/i);
+    if (imageOpen) {
+      flushAll();
+      pushElement({
+        id: newId('img'),
+        type: 'image',
+        caption: (imageOpen[1] ?? '').trim(),
+        align: 'center',
+        size: 'md',
+      } satisfies ImageElement);
+      continue;
+    }
+
+    // ─── Single-line markers ──────────────────────────────────────────
+
     const pageMatch = line.match(/^#\s+(.+)$/);
     if (pageMatch) {
       flushAll();
@@ -126,7 +252,6 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
       continue;
     }
 
-    // ## subsection (with optional leading number like "1.1")
     const subMatch = line.match(/^##\s+(?:([\d.]+)\s+)?(.+)$/);
     if (subMatch) {
       flushAll();
@@ -140,35 +265,38 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
       continue;
     }
 
-    // ### heading
     const headingMatch = line.match(/^###\s+(.+)$/);
     if (headingMatch) {
       flushAll();
-      const el: HeadingElement = {
+      pushElement({
         id: newId('h'),
         type: 'heading',
         text: headingMatch[1].trim(),
-      };
-      pushElement(el);
+      } satisfies HeadingElement);
       continue;
     }
 
-    // > warning
-    const warnMatch = line.match(/^>\s*(.+)$/);
+    if (line.match(/^---+$/)) {
+      flushAll();
+      pushElement({ id: newId('sep'), type: 'separator' } satisfies SeparatorElement);
+      continue;
+    }
+
+    const warnMatch = line.match(/^>\s*(?:\[(danger|warning|info)\]\s*)?(.+)$/);
     if (warnMatch) {
       flushAll();
-      const el: WarningElement = {
+      const level = (warnMatch[1] as 'danger' | 'warning' | 'info' | undefined) ?? 'warning';
+      const titleByLevel = { danger: 'Небезпека!', warning: 'Увага!', info: 'Примітка' } as const;
+      pushElement({
         id: newId('w'),
         type: 'warning',
-        level: 'warning',
-        title: 'Увага!',
-        body: warnMatch[1].trim(),
-      };
-      pushElement(el);
+        level,
+        title: titleByLevel[level],
+        body: warnMatch[2].trim(),
+      } satisfies WarningElement);
       continue;
     }
 
-    // - bullet
     const bulletMatch = line.match(/^[-*]\s+(.+)$/);
     if (bulletMatch) {
       flushNumbered();
@@ -178,24 +306,16 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
       continue;
     }
 
-    // 1.2  step text  OR  1. step text
-    // Two valid shapes: a section-style number with internal dots
-    // ("1.1", "1.2.3") followed by a space, or a plain digit with a
-    // trailing dot ("1."). This avoids accidentally classifying
-    // arbitrary text that opens with a year ("2024 was a good year").
     const numMatch = line.match(/^(\d+(?:\.\d+)+|\d+\.)\s+(.+)$/);
     if (numMatch) {
       flushBullets();
       flushParagraph();
       flushSubsection();
-      // Strip the trailing dot from a flat list marker ("1." -> "1")
-      // but leave section numbers ("1.1") alone.
       const num = numMatch[1].endsWith('.') ? numMatch[1].slice(0, -1) : numMatch[1];
       numberedBuf.push({ number: num, text: numMatch[2].trim() });
       continue;
     }
 
-    // Plain text — joins paragraph buffer (or extends pending subsection body).
     flushBullets();
     flushNumbered();
     paragraphBuf.push(line.trim());
@@ -203,6 +323,56 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
 
   flushAll();
   return { pages };
+}
+
+// ─── Block builders ───────────────────────────────────────────────────
+
+function buildKvList(title: string, lines: string[]): KvListElement {
+  const rows = lines
+    .map((l) => l.match(/^([^:]+):\s*(.*)$/))
+    .filter((m): m is RegExpMatchArray => !!m)
+    .map((m) => ({ key: m[1].trim(), value: m[2].trim() }));
+  return {
+    id: newId('kv'),
+    type: 'kvList',
+    title: title || undefined,
+    rows,
+  };
+}
+
+function buildImageGrid(colsStr: string, lines: string[]): ImageGridElement {
+  const raw = parseInt(colsStr, 10) || 3;
+  const columns: 2 | 3 | 4 = raw <= 2 ? 2 : raw >= 4 ? 4 : 3;
+  const items = lines
+    .map((l) => l.match(/^[-*]\s*(.*)$/))
+    .filter((m): m is RegExpMatchArray => !!m)
+    .map((m) => ({ id: newId('f'), caption: m[1].trim() }));
+  return { id: newId('ig'), type: 'imageGrid', columns, items };
+}
+
+function buildScheme(lines: string[]): SchemeElement {
+  const items = lines
+    .map((l) => l.match(/^(\d+)\.?\s+(.+)$/))
+    .filter((m): m is RegExpMatchArray => !!m)
+    .map((m) => ({ number: parseInt(m[1], 10), label: m[2].trim() }));
+  return { id: newId('sch'), type: 'scheme', items, flowLines: [] };
+}
+
+function buildTable(lines: string[]): TableElement {
+  // Drop the separator row and extract cells from the rest.
+  const rows = lines
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith('|'))
+    .filter((l) => !l.replace(/\s/g, '').match(/^\|[-:|]+\|$/))
+    .map((l) =>
+      l
+        .replace(/^\|/, '')
+        .replace(/\|$/, '')
+        .split('|')
+        .map((c) => c.trim())
+    );
+  const headers = rows.shift() ?? [];
+  return { id: newId('t'), type: 'table', headers, rows };
 }
 
 function makePage(title: string): StandardPage {

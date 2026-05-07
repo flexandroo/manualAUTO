@@ -89,4 +89,74 @@ describe('parseMarkdownToPages', () => {
     expect(out.pages[0].sectionTitle).toBe('Без назви');
     expect(out.pages[0].elements[0].type).toBe('paragraph');
   });
+
+  it('parses GFM-style tables', () => {
+    const md = '# P\n| A | B |\n|---|---|\n| 1 | 2 |\n| 3 | 4 |';
+    const el = parseMarkdownToPages(md).pages[0].elements[0];
+    expect(el.type).toBe('table');
+    if (el.type === 'table') {
+      expect(el.headers).toEqual(['A', 'B']);
+      expect(el.rows).toEqual([
+        ['1', '2'],
+        ['3', '4'],
+      ]);
+    }
+  });
+
+  it('parses [kv: title] blocks', () => {
+    const md = '# P\n[kv: Характеристики]\nМатеріал: сталь\nТиск: 6 бар';
+    const el = parseMarkdownToPages(md).pages[0].elements[0];
+    expect(el.type).toBe('kvList');
+    if (el.type === 'kvList') {
+      expect(el.title).toBe('Характеристики');
+      expect(el.rows).toEqual([
+        { key: 'Матеріал', value: 'сталь' },
+        { key: 'Тиск', value: '6 бар' },
+      ]);
+    }
+  });
+
+  it('parses [grid: N] image grid blocks', () => {
+    const md = '# P\n[grid: 4]\n- a\n- b\n- c\n- d';
+    const el = parseMarkdownToPages(md).pages[0].elements[0];
+    expect(el.type).toBe('imageGrid');
+    if (el.type === 'imageGrid') {
+      expect(el.columns).toBe(4);
+      expect(el.items.map((i) => i.caption)).toEqual(['a', 'b', 'c', 'd']);
+    }
+  });
+
+  it('parses [scheme] blocks', () => {
+    const md = '# P\n[scheme]\n1. Підключення котла\n2. Захисний клапан';
+    const el = parseMarkdownToPages(md).pages[0].elements[0];
+    expect(el.type).toBe('scheme');
+    if (el.type === 'scheme') {
+      expect(el.items).toEqual([
+        { number: 1, label: 'Підключення котла' },
+        { number: 2, label: 'Захисний клапан' },
+      ]);
+    }
+  });
+
+  it('parses [image: caption] as a placeholder', () => {
+    const md = '# P\n[image: Загальний вигляд]';
+    const el = parseMarkdownToPages(md).pages[0].elements[0];
+    expect(el.type).toBe('image');
+    if (el.type === 'image') expect(el.caption).toBe('Загальний вигляд');
+  });
+
+  it('parses --- as separator element', () => {
+    const md = '# P\nfoo\n---\nbar';
+    const els = parseMarkdownToPages(md).pages[0].elements;
+    expect(els.map((e) => e.type)).toEqual(['paragraph', 'separator', 'paragraph']);
+  });
+
+  it('parses warning level prefix [danger] [info]', () => {
+    const md = '# P\n> [danger] Гаряче\n\n> [info] Зверніть увагу';
+    const els = parseMarkdownToPages(md).pages[0].elements;
+    expect(els[0].type).toBe('warning');
+    expect(els[1].type).toBe('warning');
+    if (els[0].type === 'warning') expect(els[0].level).toBe('danger');
+    if (els[1].type === 'warning') expect(els[1].level).toBe('info');
+  });
 });

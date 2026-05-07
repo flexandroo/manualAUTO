@@ -61,13 +61,23 @@ export function MarkdownImportModal({ onClose, onImport }: Props) {
           </button>
         </div>
 
-        <div className="px-5 py-3 text-[11px] text-slate-400 border-b border-slate-800 leading-relaxed">
-          <span className="font-mono text-slate-300">#</span> сторінка ·{' '}
-          <span className="font-mono text-slate-300">## 1.1</span> підрозділ ·{' '}
-          <span className="font-mono text-slate-300">###</span> заголовок ·{' '}
-          <span className="font-mono text-slate-300">-</span> список ·{' '}
-          <span className="font-mono text-slate-300">1.</span> нумерований ·{' '}
-          <span className="font-mono text-slate-300">&gt;</span> попередження
+        <div className="px-5 py-3 text-[11px] text-slate-400 border-b border-slate-800 leading-relaxed space-y-1">
+          <div>
+            <span className="font-mono text-slate-300">#</span> сторінка ·{' '}
+            <span className="font-mono text-slate-300">## 1.1</span> підрозділ ·{' '}
+            <span className="font-mono text-slate-300">###</span> заголовок ·{' '}
+            <span className="font-mono text-slate-300">-</span> список ·{' '}
+            <span className="font-mono text-slate-300">1.</span> нумерований ·{' '}
+            <span className="font-mono text-slate-300">&gt;</span> попередження ·{' '}
+            <span className="font-mono text-slate-300">---</span> розділювач
+          </div>
+          <div>
+            <span className="font-mono text-slate-300">| a | b |</span> таблиця ·{' '}
+            <span className="font-mono text-slate-300">[kv: T]</span> хар-ки ·{' '}
+            <span className="font-mono text-slate-300">[image: підпис]</span> ·{' '}
+            <span className="font-mono text-slate-300">[grid: 3]</span> сітка ·{' '}
+            <span className="font-mono text-slate-300">[scheme]</span> схема
+          </div>
         </div>
 
         <div className="flex-1 overflow-hidden flex">
