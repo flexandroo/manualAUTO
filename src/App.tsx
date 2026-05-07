@@ -14,6 +14,7 @@ import { PdfDocProvider, type PdfDocCtx } from './components/PdfDocContext';
 import { EditingDocProvider } from './components/EditingDocContext';
 import { migrateOldBlocksToPages } from './utils/migration';
 import { useHistory } from './utils/useHistory';
+import { TemplateMenu } from './components/TemplateMenu';
 
 const STORAGE_KEY = 'manualAUTO:document:v2';
 const LEGACY_STORAGE_KEY = 'manualAUTO:document:v1';
@@ -295,6 +296,13 @@ export default function App() {
               <Redo2 size={14} />
             </button>
             <div className="w-px h-6 bg-slate-800 mx-1" />
+            <TemplateMenu
+              currentDoc={data}
+              onLoad={(d) => {
+                setData(d, { coalesce: false });
+                setActiveId(d.pages[0]?.id ?? null);
+              }}
+            />
             <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
               <Upload size={14} /> Імпорт JSON
               <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
