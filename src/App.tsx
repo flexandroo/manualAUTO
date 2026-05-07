@@ -51,6 +51,9 @@ export default function App() {
   const [activeId, setActiveId] = useState<string | null>(data.pages[0]?.id ?? null);
   const [zoom, setZoom] = useState(0.65);
   const [downloading, setDownloading] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState<{ done: number; total: number } | null>(
+    null
+  );
   const printRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -128,6 +131,7 @@ export default function App() {
   const handleDownloadPdf = async () => {
     if (!printRef.current) return;
     setDownloading(true);
+    setDownloadProgress({ done: 0, total: data.pages.length });
     try {
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
@@ -188,8 +192,13 @@ export default function App() {
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
       const pageW = 210;
       const pageH = 297;
+      setDownloadProgress({ done: 0, total: pages.length });
 
       for (let i = 0; i < pages.length; i++) {
+        setDownloadProgress({ done: i, total: pages.length });
+        // Yield to the browser so React can repaint the progress label
+        // between pages — html2canvas blocks the main thread.
+        await new Promise((r) => setTimeout(r, 0));
         const node = pages[i];
         const canvas = await html2canvas(node, {
           scale: 2,
@@ -229,6 +238,7 @@ export default function App() {
       pdf.save(filename);
     } finally {
       setDownloading(false);
+      setDownloadProgress(null);
     }
   };
 
@@ -301,7 +311,10 @@ export default function App() {
             >
               {downloading ? (
                 <>
-                  <Loader2 size={14} className="animate-spin" /> Генерація...
+                  <Loader2 size={14} className="animate-spin" />
+                  {downloadProgress
+                    ? `Сторінка ${Math.min(downloadProgress.done + 1, downloadProgress.total)}/${downloadProgress.total}`
+                    : 'Підготовка…'}
                 </>
               ) : (
                 <>
