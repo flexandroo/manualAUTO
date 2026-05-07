@@ -128,6 +128,14 @@ function useTermojetWordImage(wordSize: number, color: string) {
       }
       ctx.textBaseline = 'alphabetic';
       ctx.fillStyle = color;
+      ctx.strokeStyle = color;
+      // Stroke first then fill so the visible glyph is a fill on top
+      // of a same-colour stroke — effectively thickens the glyph by
+      // the stroke width regardless of the loaded font weight.
+      ctx.lineWidth = Math.max(1, fontPx * 0.06);
+      ctx.lineJoin = 'round';
+      ctx.miterLimit = 2;
+      ctx.strokeText('TERMOJET', padX, padY + ascent);
       ctx.fillText('TERMOJET', padX, padY + ascent);
 
       if (!cancelled) setSrc(canvas.toDataURL('image/png'));
