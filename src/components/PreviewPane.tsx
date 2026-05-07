@@ -1,4 +1,5 @@
-import { Eye } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Eye, AlertTriangle } from 'lucide-react';
 import type { InstructionData, Page } from '../types/instruction';
 import { getPageSpec } from '../pages/pageRegistry';
 import { PdfDocProvider, type PdfDocCtx } from './PdfDocContext';
@@ -61,16 +62,91 @@ export function PreviewPane({ doc, zoom, onZoomChange }: Props) {
             pageNumber: i + 1,
           };
           return (
-            <div key={p.id} style={{ zoom }}>
-              <div style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
-                <PdfDocProvider value={ctx}>
-                  <Preview data={p} />
-                </PdfDocProvider>
-              </div>
-            </div>
+            <PageThumbnail key={p.id} zoom={zoom} pageIndex={i}>
+              <PdfDocProvider value={ctx}>
+                <Preview data={p} />
+              </PdfDocProvider>
+            </PageThumbnail>
           );
         })}
       </div>
     </section>
+  );
+}
+
+interface ThumbnailProps {
+  zoom: number;
+  pageIndex: number;
+  children: React.ReactNode;
+}
+
+function PageThumbnail({ zoom, pageIndex, children }: ThumbnailProps) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [overflow, setOverflow] = useState(false);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const page = wrapper.querySelector<HTMLElement>('.pdf-page');
+    if (!page) return;
+    const check = () => {
+      // A4 height is 297mm. Page's scrollHeight reports actual content
+      // height; if it exceeds the page height, content is being clipped
+      // by overflow:hidden on .pdf-page.
+      const overflowing = page.scrollHeight > page.clientHeight + 1;
+      setOverflow(overflowing);
+    };
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(page);
+    // Children content edits don't always trigger ResizeObserver if
+    // total height stays same — observe subtree mutations too.
+    const mo = new MutationObserver(check);
+    mo.observe(page, { childList: true, subtree: true, characterData: true });
+    return () => {
+      ro.disconnect();
+      mo.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className="relative" style={{ zoom }}>
+      <div
+        ref={wrapperRef}
+        style={{
+          boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+          outline: overflow ? '3px solid #ef4444' : 'none',
+          outlineOffset: '-3px',
+        }}
+      >
+        {children}
+      </div>
+      {overflow && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            background: '#ef4444',
+            color: 'white',
+            padding: '4px 10px',
+            borderRadius: 6,
+            fontSize: 11,
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            // Counter-zoom so the badge stays readable at every zoom
+            // level (the parent element scales everything via CSS zoom).
+            zoom: 1 / Math.max(zoom, 0.01),
+          }}
+          title={`Сторінка ${pageIndex + 1} переповнена — частина контенту обрізається в PDF`}
+        >
+          <AlertTriangle size={12} />
+          Переповнення
+        </div>
+      )}
+    </div>
   );
 }
