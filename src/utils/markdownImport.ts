@@ -179,12 +179,19 @@ export function parseMarkdownToPages(input: string): ParsedDocument {
     }
 
     // 1.2  step text  OR  1. step text
-    const numMatch = line.match(/^(\d+(?:\.\d+)?)\.\s+(.+)$/);
+    // Two valid shapes: a section-style number with internal dots
+    // ("1.1", "1.2.3") followed by a space, or a plain digit with a
+    // trailing dot ("1."). This avoids accidentally classifying
+    // arbitrary text that opens with a year ("2024 was a good year").
+    const numMatch = line.match(/^(\d+(?:\.\d+)+|\d+\.)\s+(.+)$/);
     if (numMatch) {
       flushBullets();
       flushParagraph();
       flushSubsection();
-      numberedBuf.push({ number: numMatch[1], text: numMatch[2].trim() });
+      // Strip the trailing dot from a flat list marker ("1." -> "1")
+      // but leave section numbers ("1.1") alone.
+      const num = numMatch[1].endsWith('.') ? numMatch[1].slice(0, -1) : numMatch[1];
+      numberedBuf.push({ number: num, text: numMatch[2].trim() });
       continue;
     }
 
