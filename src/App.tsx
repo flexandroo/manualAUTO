@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { createPortal } from 'react-dom';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { FileDown, Save, Upload, Loader2 } from 'lucide-react';
+import { FileDown, Save, Upload, Loader2, Undo2, Redo2 } from 'lucide-react';
 import './styles/pdf-print.css';
 import type { InstructionData, Page, PageType } from './types/instruction';
 import { initialData } from './data/initialData';
@@ -13,6 +13,7 @@ import { PreviewPane } from './components/PreviewPane';
 import { PdfDocProvider, type PdfDocCtx } from './components/PdfDocContext';
 import { EditingDocProvider } from './components/EditingDocContext';
 import { migrateOldBlocksToPages } from './utils/migration';
+import { useHistory } from './utils/useHistory';
 
 const STORAGE_KEY = 'manualAUTO:document:v2';
 const LEGACY_STORAGE_KEY = 'manualAUTO:document:v1';
@@ -44,7 +45,9 @@ function loadFromStorage(): InstructionData | null {
 }
 
 export default function App() {
-  const [data, setData] = useState<InstructionData>(() => loadFromStorage() ?? initialData);
+  const history = useHistory<InstructionData>(loadFromStorage() ?? initialData);
+  const data = history.state;
+  const setData = history.set;
   const [activeId, setActiveId] = useState<string | null>(data.pages[0]?.id ?? null);
   const [zoom, setZoom] = useState(0.65);
   const [downloading, setDownloading] = useState(false);
@@ -264,6 +267,23 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={history.undo}
+              disabled={!history.canUndo}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed rounded text-xs font-medium"
+              title="Скасувати (Ctrl+Z)"
+            >
+              <Undo2 size={14} />
+            </button>
+            <button
+              onClick={history.redo}
+              disabled={!history.canRedo}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed rounded text-xs font-medium"
+              title="Повторити (Ctrl+Shift+Z)"
+            >
+              <Redo2 size={14} />
+            </button>
+            <div className="w-px h-6 bg-slate-800 mx-1" />
             <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
               <Upload size={14} /> Імпорт JSON
               <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
