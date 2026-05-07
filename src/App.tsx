@@ -210,13 +210,14 @@ export default function App() {
           onclone: (clonedDoc) => {
             // html2canvas's text raster shifts glyph baselines ~2 px
             // lower than the live preview. Compensate by translating
-            // the main text-bearing containers up by 2 px in the
-            // clone only. The user's editor preview is unaffected.
+            // every direct child of .pdf-page up by 2 px in the clone
+            // only. This generalises across all page types — Standard
+            // (which has named .pdf-page-header/content/footer-band
+            // children), Cover, and Warranty (which use bespoke
+            // inline-styled containers).
             const style = clonedDoc.createElement('style');
             style.textContent = `
-              .pdf-page-header,
-              .pdf-page-content,
-              .pdf-page-footer-band {
+              .pdf-page > * {
                 transform: translateY(-2px);
               }
             `;
