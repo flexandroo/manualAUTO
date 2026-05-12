@@ -3,6 +3,8 @@ import { newId } from './id';
 import {
   estimateElementHeight,
   estimatePageHeight,
+  isCohesivePair,
+  IMAGE_GRID_ROW_MM,
   PAGE_BUDGET_MM,
 } from './layoutEstimator';
 
@@ -136,43 +138,6 @@ function splitOversizedPage(page: StandardPage): StandardPage[] {
   });
 }
 
-// Returns true when `curr` should never start a new page on its own
-// because it logically belongs to `prev`.
-function isCohesivePair(
-  prev: PageElement | undefined,
-  curr: PageElement
-): boolean {
-  if (!prev) return false;
-
-  // Image followed by its numbered legend.
-  if (prev.type === 'image' && curr.type === 'scheme') return true;
-
-  // Heading attaches to the immediately-following block (the heading
-  // is meaningless without its content).
-  if (prev.type === 'heading' && curr.type !== 'heading') return true;
-
-  // A subsection's body sometimes continues into a bullet/numbered
-  // list that elaborates the subsection — keep them together.
-  if (
-    prev.type === 'subsection' &&
-    (curr.type === 'bulletList' || curr.type === 'numberedList')
-  ) {
-    return true;
-  }
-
-  // An image grid's caption-row is part of the grid itself; the only
-  // explicit pairing here is image followed by a caption-bearing
-  // paragraph, which we keep together.
-  if (prev.type === 'image' && curr.type === 'paragraph') {
-    const txt = curr.text ?? '';
-    // Heuristic: a "caption" is short and doesn't end with a period
-    // that suggests a full sentence body of its own.
-    if (txt.length < 120) return true;
-  }
-
-  return false;
-}
-
 // Decide whether a page would render more compactly in twoColumn mode.
 // Two-column packs better when content is predominantly text-shaped
 // (subsections, paragraphs, lists) — wide elements like tables and
@@ -218,8 +183,7 @@ function splitOversizedElement(el: PageElement): PageElement[] {
   if (estimateElementHeight(el) <= PAGE_BUDGET_MM) return [el];
 
   if (el.type === 'imageGrid') {
-    const rowH = 75;
-    const maxRows = Math.max(1, Math.floor((PAGE_BUDGET_MM - 8) / rowH));
+    const maxRows = Math.max(1, Math.floor((PAGE_BUDGET_MM - 8) / IMAGE_GRID_ROW_MM));
     const itemsPerChunk = Math.max(1, maxRows * el.columns);
     if (el.items.length <= itemsPerChunk) return [el];
     const out: PageElement[] = [];
