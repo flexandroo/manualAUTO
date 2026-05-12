@@ -42,6 +42,14 @@ export const ELEMENT_STYLE_DEFAULTS = {
   imageGrid: {
     caption: { fontSize: 9, bold: true },
   },
+  stepList: {
+    number: { fontSize: 13, bold: true },
+    text: { fontSize: 11, bold: false },
+  },
+  cardGrid: {
+    title: { fontSize: 11, bold: true },
+    body: { fontSize: 10, bold: false },
+  },
   warning: {
     title: { fontSize: 10, bold: true },
     body: { fontSize: 10, bold: false },

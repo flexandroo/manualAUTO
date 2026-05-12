@@ -1,5 +1,6 @@
 import type {
   BulletListElement,
+  CardGridElement,
   HeadingElement,
   ImageElement,
   ImageGridElement,
@@ -9,6 +10,7 @@ import type {
   ParagraphElement,
   SchemeElement,
   SeparatorElement,
+  StepListElement,
   SubsectionElement,
   TableElement,
   TwoColumnElement,
@@ -46,6 +48,10 @@ export function ElementRenderer({ element }: Props) {
       return <ImageRender data={element} />;
     case 'imageGrid':
       return <ImageGridRender data={element} />;
+    case 'stepList':
+      return <StepListRender data={element} />;
+    case 'cardGrid':
+      return <CardGridRender data={element} />;
     case 'warning':
       return <WarningRender data={element} />;
     case 'twoColumn':
@@ -498,4 +504,188 @@ function TwoColumnRender({ data }: { data: TwoColumnElement }) {
 
 function SeparatorRender({}: { data: SeparatorElement }) {
   return <div className="pdf-sep" />;
+}
+
+function StepListRender({ data }: { data: StepListElement }) {
+  const pos = data.imagePosition ?? 'right';
+  const numStyle = s('numberedList', 'number', data.styles);
+  const textStyle = s('numberedList', 'text', data.styles);
+  return (
+    <div style={{ marginBottom: '4mm' }}>
+      {data.steps.map((step) => (
+        <div
+          key={step.id}
+          style={{
+            display: 'grid',
+            gridTemplateColumns:
+              pos === 'right' ? '10mm 1fr 50mm' : '10mm 1fr',
+            gap: '4mm',
+            alignItems: 'flex-start',
+            marginBottom: '4mm',
+            paddingBottom: '3mm',
+            borderBottom: '0.5px solid rgba(13,21,38,0.06)',
+          }}
+        >
+          <div
+            style={{
+              color: '#F25D2A',
+              fontFamily: 'JetBrains Mono, monospace',
+              lineHeight: 1.1,
+              ...numStyle,
+            }}
+          >
+            {step.number}
+          </div>
+          <div
+            className="pdf-subsection-body"
+            style={{ whiteSpace: 'pre-wrap', margin: 0, ...textStyle }}
+          >
+            {step.text}
+            {pos === 'below' && step.imageUrl && (
+              <img
+                src={step.imageUrl}
+                alt=""
+                style={{
+                  display: 'block',
+                  maxWidth: '60mm',
+                  marginTop: '2mm',
+                }}
+              />
+            )}
+            {pos === 'below' && !step.imageUrl && (
+              <div
+                style={{
+                  marginTop: '2mm',
+                  width: '60mm',
+                  height: '30mm',
+                  border: '1px dashed rgba(13,21,38,0.15)',
+                  background: 'rgba(13,21,38,0.02)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#8A8F9A',
+                  fontSize: '7pt',
+                  fontFamily: 'monospace',
+                }}
+              >
+                [ фото кроку ]
+              </div>
+            )}
+          </div>
+          {pos === 'right' && (
+            <div>
+              {step.imageUrl ? (
+                <img
+                  src={step.imageUrl}
+                  alt=""
+                  style={{ width: '100%', display: 'block' }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: '100%',
+                    height: '32mm',
+                    border: '1px dashed rgba(13,21,38,0.15)',
+                    background: 'rgba(13,21,38,0.02)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#8A8F9A',
+                    fontSize: '7pt',
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  [ фото кроку ]
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CardGridRender({ data }: { data: CardGridElement }) {
+  const titleStyle = s('cardGrid', 'title', data.styles);
+  const bodyStyle = s('cardGrid', 'body', data.styles);
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${data.columns}, 1fr)`,
+        gap: '5mm',
+        marginBottom: '4mm',
+      }}
+    >
+      {data.cards.map((card) => (
+        <div
+          key={card.id}
+          style={{
+            background: 'rgba(13,21,38,0.02)',
+            border: '0.5px solid rgba(13,21,38,0.1)',
+            padding: '3mm',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {card.imageUrl ? (
+            <img
+              src={card.imageUrl}
+              alt={card.title}
+              style={{
+                width: '100%',
+                maxHeight: '40mm',
+                objectFit: 'contain',
+                display: 'block',
+                marginBottom: '3mm',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: '100%',
+                height: '35mm',
+                border: '1px dashed rgba(13,21,38,0.15)',
+                background: 'rgba(255,255,255,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#8A8F9A',
+                fontSize: '7pt',
+                fontFamily: 'monospace',
+                marginBottom: '3mm',
+              }}
+            >
+              [ зображення ]
+            </div>
+          )}
+          <div
+            style={{
+              color: '#0D1526',
+              marginBottom: '1.5mm',
+              ...titleStyle,
+            }}
+          >
+            {card.title}
+          </div>
+          {card.body && (
+            <div
+              className="pdf-subsection-body"
+              style={{ margin: 0, marginBottom: '2mm', ...bodyStyle }}
+            >
+              {card.body}
+            </div>
+          )}
+          {card.bullets && card.bullets.length > 0 && (
+            <ul className="pdf-bullet-list" style={{ margin: 0 }}>
+              {card.bullets.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  );
 }

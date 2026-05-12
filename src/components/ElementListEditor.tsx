@@ -174,6 +174,10 @@ function summary(el: PageElement): string {
       return el.caption ? `· "${truncate(el.caption, 20)}"` : '';
     case 'imageGrid':
       return `· ${el.items.length} карток`;
+    case 'stepList':
+      return `· ${el.steps.length} кроків`;
+    case 'cardGrid':
+      return `· ${el.cards.length} карток`;
     case 'warning':
       return el.level === 'danger' ? '· заборонено' : el.level === 'info' ? '· інфо' : '· увага';
     case 'twoColumn':

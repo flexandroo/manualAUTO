@@ -19,6 +19,8 @@ export type PageElementType =
   | 'scheme'
   | 'image'
   | 'imageGrid'
+  | 'stepList'
+  | 'cardGrid'
   | 'warning'
   | 'twoColumn'
   | 'separator';
@@ -122,6 +124,40 @@ export interface WarningElement extends PageElementBase {
   body: string;
 }
 
+export interface StepListItem {
+  id: string;
+  number: string;
+  text: string;
+  imageUrl?: string;
+}
+
+/** Numbered procedure steps where each step optionally carries its own
+ *  inline illustration. Eliminates the awkward "numbered list + separate
+ *  figure grid" pattern common in installation manuals. */
+export interface StepListElement extends PageElementBase {
+  type: 'stepList';
+  steps: StepListItem[];
+  /** Where each step's image renders relative to its text. */
+  imagePosition?: 'right' | 'below';
+}
+
+export interface CardGridItem {
+  id: string;
+  imageUrl?: string;
+  title: string;
+  body?: string;
+  bullets?: string[];
+}
+
+/** Grid of product/component cards: image + title + short body + optional
+ *  bullets. Suited to "GP-37 / GP-38 / GP-39" comparison pages and any
+ *  catalog-style content where each item has the same shape. */
+export interface CardGridElement extends PageElementBase {
+  type: 'cardGrid';
+  columns: 2 | 3;
+  cards: CardGridItem[];
+}
+
 export interface SeparatorElement extends PageElementBase {
   type: 'separator';
 }
@@ -143,6 +179,8 @@ export type PageElement =
   | SchemeElement
   | ImageElement
   | ImageGridElement
+  | StepListElement
+  | CardGridElement
   | WarningElement
   | TwoColumnElement
   | SeparatorElement;

@@ -12,6 +12,8 @@ import {
   Minus,
   Hash,
   Columns2,
+  ListChecks,
+  LayoutGrid,
   type LucideIcon,
 } from 'lucide-react';
 import type { PageElementType } from '../types/instruction';
@@ -84,6 +86,18 @@ export const ELEMENT_SPECS: Record<PageElementType, Spec> = {
     hint: '2-4 картинки в ряд',
     icon: Images,
   },
+  stepList: {
+    type: 'stepList',
+    label: 'Кроки з фото',
+    hint: 'Нумеровані кроки + фото на кожен',
+    icon: ListChecks,
+  },
+  cardGrid: {
+    type: 'cardGrid',
+    label: 'Картки продуктів',
+    hint: 'Фото + назва + опис + список',
+    icon: LayoutGrid,
+  },
   warning: {
     type: 'warning',
     label: 'Попередження',
@@ -116,6 +130,8 @@ export const ELEMENT_ORDER: PageElementType[] = [
   'scheme',
   'image',
   'imageGrid',
+  'stepList',
+  'cardGrid',
   'warning',
   'separator',
 ];

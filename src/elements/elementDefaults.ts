@@ -69,6 +69,28 @@ export function createElement(type: PageElementType): PageElement {
           { id: newId('f'), caption: 'рис. 3' },
         ],
       };
+    case 'stepList':
+      return {
+        id: newId('sl'),
+        type,
+        imagePosition: 'right',
+        steps: [
+          { id: newId('step'), number: '1', text: 'Перший крок.' },
+          { id: newId('step'), number: '2', text: 'Другий крок.' },
+          { id: newId('step'), number: '3', text: 'Третій крок.' },
+        ],
+      };
+    case 'cardGrid':
+      return {
+        id: newId('cg'),
+        type,
+        columns: 3,
+        cards: [
+          { id: newId('card'), title: 'Назва 1', body: 'Короткий опис.', bullets: ['Особливість 1', 'Особливість 2'] },
+          { id: newId('card'), title: 'Назва 2', body: 'Короткий опис.', bullets: ['Особливість 1', 'Особливість 2'] },
+          { id: newId('card'), title: 'Назва 3', body: 'Короткий опис.', bullets: ['Особливість 1', 'Особливість 2'] },
+        ],
+      };
     case 'warning':
       return { id: newId('w'), type, level: 'warning', title: 'Увага!', body: '' };
     case 'twoColumn':

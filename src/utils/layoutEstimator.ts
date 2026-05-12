@@ -80,6 +80,18 @@ export function estimateElementHeight(el: PageElement, twoColumn = false): numbe
     case 'scheme':
       return 10 + el.items.length * 7;
 
+    case 'stepList': {
+      // Each step ≈ 30mm with image-on-right; ≈ 50mm with image-below.
+      const perStep = el.imagePosition === 'below' ? 50 : 30;
+      return el.steps.length * perStep;
+    }
+
+    case 'cardGrid': {
+      // One row of cards ≈ 80mm (image + title + body + bullets).
+      const rows = Math.ceil(el.cards.length / el.columns);
+      return rows * 80;
+    }
+
     case 'twoColumn': {
       const left = el.left.reduce((s, e) => s + estimateElementHeight(e, true), 0);
       const right = el.right.reduce((s, e) => s + estimateElementHeight(e, true), 0);

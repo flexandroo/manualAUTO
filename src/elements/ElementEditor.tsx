@@ -1,6 +1,8 @@
 import { Plus, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
 import type {
   BulletListElement,
+  CardGridElement,
+  CardGridItem,
   HeadingElement,
   ImageElement,
   ImageGridElement,
@@ -10,6 +12,8 @@ import type {
   PageElement,
   ParagraphElement,
   SchemeElement,
+  StepListElement,
+  StepListItem,
   SubsectionElement,
   TableElement,
   TextStyle,
@@ -83,6 +87,10 @@ export function ElementEditor({ element, onChange }: Props) {
       return <ImageEd data={element} onChange={onChange} />;
     case 'imageGrid':
       return <ImageGridEd data={element} onChange={onChange} />;
+    case 'stepList':
+      return <StepListEd data={element} onChange={onChange} />;
+    case 'cardGrid':
+      return <CardGridEd data={element} onChange={onChange} />;
     case 'warning':
       return <WarningEd data={element} onChange={onChange} />;
     case 'twoColumn':
@@ -753,6 +761,212 @@ function WarningEd({ data, onChange }: EdProps<WarningElement>) {
           rows={4}
         />
         <StyleRow data={data} onChange={onChange} elType="warning" styleKey="body" />
+      </FieldGroup>
+    </>
+  );
+}
+
+function StepListEd({ data, onChange }: EdProps<StepListElement>) {
+  const updateStep = (idx: number, patch: Partial<StepListItem>) => {
+    const next = data.steps.map((s, i) => (i === idx ? { ...s, ...patch } : s));
+    onChange({ ...data, steps: next });
+  };
+  const addStep = () => {
+    const nextNum = String(data.steps.length + 1);
+    onChange({
+      ...data,
+      steps: [...data.steps, { id: newId('step'), number: nextNum, text: '' }],
+    });
+  };
+  const removeStep = (idx: number) => {
+    onChange({ ...data, steps: data.steps.filter((_, i) => i !== idx) });
+  };
+  const moveStep = (idx: number, dir: -1 | 1) => {
+    const t = idx + dir;
+    if (t < 0 || t >= data.steps.length) return;
+    const next = [...data.steps];
+    [next[idx], next[t]] = [next[t], next[idx]];
+    onChange({ ...data, steps: next });
+  };
+  return (
+    <>
+      <FieldGroup label="Положення фото">
+        <div className="flex gap-1">
+          <button
+            type="button"
+            onClick={() => onChange({ ...data, imagePosition: 'right' })}
+            className={`px-2.5 py-1 text-xs rounded ${
+              (data.imagePosition ?? 'right') === 'right'
+                ? 'bg-orange-600 text-white'
+                : 'bg-slate-800 hover:bg-slate-700'
+            }`}
+          >
+            Праворуч від тексту
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...data, imagePosition: 'below' })}
+            className={`px-2.5 py-1 text-xs rounded ${
+              data.imagePosition === 'below'
+                ? 'bg-orange-600 text-white'
+                : 'bg-slate-800 hover:bg-slate-700'
+            }`}
+          >
+            Під текстом
+          </button>
+        </div>
+      </FieldGroup>
+      <FieldGroup label={`Кроки (${data.steps.length})`}>
+        {data.steps.map((step, idx) => (
+          <div key={step.id} className="border border-slate-800 rounded p-2 mb-2">
+            <div className="flex gap-2 items-start mb-2">
+              <Input
+                value={step.number}
+                onChange={(e) => updateStep(idx, { number: e.target.value })}
+                placeholder="1"
+                className="w-16 flex-shrink-0"
+              />
+              <Textarea
+                value={step.text}
+                onChange={(e) => updateStep(idx, { text: e.target.value })}
+                rows={2}
+                placeholder="Текст кроку"
+              />
+              <div className="flex flex-col gap-1 flex-shrink-0">
+                <IconBtn onClick={() => moveStep(idx, -1)} title="Вгору">
+                  <ChevronUp size={12} />
+                </IconBtn>
+                <IconBtn onClick={() => moveStep(idx, 1)} title="Вниз">
+                  <ChevronDown size={12} />
+                </IconBtn>
+                <IconBtn onClick={() => removeStep(idx)} title="Видалити" variant="danger">
+                  <Trash2 size={12} />
+                </IconBtn>
+              </div>
+            </div>
+            <ImageUploader
+              value={step.imageUrl}
+              onChange={(url) => updateStep(idx, { imageUrl: url })}
+              hint="Фото для кроку (опціонально)"
+              aspectRatio="4/3"
+            />
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addStep}
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs"
+        >
+          <Plus size={12} /> Додати крок
+        </button>
+      </FieldGroup>
+    </>
+  );
+}
+
+function CardGridEd({ data, onChange }: EdProps<CardGridElement>) {
+  const updateCard = (idx: number, patch: Partial<CardGridItem>) => {
+    const next = data.cards.map((c, i) => (i === idx ? { ...c, ...patch } : c));
+    onChange({ ...data, cards: next });
+  };
+  const addCard = () => {
+    onChange({
+      ...data,
+      cards: [
+        ...data.cards,
+        { id: newId('card'), title: 'Назва', body: '', bullets: [] },
+      ],
+    });
+  };
+  const removeCard = (idx: number) => {
+    onChange({ ...data, cards: data.cards.filter((_, i) => i !== idx) });
+  };
+  const moveCard = (idx: number, dir: -1 | 1) => {
+    const t = idx + dir;
+    if (t < 0 || t >= data.cards.length) return;
+    const next = [...data.cards];
+    [next[idx], next[t]] = [next[t], next[idx]];
+    onChange({ ...data, cards: next });
+  };
+  const updateBullets = (idx: number, value: string) => {
+    const items = value.split('\n').map((l) => l.trim()).filter(Boolean);
+    updateCard(idx, { bullets: items });
+  };
+  return (
+    <>
+      <FieldGroup label="Колонки">
+        <div className="flex gap-1">
+          {[2, 3].map((n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => onChange({ ...data, columns: n as 2 | 3 })}
+              className={`px-3 py-1 text-xs rounded ${
+                data.columns === n
+                  ? 'bg-orange-600 text-white'
+                  : 'bg-slate-800 hover:bg-slate-700'
+              }`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+      </FieldGroup>
+      <FieldGroup label={`Картки (${data.cards.length})`}>
+        {data.cards.map((card, idx) => (
+          <div key={card.id} className="border border-slate-800 rounded p-2 mb-2">
+            <div className="flex gap-2 items-start mb-2">
+              <Input
+                value={card.title}
+                onChange={(e) => updateCard(idx, { title: e.target.value })}
+                placeholder="Назва картки"
+              />
+              <div className="flex flex-col gap-1 flex-shrink-0">
+                <IconBtn onClick={() => moveCard(idx, -1)} title="Вгору">
+                  <ChevronUp size={12} />
+                </IconBtn>
+                <IconBtn onClick={() => moveCard(idx, 1)} title="Вниз">
+                  <ChevronDown size={12} />
+                </IconBtn>
+                <IconBtn onClick={() => removeCard(idx)} title="Видалити" variant="danger">
+                  <Trash2 size={12} />
+                </IconBtn>
+              </div>
+            </div>
+            <Textarea
+              value={card.body ?? ''}
+              onChange={(e) => updateCard(idx, { body: e.target.value })}
+              rows={2}
+              placeholder="Короткий опис"
+            />
+            <div className="mt-2">
+              <div className="text-[10px] uppercase tracking-wider text-slate-500 mb-1">
+                Буллети (рядок = пункт)
+              </div>
+              <Textarea
+                value={(card.bullets ?? []).join('\n')}
+                onChange={(e) => updateBullets(idx, e.target.value)}
+                rows={3}
+                placeholder={'Особливість 1\nОсобливість 2'}
+              />
+            </div>
+            <div className="mt-2">
+              <ImageUploader
+                value={card.imageUrl}
+                onChange={(url) => updateCard(idx, { imageUrl: url })}
+                hint="Фото картки"
+                aspectRatio="4/3"
+              />
+            </div>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addCard}
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs"
+        >
+          <Plus size={12} /> Додати картку
+        </button>
       </FieldGroup>
     </>
   );
