@@ -16,6 +16,7 @@ import { useHistory } from './utils/useHistory';
 import { TemplateMenu } from './components/TemplateMenu';
 import { MarkdownImportModal } from './components/MarkdownImportModal';
 import { parsePdfToPages } from './utils/pdfImport';
+import { autoPaginate } from './utils/autoPaginate';
 import { DocumentSwitcher } from './components/DocumentSwitcher';
 import { migrateOldBlocksToPages } from './utils/migration';
 import {
@@ -215,8 +216,18 @@ export default function App() {
         const raw = JSON.parse(ev.target?.result as string);
         const migrated = migrateOldBlocksToPages(raw) ?? (raw as InstructionData);
         if (Array.isArray(migrated.pages)) {
-          setData(migrated);
-          setActiveId(migrated.pages[0]?.id ?? null);
+          // Auto-paginate any oversized Standard pages while leaving
+          // Cover and Warranty (which have their own layouts) intact.
+          // The paginator is idempotent — pages already within budget
+          // pass through unchanged.
+          const repaginated: InstructionData = {
+            ...migrated,
+            pages: migrated.pages.flatMap((p): Page[] =>
+              p.type === 'standard' ? autoPaginate([p]) : [p]
+            ),
+          };
+          setData(repaginated, { coalesce: false });
+          setActiveId(repaginated.pages[0]?.id ?? null);
         } else {
           alert('Файл має невідомий формат');
         }
