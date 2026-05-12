@@ -24,6 +24,15 @@ export function autoPaginate(pages: StandardPage[]): StandardPage[] {
   return pages.flatMap(splitOversizedPage);
 }
 
+// When deciding "does this page fit as-is?" we allow a small slack
+// over the budget because the estimator's row-heights are
+// approximations — a real 232 mm rendering is well within actual A4
+// content area and shouldn't be split into two ugly half-pages just
+// because it's 2 mm over a conservative budget. The walker (when
+// genuinely splitting) still uses the strict budget so it never
+// over-packs a single bucket.
+const FITS_TOLERANCE = 1.05;
+
 function splitOversizedPage(page: StandardPage): StandardPage[] {
   // Step 0: If any single element is itself bigger than a page (typical
   // for an imageGrid with 12+ items or a table with 30+ rows), break
@@ -34,9 +43,11 @@ function splitOversizedPage(page: StandardPage): StandardPage[] {
     page = { ...page, elements: explodedElements };
   }
 
+  const fitsBudget = PAGE_BUDGET_MM * FITS_TOLERANCE;
+
   // Step 1: Try the page as-authored. If single-column already fits,
   // we're done.
-  if (estimatePageHeight(page.elements, page.twoColumn ?? false) <= PAGE_BUDGET_MM) {
+  if (estimatePageHeight(page.elements, page.twoColumn ?? false) <= fitsBudget) {
     return [autoTwoColumn(page)];
   }
 
@@ -45,7 +56,7 @@ function splitOversizedPage(page: StandardPage): StandardPage[] {
   const asTwoCol = autoTwoColumn(page);
   if (
     asTwoCol.twoColumn &&
-    estimatePageHeight(asTwoCol.elements, true) <= PAGE_BUDGET_MM
+    estimatePageHeight(asTwoCol.elements, true) <= fitsBudget
   ) {
     return [asTwoCol];
   }
