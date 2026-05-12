@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import { X, FileText } from 'lucide-react';
+import { X, FileText, Wand2 } from 'lucide-react';
 import { parseMarkdownToPages } from '../utils/markdownImport';
-import type { Page } from '../types/instruction';
+import { autoPaginate } from '../utils/autoPaginate';
+import type { Page, StandardPage } from '../types/instruction';
 
 interface Props {
   onClose: () => void;
@@ -34,14 +35,19 @@ const EXAMPLE = `# Опис продукту
 export function MarkdownImportModal({ onClose, onImport }: Props) {
   const [text, setText] = useState('');
   const [mode, setMode] = useState<'append' | 'replace'>('append');
+  const [smartPages, setSmartPages] = useState(true);
 
   const parsed = useMemo(() => parseMarkdownToPages(text), [text]);
-  const pageCount = parsed.pages.length;
-  const elementCount = parsed.pages.reduce((n, p) => n + p.elements.length, 0);
+  const finalPages = useMemo<StandardPage[]>(
+    () => (smartPages ? autoPaginate(parsed.pages) : parsed.pages),
+    [parsed.pages, smartPages]
+  );
+  const pageCount = finalPages.length;
+  const elementCount = finalPages.reduce((n, p) => n + p.elements.length, 0);
 
   const handleImport = () => {
     if (pageCount === 0) return;
-    onImport(parsed.pages, mode);
+    onImport(finalPages, mode);
     onClose();
   };
 
@@ -98,7 +104,7 @@ export function MarkdownImportModal({ onClose, onImport }: Props) {
               </div>
             ) : (
               <div className="space-y-2">
-                {parsed.pages.map((p, i) => (
+                {finalPages.map((p, i) => (
                   <div key={p.id} className="border border-slate-800 rounded p-2">
                     <div className="font-bold text-slate-200 text-[11px] mb-1">
                       {i + 1}. {p.sectionTitle}
@@ -114,23 +120,38 @@ export function MarkdownImportModal({ onClose, onImport }: Props) {
         </div>
 
         <div className="flex items-center justify-between px-5 py-3 border-t border-slate-800 gap-3">
-          <div className="flex items-center gap-1 text-[11px] text-slate-400">
-            <button
-              onClick={() => setMode('append')}
-              className={`px-2.5 py-1 rounded ${
-                mode === 'append' ? 'bg-orange-600 text-white' : 'hover:bg-slate-800'
-              }`}
+          <div className="flex items-center gap-3 text-[11px] text-slate-400">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setMode('append')}
+                className={`px-2.5 py-1 rounded ${
+                  mode === 'append' ? 'bg-orange-600 text-white' : 'hover:bg-slate-800'
+                }`}
+              >
+                Додати в кінець
+              </button>
+              <button
+                onClick={() => setMode('replace')}
+                className={`px-2.5 py-1 rounded ${
+                  mode === 'replace' ? 'bg-orange-600 text-white' : 'hover:bg-slate-800'
+                }`}
+              >
+                Замінити сторінки
+              </button>
+            </div>
+            <label
+              className="flex items-center gap-1.5 cursor-pointer select-none"
+              title="Автоматично розбивати переповнені сторінки і вмикати twoColumn для густого тексту"
             >
-              Додати в кінець
-            </button>
-            <button
-              onClick={() => setMode('replace')}
-              className={`px-2.5 py-1 rounded ${
-                mode === 'replace' ? 'bg-orange-600 text-white' : 'hover:bg-slate-800'
-              }`}
-            >
-              Замінити сторінки
-            </button>
+              <input
+                type="checkbox"
+                checked={smartPages}
+                onChange={(e) => setSmartPages(e.target.checked)}
+                className="accent-orange-500"
+              />
+              <Wand2 size={12} className={smartPages ? 'text-orange-500' : 'text-slate-500'} />
+              <span>Авто-розбиття</span>
+            </label>
           </div>
 
           <div className="flex items-center gap-2">
