@@ -85,15 +85,30 @@ export function estimateElementHeight(el: PageElement, twoColumn = false): numbe
 
 export function estimatePageHeight(elements: PageElement[], twoColumn = false): number {
   if (twoColumn) {
-    // Best estimate: alternate-distribute and take the taller column.
-    let left = 0;
-    let right = 0;
-    for (const el of elements) {
-      const h = estimateElementHeight(el, true);
-      if (left <= right) left += h;
-      else right += h;
+    // Mirror the renderer's order-preserving balanced split (see
+    // StandardPagePreview.balancedSplit): scan the natural element
+    // order and pick the split point whose left cumulative height is
+    // closest to half the total. The taller resulting column is the
+    // effective page height. We don't use a "shorter column gets next"
+    // greedy here because that would let us be optimistically lower
+    // than the renderer can actually achieve while preserving order.
+    if (elements.length === 0) return 0;
+    const heights = elements.map((e) => estimateElementHeight(e, true));
+    const total = heights.reduce((s, h) => s + h, 0);
+    if (elements.length === 1) return heights[0];
+    const target = total / 2;
+    let cumulative = 0;
+    let bestLeft = heights[0];
+    let bestDiff = Infinity;
+    for (let i = 1; i < heights.length; i++) {
+      cumulative += heights[i - 1];
+      const diff = Math.abs(cumulative - target);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestLeft = cumulative;
+      }
     }
-    return Math.max(left, right);
+    return Math.max(bestLeft, total - bestLeft);
   }
   return elements.reduce((s, e) => s + estimateElementHeight(e), 0);
 }
