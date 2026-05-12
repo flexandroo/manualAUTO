@@ -79,20 +79,32 @@ function splitOversizedPage(page: StandardPage): StandardPage[] {
   for (let i = 0; i < page.elements.length; i++) {
     const el = page.elements[i];
     const prev = page.elements[i - 1];
-
-    // Cohesion: an element MUST stay on the same bucket as its
-    // predecessor when they form a logical pair. We never break
-    // between them, even if it overflows — better one slightly busy
-    // page than a broken concept.
     const cohesiveWithPrev = isCohesivePair(prev, el);
 
-    const projected = [...current, el];
-    if (
-      heightOf(projected) > PAGE_BUDGET_MM &&
-      current.length > 0 &&
-      !cohesiveWithPrev
-    ) {
-      flushCurrent();
+    // Look-ahead: when this element starts a NEW cohesive chain (it's
+    // either the first element or not cohesive with the previous one)
+    // measure the WHOLE chain — image + scheme, heading + table, etc.
+    // — and decide whether it fits with the current bucket. If not,
+    // flush BEFORE starting the chain so the whole chain lands on a
+    // fresh bucket together. Without this look-ahead the walker would
+    // greedily add a heading at 80% fill, then refuse to flush before
+    // its cohesive partner (table/grid), ending up with one overflowing
+    // bucket of 110%+ followed by a sparse continuation.
+    if (!cohesiveWithPrev && current.length > 0) {
+      let chainEnd = i + 1;
+      while (
+        chainEnd < page.elements.length &&
+        isCohesivePair(page.elements[chainEnd - 1], page.elements[chainEnd])
+      ) {
+        chainEnd++;
+      }
+      const chainHeight = estimatePageHeight(
+        page.elements.slice(i, chainEnd),
+        useTwoCol
+      );
+      if (heightOf(current) + chainHeight > PAGE_BUDGET_MM) {
+        flushCurrent();
+      }
     }
     current.push(el);
   }
