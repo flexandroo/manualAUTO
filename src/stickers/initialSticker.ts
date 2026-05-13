@@ -1,21 +1,29 @@
 import type { StickerData } from './types';
 import { newId } from '../utils/id';
 
-// Sample data based on a real TERMOJET sticker (Колектор розподільчий
-// з виходами вгору, К22В.125(200)/К32В.125(200)/К42В.125(200)/К52В.125(200))
-// so the user sees something familiar on first open.
+// Default sample: TERMOJET-styled but with the FERRO ZMVA230 info shape
+// the user wants to support — single product, photo + barcode slots,
+// multilingual descriptions, technical specs, distributor info.
 export function makeInitialSticker(): StickerData {
   return {
     id: newId('stk'),
-    titleLines: ['Колектор', 'розподільчий', 'з виходами вгору'],
-    variants: [
-      { id: newId('v'), modelCode: 'К22В.125(200)', articleCode: '84040212' },
-      { id: newId('v'), modelCode: 'К32В.125(200)', articleCode: '84040312' },
-      { id: newId('v'), modelCode: 'К42В.125(200)', articleCode: '84040412' },
-      { id: newId('v'), modelCode: 'К52В.125(200)', articleCode: '84040512' },
+    titleLines: ['Колектор', 'розподільчий'],
+    productCode: 'К22В.125(200)',
+    articleCode: '84040212',
+    specs: [
+      { key: 'Підключення', value: '1¼″' },
+      { key: 'Міжосьова відстань', value: '125 мм' },
+      { key: 'Контурів', value: '2' },
     ],
-    showInsulationCheckboxes: true,
-    specs: [],
+    translations: [
+      { langCode: 'UA', text: 'Колектор розподільчий з виходами вгору' },
+      { langCode: 'EN', text: 'Distribution manifold with upward outlets' },
+      { langCode: 'PL', text: 'Kolektor rozdzielczy z wyjściami do góry' },
+    ],
+    distributorInfo:
+      "Виробник: TERMOJET, Україна, www.termojet.com.ua. " +
+      "Гарантія — 24 місяці з дати продажу за умови наявності товарної накладної.",
+    ceMark: false,
     footnote: '',
     footer: 'www.termojet.com.ua',
     widthMm: 100,

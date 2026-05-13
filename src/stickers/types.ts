@@ -1,52 +1,60 @@
-// Data model for a TERMOJET-style product sticker — portrait, text-
-// focused, with a stack of model variants and optional insulation
-// checkboxes. Mirrors the existing 94-page sticker pack so the
-// generator output drops straight into the user's print workflow.
-
-export interface StickerVariant {
-  id: string;
-  /** Bold model code shown in orange, e.g. "К22В.125(200)". */
-  modelCode: string;
-  /** Article number underneath in parentheses, e.g. "84040212". */
-  articleCode: string;
-  /** Barcode image (data URL or remote). Optional — set by auto-load
-   *  step that matches articleCode to a file in a barcode folder. */
-  barcodeImageUrl?: string;
-}
+// Data model for the redesigned TERMOJET sticker: single product code,
+// uploadable product photo + barcode image, multilingual descriptions,
+// optional spec list and distributor info block. Style stays TERMOJET
+// (navy / orange / Montserrat) but information content mirrors the
+// FERRO ZMVA230 reference the user sent — translations, specs, photo,
+// barcode, distributor band.
 
 export interface StickerSpecLine {
-  label: string; // "Контурів", "Довжина", "Підключення"
-  value: string; // "2", "180 мм", "1\" × ¾\""
+  /** Short label, e.g. "P", "U", "IP". */
+  key: string;
+  /** Value with units, e.g. "5 W", "~230 V AC – 50 Hz". */
+  value: string;
+}
+
+export interface StickerTranslation {
+  /** 2-3 letter language code, e.g. "PL", "EN", "UA". */
+  langCode: string;
+  /** Product description in that language. */
+  text: string;
 }
 
 export interface StickerData {
   id: string;
 
-  /** Title broken into 2-4 lines, displayed big and bold at the top.
-   *  e.g. ["Колектор", "розподільчий", "з виходами вгору"]. */
+  /** Title broken into 2-4 lines, big bold navy, centered at the top. */
   titleLines: string[];
 
-  /** Stack of product variants. Each rendered as
-   *  "<modelCode> / (<articleCode>) [+ barcode]". 1-4 typical. */
-  variants: StickerVariant[];
+  /** Main bold product code, e.g. "ZMVA230" or "К22В.125(200)". */
+  productCode: string;
+  /** Article number underneath, e.g. "84040212". */
+  articleCode: string;
 
-  /** Show the standard "В теплоізоляції / Без теплоізоляції" checkbox
-   *  pair near the bottom. Off for products without an insulated
-   *  variant (e.g. pump groups, manifolds for warm floors). */
-  showInsulationCheckboxes: boolean;
+  /** Uploaded product photo (data URL). */
+  productImageUrl?: string;
+  /** Uploaded barcode image (data URL) — user provides per-article
+   *  barcode PNG; the system doesn't generate it. */
+  barcodeImageUrl?: string;
 
-  /** Free-form spec lines for simple single-model products that don't
-   *  use the variants list. e.g. "Контурів: 2", "Довжина: 180 мм". */
+  /** Technical spec rows (P / U / IP / etc.). Optional. */
   specs: StickerSpecLine[];
 
-  /** Optional asterisk note shown above the footer, e.g.
-   *  "*Циркуляційний насос у комплект поставки не входить". */
+  /** Multilingual product descriptions. Each row: lang code + text. */
+  translations: StickerTranslation[];
+
+  /** Free-form distributor / importer info block on the bottom band. */
+  distributorInfo: string;
+
+  /** Show the CE conformity mark. */
+  ceMark: boolean;
+
+  /** Asterisk note shown above the footer. */
   footnote: string;
 
-  /** Bottom-of-sticker URL/copyright, e.g. "www.termojet.com.ua". */
+  /** Bottom URL / copyright. */
   footer: string;
 
-  /** Physical size in mm — defaults to 100×140 (standard TERMOJET label). */
+  /** Physical sticker size in mm. */
   widthMm: number;
   heightMm: number;
 }
