@@ -49,6 +49,15 @@ export function StickerEditor({ data, onChange }: Props) {
         Параметри наклейки
       </h3>
 
+      <FieldGroup label="Логотип бренду">
+        <ImageUploader
+          value={data.brandLogoUrl}
+          onChange={(url) => setField('brandLogoUrl', url)}
+          aspectRatio="3/1"
+          hint="Завантажте PNG/SVG логотипа TERMOJET або іншого бренду"
+        />
+      </FieldGroup>
+
       <FieldGroup label="Заголовок (кожен рядок — окремий рядок на наклейці)">
         <Textarea
           value={titleAsText}

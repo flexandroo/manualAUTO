@@ -7,23 +7,31 @@ interface Props {
 const NAVY = '#0D1526';
 const ORANGE = '#F25D2A';
 
-// Landscape TERMOJET sticker, compact two-column layout modeled after
-// the FERRO ZMVA230 reference. Section sizes are tuned for ~150×90 mm
-// (the default) but the relative grid stays sensible at other sizes too.
+// Landscape TERMOJET sticker, all info pushed to the top:
 //
-// Grid (top-to-bottom, then left-to-right inside the body):
-//   [ orange band — 2 mm ]
-//   [ TITLE (full width, centered) — ~10 mm ]
-//   [ left col          ][ right col          ]
-//   [ translations list ][ product code +     ]
-//   [                   ][ specs + photo +    ]
-//   [                   ][ CE + barcode       ]
-//   [ navy band — distributor info + URL ]
+//   ┌───────────────────────────────────────────────────────┐
+//   │ ▌ orange band                                          │
+//   ├──────────────────┬─────────────────────────────────────┤
+//   │   [ LOGO ]       │  Колектор розподільчий              │
+//   │                  │  К22В.125(200)   (84040212)         │
+//   │                  ├─────────────────────────────────────┤
+//   │ UA  Опис...      │  ┌─Specs table─────┐  [photo] [bc] │
+//   │ EN  Description  │  │ key1   val1     │                │
+//   │ PL  Opis...      │  │ key2   val2     │           C€   │
+//   │ ...              │  └─────────────────┘                │
+//   ├──────────────────┴─────────────────────────────────────┤
+//   │ Distributor info               ·  www.termojet.com.ua  │
+//   └────────────────────────────────────────────────────────┘
+//
+// The title now lives in the same block as the product code and
+// article so the eye reads "what is it / which model / which SKU" in
+// one sweep. Logo replaces the empty top-left slot, translations slide
+// below it, and the specs are rendered as a compact bordered table.
 export function StickerPreview({ data }: Props) {
   const hasTitle = data.titleLines.some((l) => l.trim());
   const hasTranslations = data.translations.length > 0;
   const hasSpecs = data.specs.length > 0;
-  const hasFooter = data.footer || data.distributorInfo.trim();
+  const hasBottomBand = data.footer || data.distributorInfo.trim();
 
   return (
     <div
@@ -36,39 +44,14 @@ export function StickerPreview({ data }: Props) {
         boxSizing: 'border-box',
         position: 'relative',
         overflow: 'hidden',
-        fontFamily: '"Montserrat", "Arial Black", Impact, sans-serif',
+        fontFamily: '"Montserrat", "Arial", sans-serif',
+        fontWeight: 600,
         display: 'flex',
         flexDirection: 'column',
       }}
     >
       {/* Top orange accent */}
-      <div style={{ height: '2mm', background: ORANGE, flexShrink: 0 }} />
-
-      {/* TITLE row across full width */}
-      {hasTitle && (
-        <div
-          style={{
-            padding: '2mm 5mm 1mm',
-            textAlign: 'center',
-            flexShrink: 0,
-          }}
-        >
-          {data.titleLines.map((line, i) => (
-            <div
-              key={i}
-              style={{
-                fontSize: '11pt',
-                fontWeight: 800,
-                lineHeight: 1.1,
-                letterSpacing: '-0.01em',
-                color: NAVY,
-              }}
-            >
-              {line}
-            </div>
-          ))}
-        </div>
-      )}
+      <div style={{ height: '1.5mm', background: ORANGE, flexShrink: 0 }} />
 
       {/* BODY — two columns */}
       <div
@@ -76,15 +59,51 @@ export function StickerPreview({ data }: Props) {
           flex: 1,
           minHeight: 0,
           display: 'grid',
-          gridTemplateColumns: '1.1fr 1fr',
+          gridTemplateColumns: '1fr 1.3fr',
           gap: '3mm',
-          padding: '1mm 4mm 2mm',
+          padding: '2mm 4mm 1.5mm',
           overflow: 'hidden',
         }}
       >
-        {/* LEFT — translations list */}
-        <div style={{ minWidth: 0, overflow: 'hidden' }}>
-          {hasTranslations ? (
+        {/* LEFT column — logo + translations */}
+        <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2mm' }}>
+          {/* Logo slot */}
+          <div
+            style={{
+              height: '14mm',
+              display: 'flex',
+              alignItems: 'center',
+              flexShrink: 0,
+            }}
+          >
+            {data.brandLogoUrl ? (
+              <img
+                src={data.brandLogoUrl}
+                alt="logo"
+                style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', objectPosition: 'left center' }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: '0.3mm dashed rgba(13,21,38,0.15)',
+                  background: '#FAFAF8',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '6pt',
+                  color: '#8A8F9A',
+                  fontFamily: 'monospace',
+                }}
+              >
+                [ логотип ]
+              </div>
+            )}
+          </div>
+
+          {/* Translations */}
+          {hasTranslations && (
             <div
               style={{
                 display: 'grid',
@@ -93,41 +112,47 @@ export function StickerPreview({ data }: Props) {
                 rowGap: '0.4mm',
                 fontSize: '6pt',
                 lineHeight: 1.2,
+                minHeight: 0,
+                overflow: 'hidden',
               }}
             >
               {data.translations.map((t, i) => (
                 <span key={i} style={{ display: 'contents' }}>
-                  <span style={{ fontWeight: 800, color: ORANGE }}>{t.langCode}</span>
+                  <span style={{ fontWeight: 700, color: ORANGE }}>{t.langCode}</span>
                   <span style={{ color: NAVY }}>{t.text}</span>
                 </span>
               ))}
             </div>
-          ) : (
-            <div style={{ fontSize: '6pt', color: '#999', fontFamily: 'monospace' }}>
-              [ переклади ]
-            </div>
           )}
         </div>
 
-        {/* RIGHT — product code, photo, specs, CE, barcode */}
-        <div
-          style={{
-            minWidth: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1.5mm',
-          }}
-        >
-          {/* Code row: code+article on the left, photo on the right */}
-          <div style={{ display: 'flex', gap: '2mm', alignItems: 'flex-start' }}>
-            <div style={{ flex: 1, minWidth: 0 }}>
+        {/* RIGHT column */}
+        <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: '1.5mm' }}>
+          {/* Title + product code + article — one compact block */}
+          {(hasTitle || data.productCode || data.articleCode) && (
+            <div style={{ flexShrink: 0 }}>
+              {hasTitle &&
+                data.titleLines.map((line, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      fontSize: '9pt',
+                      fontWeight: 700,
+                      lineHeight: 1.1,
+                      color: NAVY,
+                    }}
+                  >
+                    {line}
+                  </div>
+                ))}
               {data.productCode && (
                 <div
                   style={{
                     fontSize: '13pt',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     color: ORANGE,
                     lineHeight: 1.05,
+                    marginTop: hasTitle ? '0.5mm' : 0,
                     wordBreak: 'break-word',
                   }}
                 >
@@ -137,20 +162,70 @@ export function StickerPreview({ data }: Props) {
               {data.articleCode && (
                 <div
                   style={{
-                    fontSize: '7pt',
+                    fontSize: '8pt',
                     fontWeight: 600,
                     color: NAVY,
-                    marginTop: '0.5mm',
+                    marginTop: '0.3mm',
                   }}
                 >
                   ({data.articleCode})
                 </div>
               )}
             </div>
+          )}
+
+          {/* Specs as a bordered compact table + photo on the right */}
+          <div style={{ display: 'flex', gap: '2mm', alignItems: 'flex-start', flex: 1, minHeight: 0 }}>
+            {hasSpecs && (
+              <table
+                style={{
+                  flex: 1,
+                  borderCollapse: 'collapse',
+                  fontSize: '6pt',
+                  lineHeight: 1.2,
+                  tableLayout: 'fixed',
+                }}
+              >
+                <tbody>
+                  {data.specs.map((s, i) => (
+                    <tr key={i}>
+                      <td
+                        style={{
+                          padding: '0.5mm 1mm',
+                          color: NAVY,
+                          opacity: 0.65,
+                          borderTop: i === 0 ? `0.2mm solid ${NAVY}` : 'none',
+                          borderBottom: `0.2mm solid rgba(13,21,38,0.15)`,
+                          width: '40%',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {s.key}
+                      </td>
+                      <td
+                        style={{
+                          padding: '0.5mm 1mm',
+                          color: NAVY,
+                          fontWeight: 700,
+                          borderTop: i === 0 ? `0.2mm solid ${NAVY}` : 'none',
+                          borderBottom: `0.2mm solid rgba(13,21,38,0.15)`,
+                        }}
+                      >
+                        {s.value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {/* Photo */}
             <div
               style={{
-                width: '22mm',
-                height: '22mm',
+                width: '20mm',
+                height: '20mm',
                 flexShrink: 0,
                 display: 'flex',
                 alignItems: 'center',
@@ -173,62 +248,26 @@ export function StickerPreview({ data }: Props) {
             </div>
           </div>
 
-          {/* Specs — compact 2-col */}
-          {hasSpecs && (
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                columnGap: '2mm',
-                rowGap: '0.3mm',
-                fontSize: '6.5pt',
-                lineHeight: 1.25,
-              }}
-            >
-              {data.specs.map((s, i) => (
-                <div key={i}>
-                  <span style={{ color: NAVY, opacity: 0.65 }}>{s.key}:</span>{' '}
-                  <span style={{ fontWeight: 700, color: NAVY }}>{s.value}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* CE + Barcode row at the bottom of the right column */}
+          {/* Barcode + CE row */}
           <div
             style={{
-              marginTop: 'auto',
               display: 'flex',
-              alignItems: 'flex-end',
+              alignItems: 'center',
               gap: '2mm',
+              flexShrink: 0,
             }}
           >
-            {data.ceMark && (
-              <div
-                style={{
-                  fontSize: '8mm',
-                  fontWeight: 700,
-                  fontFamily: 'Times, serif',
-                  color: NAVY,
-                  lineHeight: 1,
-                  letterSpacing: '-0.4mm',
-                }}
-              >
-                C€
-              </div>
-            )}
             {data.barcodeImageUrl ? (
               <img
                 src={data.barcodeImageUrl}
                 alt={data.articleCode}
-                style={{ maxHeight: '12mm', maxWidth: '45mm', marginLeft: 'auto' }}
+                style={{ maxHeight: '10mm', maxWidth: '40mm' }}
               />
             ) : (
               <div
                 style={{
-                  marginLeft: 'auto',
-                  width: '40mm',
-                  height: '10mm',
+                  width: '36mm',
+                  height: '9mm',
                   border: '0.3mm dashed rgba(13,21,38,0.15)',
                   background: '#FAFAF8',
                   display: 'flex',
@@ -242,15 +281,30 @@ export function StickerPreview({ data }: Props) {
                 [ штрих-код ]
               </div>
             )}
+            {data.ceMark && (
+              <div
+                style={{
+                  fontSize: '7mm',
+                  fontWeight: 700,
+                  fontFamily: 'Times, serif',
+                  color: NAVY,
+                  lineHeight: 1,
+                  letterSpacing: '-0.3mm',
+                  marginLeft: 'auto',
+                }}
+              >
+                C€
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* FOOTNOTE — above the bottom band */}
+      {/* FOOTNOTE */}
       {data.footnote && (
         <div
           style={{
-            padding: '0 5mm 1mm',
+            padding: '0 4mm 1mm',
             fontSize: '5.5pt',
             fontStyle: 'italic',
             color: NAVY,
@@ -262,13 +316,13 @@ export function StickerPreview({ data }: Props) {
         </div>
       )}
 
-      {/* BOTTOM band — distributor info + footer URL on the right */}
-      {hasFooter && (
+      {/* BOTTOM band — distributor info + URL */}
+      {hasBottomBand && (
         <div
           style={{
             background: NAVY,
             color: 'white',
-            padding: '1.5mm 5mm',
+            padding: '1.5mm 4mm',
             display: 'flex',
             alignItems: 'center',
             gap: '4mm',

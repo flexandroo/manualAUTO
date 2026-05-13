@@ -22,7 +22,11 @@ export interface StickerTranslation {
 export interface StickerData {
   id: string;
 
-  /** Title broken into 2-4 lines, big bold navy, centered at the top. */
+  /** Optional brand logo (uploaded image). Shown top-left. */
+  brandLogoUrl?: string;
+
+  /** Title broken into 2-4 lines, paired with product code and article
+   *  in the top-right info block. e.g. ["Колектор", "розподільчий"]. */
   titleLines: string[];
 
   /** Main bold product code, e.g. "ZMVA230" or "К22В.125(200)". */
