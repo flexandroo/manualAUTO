@@ -1,10 +1,16 @@
 import { Plus, Trash2 } from 'lucide-react';
-import type { StickerData, StickerSpecLine, StickerTranslation } from './types';
+import type {
+  StickerData,
+  StickerSpecLine,
+  StickerTranslation,
+  StickerCertification,
+} from './types';
 import { FieldGroup } from '../components/ui/FieldGroup';
 import { Input } from '../components/ui/Input';
 import { Textarea } from '../components/ui/Textarea';
 import { ImageUploader } from '../components/ui/ImageUploader';
 import { IconBtn } from '../components/ui/IconBtn';
+import { newId } from '../utils/id';
 
 interface Props {
   data: StickerData;
@@ -102,16 +108,64 @@ export function StickerEditor({ data, onChange }: Props) {
         />
       </FieldGroup>
 
-      <FieldGroup label="CE-маркування">
-        <label className="flex items-center gap-2 text-xs">
-          <input
-            type="checkbox"
-            checked={data.ceMark}
-            onChange={(e) => setField('ceMark', e.target.checked)}
-            className="accent-orange-500"
-          />
-          Показати знак відповідності CE
-        </label>
+      <FieldGroup label={`Сертифікації (${data.certifications.length})`}>
+        {data.certifications.map((c, i) => (
+          <div key={c.id} className="border border-stone-100 rounded p-2 mb-2">
+            <div className="flex gap-2 items-center mb-2">
+              <Input
+                value={c.label}
+                onChange={(e) =>
+                  setField(
+                    'certifications',
+                    data.certifications.map((x, idx) =>
+                      idx === i ? { ...x, label: e.target.value } : x
+                    )
+                  )
+                }
+                placeholder="CE / EAC / ISO"
+                className="font-bold"
+              />
+              <IconBtn
+                onClick={() =>
+                  setField(
+                    'certifications',
+                    data.certifications.filter((_, idx) => idx !== i)
+                  )
+                }
+                variant="danger"
+                title="Видалити"
+              >
+                <Trash2 size={12} />
+              </IconBtn>
+            </div>
+            <ImageUploader
+              value={c.imageUrl}
+              onChange={(url) =>
+                setField(
+                  'certifications',
+                  data.certifications.map((x, idx) =>
+                    idx === i ? { ...x, imageUrl: url } : x
+                  )
+                )
+              }
+              aspectRatio="3/2"
+              hint="Залиште порожнім, щоб показати текст-лейбл"
+            />
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() => {
+            const next: StickerCertification = {
+              id: newId('crt'),
+              label: 'CE',
+            };
+            setField('certifications', [...data.certifications, next]);
+          }}
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
+        >
+          <Plus size={12} /> Додати сертифікацію
+        </button>
       </FieldGroup>
 
       <FieldGroup label={`Технічні характеристики (${data.specs.length})`}>
@@ -232,7 +286,7 @@ export function StickerEditor({ data, onChange }: Props) {
         </div>
       </FieldGroup>
 
-      <FieldGroup label={`Розмір тексту: ${Math.round(data.textScale * 100)}%`}>
+      <FieldGroup label={`Глобальний масштаб тексту: ${Math.round(data.textScale * 100)}%`}>
         <div className="flex items-center gap-2">
           <input
             type="range"
@@ -253,6 +307,81 @@ export function StickerEditor({ data, onChange }: Props) {
           </button>
         </div>
       </FieldGroup>
+
+      <FieldGroup label="Розмір тексту по секціях (pt; порожнє = за замовчуванням)">
+        <div className="grid grid-cols-2 gap-2 text-[11px]">
+          <FontSizeInput
+            label="Заголовок"
+            placeholder="9"
+            value={data.fontSizes?.title}
+            onChange={(v) => setField('fontSizes', { ...data.fontSizes, title: v })}
+          />
+          <FontSizeInput
+            label="Код продукту"
+            placeholder="13"
+            value={data.fontSizes?.productCode}
+            onChange={(v) =>
+              setField('fontSizes', { ...data.fontSizes, productCode: v })
+            }
+          />
+          <FontSizeInput
+            label="Таблиця характеристик"
+            placeholder="6"
+            value={data.fontSizes?.specs}
+            onChange={(v) => setField('fontSizes', { ...data.fontSizes, specs: v })}
+          />
+          <FontSizeInput
+            label="Переклади"
+            placeholder="6"
+            value={data.fontSizes?.translations}
+            onChange={(v) =>
+              setField('fontSizes', { ...data.fontSizes, translations: v })
+            }
+          />
+          <FontSizeInput
+            label="Дистриб'ютор"
+            placeholder="5"
+            value={data.fontSizes?.distributor}
+            onChange={(v) =>
+              setField('fontSizes', { ...data.fontSizes, distributor: v })
+            }
+          />
+          <FontSizeInput
+            label="URL у футері"
+            placeholder="6.5"
+            value={data.fontSizes?.footer}
+            onChange={(v) => setField('fontSizes', { ...data.fontSizes, footer: v })}
+          />
+        </div>
+      </FieldGroup>
+    </div>
+  );
+}
+
+function FontSizeInput({
+  label,
+  placeholder,
+  value,
+  onChange,
+}: {
+  label: string;
+  placeholder: string;
+  value: number | undefined;
+  onChange: (v: number | undefined) => void;
+}) {
+  return (
+    <div>
+      <div className="text-[10px] text-stone-500 mb-1">{label}</div>
+      <Input
+        type="number"
+        step="0.5"
+        value={value === undefined ? '' : String(value)}
+        onChange={(e) => {
+          const v = parseFloat(e.target.value);
+          onChange(Number.isFinite(v) ? v : undefined);
+        }}
+        placeholder={placeholder}
+      />
     </div>
   );
 }

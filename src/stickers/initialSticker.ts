@@ -23,7 +23,12 @@ export function makeInitialSticker(): StickerData {
     distributorInfo:
       "Виробник: TERMOJET, Україна, www.termojet.com.ua. " +
       "Гарантія — 24 місяці з дати продажу за умови наявності товарної накладної.",
-    ceMark: false,
+    certifications: [
+      { id: newId('crt'), label: 'CE' },
+      { id: newId('crt'), label: 'EAC' },
+      { id: newId('crt'), label: 'ISO' },
+    ],
+    fontSizes: {},
     footnote: '',
     footer: 'www.termojet.com.ua',
     widthMm: 150,

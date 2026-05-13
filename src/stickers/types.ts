@@ -19,6 +19,27 @@ export interface StickerTranslation {
   text: string;
 }
 
+export interface StickerCertification {
+  id: string;
+  /** Short text label, used as the visible mark when no image is set
+   *  (e.g. "CE", "EAC", "ISO"). */
+  label: string;
+  /** Optional uploaded image of the certification mark. When present
+   *  the image replaces the text label entirely. */
+  imageUrl?: string;
+}
+
+/** Per-section font-size overrides in points. Any value left undefined
+ *  falls back to the preview's built-in defaults. */
+export interface StickerFontSizes {
+  title?: number;
+  productCode?: number;
+  specs?: number;
+  translations?: number;
+  distributor?: number;
+  footer?: number;
+}
+
 export interface StickerData {
   id: string;
 
@@ -49,8 +70,10 @@ export interface StickerData {
   /** Free-form distributor / importer info block on the bottom band. */
   distributorInfo: string;
 
-  /** Show the CE conformity mark. */
-  ceMark: boolean;
+  /** Conformity marks shown right-aligned next to the barcode (CE,
+   *  EAC, ISO, etc.). Each entry has a short label and an optional
+   *  uploaded image — when no image, the label renders as text. */
+  certifications: StickerCertification[];
 
   /** Asterisk note shown above the footer. */
   footnote: string;
@@ -66,9 +89,11 @@ export interface StickerData {
    *  Defaults to brand orange; user can override per-sticker. */
   accentColor: string;
 
-  /** Global text-scale multiplier applied to every font size on the
-   *  sticker (1.0 = native size; e.g. 0.85 = compact, 1.2 = bigger).
-   *  Lets the user shrink/grow the whole sticker's text without
-   *  fiddling with individual font sizes. */
+  /** Global text-scale multiplier applied on top of per-section sizes
+   *  (1.0 = native; 0.85 = compact; 1.2 = bigger). Lets the user
+   *  shrink/grow the whole sticker's text with one slider. */
   textScale: number;
+
+  /** Per-section font-size overrides in pt. Empty by default. */
+  fontSizes: StickerFontSizes;
 }
