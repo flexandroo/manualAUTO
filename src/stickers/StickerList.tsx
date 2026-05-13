@@ -58,7 +58,7 @@ export function StickerList({
   const grouped = useMemo(() => {
     const map = new Map<string, StickerData[]>();
     for (const s of filtered) {
-      const cat = getStickerCategory(s.articleCode);
+      const cat = getStickerCategory(s);
       if (!map.has(cat)) map.set(cat, []);
       map.get(cat)!.push(s);
     }
