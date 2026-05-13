@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { createPortal } from 'react-dom';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { FileDown, Save, Upload, Loader2, Undo2, Redo2 } from 'lucide-react';
+import { FileDown, Save, Upload, Loader2, Undo2, Redo2, BookOpen, Tag } from 'lucide-react';
+import { StickersTab } from './stickers/StickersTab';
 import './styles/pdf-print.css';
 import type { InstructionData, Page, PageType } from './types/instruction';
 import { initialData } from './data/initialData';
@@ -39,6 +40,7 @@ export default function App() {
   const [downloadProgress, setDownloadProgress] = useState<{ done: number; total: number } | null>(
     null
   );
+  const [tab, setTab] = useState<'manuals' | 'stickers'>('manuals');
   const printRef = useRef<HTMLDivElement>(null);
 
   // ─── Hydrate documents on mount ─────────────────────────────────────────
@@ -350,18 +352,41 @@ export default function App() {
             <div className="hidden xl:block">
               <div className="text-sm font-bold tracking-tight">manualAUTO</div>
               <div className="text-[10px] text-stone-400 uppercase tracking-wider">
-                Генератор інструкцій · v0.7
+                v0.8
               </div>
             </div>
             <div className="w-px h-6 bg-stone-100 mx-1" />
-            <DocumentSwitcher
-              docs={docs}
-              activeId={activeDocId}
-              onSwitch={handleSwitchDoc}
-              onCreate={handleCreateDoc}
-              onDelete={handleDeleteDoc}
-              onRename={handleRenameDoc}
-            />
+            <div className="flex items-center bg-stone-100 rounded p-0.5">
+              <button
+                onClick={() => setTab('manuals')}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium ${
+                  tab === 'manuals' ? 'bg-white shadow-sm text-stone-800' : 'text-stone-500 hover:text-stone-700'
+                }`}
+              >
+                <BookOpen size={13} /> Інструкції
+              </button>
+              <button
+                onClick={() => setTab('stickers')}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium ${
+                  tab === 'stickers' ? 'bg-white shadow-sm text-stone-800' : 'text-stone-500 hover:text-stone-700'
+                }`}
+              >
+                <Tag size={13} /> Наклейки
+              </button>
+            </div>
+            {tab === 'manuals' && (
+              <>
+                <div className="w-px h-6 bg-stone-100 mx-1" />
+                <DocumentSwitcher
+                  docs={docs}
+                  activeId={activeDocId}
+                  onSwitch={handleSwitchDoc}
+                  onCreate={handleCreateDoc}
+                  onDelete={handleDeleteDoc}
+                  onRename={handleRenameDoc}
+                />
+              </>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
@@ -414,18 +439,22 @@ export default function App() {
           </div>
         </header>
 
-        <div className="flex-1 flex overflow-hidden no-print">
-          <PageList
-            pages={data.pages}
-            activeId={activeId}
-            onSelect={setActiveId}
-            onAdd={addPage}
-            onRemove={removePage}
-            onMove={movePage}
-          />
-          <PageEditorPanel page={activePage} onChange={updatePage} />
-          <PreviewPane doc={data} zoom={zoom} onZoomChange={setZoom} />
-        </div>
+        {tab === 'manuals' ? (
+          <div className="flex-1 flex overflow-hidden no-print">
+            <PageList
+              pages={data.pages}
+              activeId={activeId}
+              onSelect={setActiveId}
+              onAdd={addPage}
+              onRemove={removePage}
+              onMove={movePage}
+            />
+            <PageEditorPanel page={activePage} onChange={updatePage} />
+            <PreviewPane doc={data} zoom={zoom} onZoomChange={setZoom} />
+          </div>
+        ) : (
+          <StickersTab />
+        )}
       </div>
       {/* Print container is portaled directly to <body> so it lives
           outside the App container and isn't affected by the
