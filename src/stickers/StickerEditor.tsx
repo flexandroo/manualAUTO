@@ -1,10 +1,10 @@
 import { Plus, Trash2 } from 'lucide-react';
-import type { StickerData, StickerSpec, StickerTranslation } from './types';
+import type { StickerData, StickerVariant, StickerSpecLine } from './types';
 import { FieldGroup } from '../components/ui/FieldGroup';
 import { Input } from '../components/ui/Input';
 import { Textarea } from '../components/ui/Textarea';
-import { ImageUploader } from '../components/ui/ImageUploader';
 import { IconBtn } from '../components/ui/IconBtn';
+import { newId } from '../utils/id';
 
 interface Props {
   data: StickerData;
@@ -15,23 +15,33 @@ export function StickerEditor({ data, onChange }: Props) {
   const setField = <K extends keyof StickerData>(k: K, v: StickerData[K]) =>
     onChange({ ...data, [k]: v });
 
-  const updateSpec = (i: number, patch: Partial<StickerSpec>) => {
-    const specs = data.specs.map((s, idx) => (idx === i ? { ...s, ...patch } : s));
-    setField('specs', specs);
+  const updateVariant = (i: number, patch: Partial<StickerVariant>) => {
+    setField(
+      'variants',
+      data.variants.map((v, idx) => (idx === i ? { ...v, ...patch } : v))
+    );
   };
-  const addSpec = () =>
-    setField('specs', [...data.specs, { key: '', value: '' }]);
+  const addVariant = () =>
+    setField('variants', [
+      ...data.variants,
+      { id: newId('v'), modelCode: '', articleCode: '' },
+    ]);
+  const removeVariant = (i: number) =>
+    setField('variants', data.variants.filter((_, idx) => idx !== i));
+
+  const updateSpec = (i: number, patch: Partial<StickerSpecLine>) => {
+    setField(
+      'specs',
+      data.specs.map((s, idx) => (idx === i ? { ...s, ...patch } : s))
+    );
+  };
+  const addSpec = () => setField('specs', [...data.specs, { label: '', value: '' }]);
   const removeSpec = (i: number) =>
     setField('specs', data.specs.filter((_, idx) => idx !== i));
 
-  const updateTr = (i: number, patch: Partial<StickerTranslation>) => {
-    const tr = data.translations.map((t, idx) => (idx === i ? { ...t, ...patch } : t));
-    setField('translations', tr);
-  };
-  const addTr = () =>
-    setField('translations', [...data.translations, { langCode: '', text: '' }]);
-  const removeTr = (i: number) =>
-    setField('translations', data.translations.filter((_, idx) => idx !== i));
+  const titleAsText = data.titleLines.join('\n');
+  const setTitle = (s: string) =>
+    setField('titleLines', s.split('\n').filter((line, i, all) => line.trim() || i < all.length - 1));
 
   return (
     <div className="p-4 overflow-y-auto h-full">
@@ -39,65 +49,68 @@ export function StickerEditor({ data, onChange }: Props) {
         Параметри наклейки
       </h3>
 
-      <FieldGroup label="Бренд">
-        <Input value={data.brand} onChange={(e) => setField('brand', e.target.value)} />
-      </FieldGroup>
-
-      <FieldGroup label="Логотип бренду (опціонально, замінює текстовий)">
-        <ImageUploader
-          value={data.brandLogoUrl}
-          onChange={(url) => setField('brandLogoUrl', url)}
-          aspectRatio="3/1"
+      <FieldGroup label="Заголовок (кожен рядок — окремий рядок на наклейці)">
+        <Textarea
+          value={titleAsText}
+          onChange={(e) => setTitle(e.target.value)}
+          rows={4}
+          placeholder={'Колектор\nрозподільчий\nз виходами вгору'}
         />
       </FieldGroup>
 
-      <div className="grid grid-cols-3 gap-2 mb-5">
-        <FieldGroup label="Підпис">
-          <Input
-            value={data.productLabelPrefix}
-            onChange={(e) => setField('productLabelPrefix', e.target.value)}
-            placeholder="symbol"
-          />
-        </FieldGroup>
-        <FieldGroup label="Код продукту">
-          <Input
-            value={data.productCode}
-            onChange={(e) => setField('productCode', e.target.value)}
-            placeholder="ZMVA230"
-          />
-        </FieldGroup>
-        <FieldGroup label="Кількість">
-          <Input
-            type="number"
-            value={String(data.quantity)}
-            onChange={(e) =>
-              setField('quantity', Math.max(1, parseInt(e.target.value, 10) || 1))
-            }
-          />
-        </FieldGroup>
-      </div>
-
-      <FieldGroup label="DZ-код / додаткове позначення">
-        <Input
-          value={data.dzCode}
-          onChange={(e) => setField('dzCode', e.target.value)}
-          placeholder="DZ: 0002"
-        />
-      </FieldGroup>
-
-      <FieldGroup label={`Технічні характеристики (${data.specs.length})`}>
-        {data.specs.map((s, i) => (
-          <div key={i} className="flex gap-2 mb-2">
+      <FieldGroup label={`Варіанти моделей (${data.variants.length})`}>
+        {data.variants.map((v, i) => (
+          <div key={v.id} className="flex gap-2 items-center mb-2">
             <Input
-              value={s.key}
-              onChange={(e) => updateSpec(i, { key: e.target.value })}
-              placeholder="P"
-              className="w-20"
+              value={v.modelCode}
+              onChange={(e) => updateVariant(i, { modelCode: e.target.value })}
+              placeholder="К22В.125(200)"
+            />
+            <Input
+              value={v.articleCode}
+              onChange={(e) => updateVariant(i, { articleCode: e.target.value })}
+              placeholder="84040212"
+              className="w-32 font-mono"
+            />
+            <IconBtn onClick={() => removeVariant(i)} variant="danger" title="Видалити">
+              <Trash2 size={12} />
+            </IconBtn>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addVariant}
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
+        >
+          <Plus size={12} /> Додати варіант
+        </button>
+      </FieldGroup>
+
+      <FieldGroup label="Чекбокси теплоізоляції">
+        <label className="flex items-center gap-2 text-xs">
+          <input
+            type="checkbox"
+            checked={data.showInsulationCheckboxes}
+            onChange={(e) => setField('showInsulationCheckboxes', e.target.checked)}
+            className="accent-orange-500"
+          />
+          Показати «В теплоізоляції / Без теплоізоляції»
+        </label>
+      </FieldGroup>
+
+      <FieldGroup label={`Характеристики (${data.specs.length}) — для простих моделей без варіантів`}>
+        {data.specs.map((s, i) => (
+          <div key={i} className="flex gap-2 items-center mb-2">
+            <Input
+              value={s.label}
+              onChange={(e) => updateSpec(i, { label: e.target.value })}
+              placeholder="Контурів"
+              className="w-32"
             />
             <Input
               value={s.value}
               onChange={(e) => updateSpec(i, { value: e.target.value })}
-              placeholder="5 W"
+              placeholder="2"
             />
             <IconBtn onClick={() => removeSpec(i)} variant="danger" title="Видалити">
               <Trash2 size={12} />
@@ -109,72 +122,24 @@ export function StickerEditor({ data, onChange }: Props) {
           onClick={addSpec}
           className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
         >
-          <Plus size={12} /> Додати специфікацію
+          <Plus size={12} /> Додати характеристику
         </button>
       </FieldGroup>
 
-      <FieldGroup label="Фото продукту">
-        <ImageUploader
-          value={data.productImageUrl}
-          onChange={(url) => setField('productImageUrl', url)}
-          aspectRatio="1/1"
-        />
-      </FieldGroup>
-
-      <FieldGroup label="CE-маркування">
-        <label className="flex items-center gap-2 text-xs">
-          <input
-            type="checkbox"
-            checked={data.ceMark}
-            onChange={(e) => setField('ceMark', e.target.checked)}
-            className="accent-orange-500"
-          />
-          Показати знак відповідності CE
-        </label>
-      </FieldGroup>
-
-      <FieldGroup label="Штрих-код EAN-13 (13 цифр)">
-        <Input
-          value={data.barcodeEan13}
-          onChange={(e) => setField('barcodeEan13', e.target.value.replace(/\D/g, '').slice(0, 13))}
-          placeholder="5903738245901"
-          className="font-mono"
-        />
-      </FieldGroup>
-
-      <FieldGroup label={`Переклади опису продукту (${data.translations.length})`}>
-        {data.translations.map((t, i) => (
-          <div key={i} className="flex gap-2 mb-2">
-            <Input
-              value={t.langCode}
-              onChange={(e) => updateTr(i, { langCode: e.target.value.toUpperCase().slice(0, 4) })}
-              placeholder="EN"
-              className="w-16 font-bold"
-            />
-            <Input
-              value={t.text}
-              onChange={(e) => updateTr(i, { text: e.target.value })}
-              placeholder="Product description in this language"
-            />
-            <IconBtn onClick={() => removeTr(i)} variant="danger" title="Видалити">
-              <Trash2 size={12} />
-            </IconBtn>
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={addTr}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
-        >
-          <Plus size={12} /> Додати переклад
-        </button>
-      </FieldGroup>
-
-      <FieldGroup label="Інформація про дистриб'юторів (нижня плашка)">
+      <FieldGroup label="Виноска (необов'язково)">
         <Textarea
-          value={data.distributorInfo}
-          onChange={(e) => setField('distributorInfo', e.target.value)}
-          rows={6}
+          value={data.footnote}
+          onChange={(e) => setField('footnote', e.target.value)}
+          rows={2}
+          placeholder="*Циркуляційний насос у комплект поставки не входить"
+        />
+      </FieldGroup>
+
+      <FieldGroup label="Текст у футері">
+        <Input
+          value={data.footer}
+          onChange={(e) => setField('footer', e.target.value)}
+          placeholder="www.termojet.com.ua"
         />
       </FieldGroup>
 
@@ -183,14 +148,14 @@ export function StickerEditor({ data, onChange }: Props) {
           <Input
             type="number"
             value={String(data.widthMm)}
-            onChange={(e) => setField('widthMm', parseInt(e.target.value, 10) || 150)}
+            onChange={(e) => setField('widthMm', parseInt(e.target.value, 10) || 100)}
           />
         </FieldGroup>
         <FieldGroup label="Висота (мм)">
           <Input
             type="number"
             value={String(data.heightMm)}
-            onChange={(e) => setField('heightMm', parseInt(e.target.value, 10) || 90)}
+            onChange={(e) => setField('heightMm', parseInt(e.target.value, 10) || 140)}
           />
         </FieldGroup>
       </div>
