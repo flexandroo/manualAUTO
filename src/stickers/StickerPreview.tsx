@@ -7,31 +7,24 @@ interface Props {
 const NAVY = '#0D1526';
 const ORANGE = '#F25D2A';
 
-// Landscape TERMOJET sticker, all info pushed to the top:
+// Landscape TERMOJET sticker. All info pushed to the top of the
+// content area; the title sits with productCode + articleCode in one
+// block. Specs are rendered as a bordered compact table — articleCode
+// is the first row inside the table so the article number reads
+// alongside the rest of the parameters.
 //
-//   ┌───────────────────────────────────────────────────────┐
-//   │ ▌ orange band                                          │
-//   ├──────────────────┬─────────────────────────────────────┤
-//   │   [ LOGO ]       │  Колектор розподільчий              │
-//   │                  │  К22В.125(200)   (84040212)         │
-//   │                  ├─────────────────────────────────────┤
-//   │ UA  Опис...      │  ┌─Specs table─────┐  [photo] [bc] │
-//   │ EN  Description  │  │ key1   val1     │                │
-//   │ PL  Opis...      │  │ key2   val2     │           C€   │
-//   │ ...              │  └─────────────────┘                │
-//   ├──────────────────┴─────────────────────────────────────┤
-//   │ Distributor info               ·  www.termojet.com.ua  │
-//   └────────────────────────────────────────────────────────┘
-//
-// The title now lives in the same block as the product code and
-// article so the eye reads "what is it / which model / which SKU" in
-// one sweep. Logo replaces the empty top-left slot, translations slide
-// below it, and the specs are rendered as a compact bordered table.
+// Accent borders (top + left + right) use `data.accentColor`. Every
+// font size is multiplied by `data.textScale` so the user can shrink
+// or grow the whole sticker's text with a single slider.
 export function StickerPreview({ data }: Props) {
   const hasTitle = data.titleLines.some((l) => l.trim());
   const hasTranslations = data.translations.length > 0;
-  const hasSpecs = data.specs.length > 0;
+  const hasSpecs = data.specs.length > 0 || !!data.articleCode;
   const hasBottomBand = data.footer || data.distributorInfo.trim();
+  const accent = data.accentColor || ORANGE;
+  const scale = data.textScale || 1;
+  const pt = (n: number) => `${(n * scale).toFixed(2)}pt`;
+  const mm = (n: number) => `${(n * scale).toFixed(2)}mm`;
 
   return (
     <div
@@ -48,11 +41,11 @@ export function StickerPreview({ data }: Props) {
         fontWeight: 600,
         display: 'flex',
         flexDirection: 'column',
+        borderTop: `0.75mm solid ${accent}`,
+        borderLeft: `0.75mm solid ${accent}`,
+        borderRight: `0.75mm solid ${accent}`,
       }}
     >
-      {/* Top orange accent */}
-      <div style={{ height: '1.5mm', background: ORANGE, flexShrink: 0 }} />
-
       {/* BODY — two columns */}
       <div
         style={{
@@ -67,7 +60,6 @@ export function StickerPreview({ data }: Props) {
       >
         {/* LEFT column — logo + translations */}
         <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2mm' }}>
-          {/* Logo slot */}
           <div
             style={{
               height: '14mm',
@@ -92,7 +84,7 @@ export function StickerPreview({ data }: Props) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '6pt',
+                  fontSize: pt(6),
                   color: '#8A8F9A',
                   fontFamily: 'monospace',
                 }}
@@ -102,7 +94,6 @@ export function StickerPreview({ data }: Props) {
             )}
           </div>
 
-          {/* Translations */}
           {hasTranslations && (
             <div
               style={{
@@ -110,7 +101,7 @@ export function StickerPreview({ data }: Props) {
                 gridTemplateColumns: '6mm 1fr',
                 columnGap: '1.5mm',
                 rowGap: '0.4mm',
-                fontSize: '6pt',
+                fontSize: pt(6),
                 lineHeight: 1.2,
                 minHeight: 0,
                 overflow: 'hidden',
@@ -118,7 +109,7 @@ export function StickerPreview({ data }: Props) {
             >
               {data.translations.map((t, i) => (
                 <span key={i} style={{ display: 'contents' }}>
-                  <span style={{ fontWeight: 700, color: ORANGE }}>{t.langCode}</span>
+                  <span style={{ fontWeight: 700, color: accent }}>{t.langCode}</span>
                   <span style={{ color: NAVY }}>{t.text}</span>
                 </span>
               ))}
@@ -128,15 +119,15 @@ export function StickerPreview({ data }: Props) {
 
         {/* RIGHT column */}
         <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: '1.5mm' }}>
-          {/* Title + product code + article — one compact block */}
-          {(hasTitle || data.productCode || data.articleCode) && (
+          {/* Title + product code (article moves into the specs table) */}
+          {(hasTitle || data.productCode) && (
             <div style={{ flexShrink: 0 }}>
               {hasTitle &&
                 data.titleLines.map((line, i) => (
                   <div
                     key={i}
                     style={{
-                      fontSize: '9pt',
+                      fontSize: pt(9),
                       fontWeight: 700,
                       lineHeight: 1.1,
                       color: NAVY,
@@ -148,7 +139,7 @@ export function StickerPreview({ data }: Props) {
               {data.productCode && (
                 <div
                   style={{
-                    fontSize: '13pt',
+                    fontSize: pt(13),
                     fontWeight: 700,
                     color: ORANGE,
                     lineHeight: 1.05,
@@ -159,69 +150,88 @@ export function StickerPreview({ data }: Props) {
                   {data.productCode}
                 </div>
               )}
-              {data.articleCode && (
-                <div
-                  style={{
-                    fontSize: '8pt',
-                    fontWeight: 600,
-                    color: NAVY,
-                    marginTop: '0.3mm',
-                  }}
-                >
-                  ({data.articleCode})
-                </div>
-              )}
             </div>
           )}
 
-          {/* Specs as a bordered compact table + photo on the right */}
+          {/* Specs table (with articleCode as first row) + photo */}
           <div style={{ display: 'flex', gap: '2mm', alignItems: 'flex-start', flex: 1, minHeight: 0 }}>
             {hasSpecs && (
               <table
                 style={{
                   flex: 1,
                   borderCollapse: 'collapse',
-                  fontSize: '6pt',
+                  fontSize: pt(6),
                   lineHeight: 1.2,
                   tableLayout: 'fixed',
                 }}
               >
                 <tbody>
-                  {data.specs.map((s, i) => (
-                    <tr key={i}>
+                  {data.articleCode && (
+                    <tr>
                       <td
                         style={{
                           padding: '0.5mm 1mm',
                           color: NAVY,
                           opacity: 0.65,
-                          borderTop: i === 0 ? `0.2mm solid ${NAVY}` : 'none',
+                          borderTop: `0.2mm solid ${NAVY}`,
                           borderBottom: `0.2mm solid rgba(13,21,38,0.15)`,
                           width: '40%',
                           whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
                         }}
                       >
-                        {s.key}
+                        Артикул
                       </td>
                       <td
                         style={{
                           padding: '0.5mm 1mm',
                           color: NAVY,
                           fontWeight: 700,
-                          borderTop: i === 0 ? `0.2mm solid ${NAVY}` : 'none',
+                          borderTop: `0.2mm solid ${NAVY}`,
                           borderBottom: `0.2mm solid rgba(13,21,38,0.15)`,
+                          fontFamily: 'monospace',
                         }}
                       >
-                        {s.value}
+                        {data.articleCode}
                       </td>
                     </tr>
-                  ))}
+                  )}
+                  {data.specs.map((s, i) => {
+                    const isFirstRow = !data.articleCode && i === 0;
+                    return (
+                      <tr key={i}>
+                        <td
+                          style={{
+                            padding: '0.5mm 1mm',
+                            color: NAVY,
+                            opacity: 0.65,
+                            borderTop: isFirstRow ? `0.2mm solid ${NAVY}` : 'none',
+                            borderBottom: `0.2mm solid rgba(13,21,38,0.15)`,
+                            width: '40%',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          }}
+                        >
+                          {s.key}
+                        </td>
+                        <td
+                          style={{
+                            padding: '0.5mm 1mm',
+                            color: NAVY,
+                            fontWeight: 700,
+                            borderTop: isFirstRow ? `0.2mm solid ${NAVY}` : 'none',
+                            borderBottom: `0.2mm solid rgba(13,21,38,0.15)`,
+                          }}
+                        >
+                          {s.value}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             )}
 
-            {/* Photo */}
             <div
               style={{
                 width: '20mm',
@@ -241,14 +251,14 @@ export function StickerPreview({ data }: Props) {
                   style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
                 />
               ) : (
-                <div style={{ fontSize: '5pt', color: '#8A8F9A', fontFamily: 'monospace' }}>
+                <div style={{ fontSize: pt(5), color: '#8A8F9A', fontFamily: 'monospace' }}>
                   [ фото ]
                 </div>
               )}
             </div>
           </div>
 
-          {/* Barcode + CE row */}
+          {/* Barcode + CE */}
           <div
             style={{
               display: 'flex',
@@ -273,7 +283,7 @@ export function StickerPreview({ data }: Props) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '5pt',
+                  fontSize: pt(5),
                   color: '#8A8F9A',
                   fontFamily: 'monospace',
                 }}
@@ -284,7 +294,7 @@ export function StickerPreview({ data }: Props) {
             {data.ceMark && (
               <div
                 style={{
-                  fontSize: '7mm',
+                  fontSize: mm(7),
                   fontWeight: 700,
                   fontFamily: 'Times, serif',
                   color: NAVY,
@@ -305,7 +315,7 @@ export function StickerPreview({ data }: Props) {
         <div
           style={{
             padding: '0 4mm 1mm',
-            fontSize: '5.5pt',
+            fontSize: pt(5.5),
             fontStyle: 'italic',
             color: NAVY,
             opacity: 0.7,
@@ -327,7 +337,7 @@ export function StickerPreview({ data }: Props) {
             alignItems: 'center',
             gap: '4mm',
             flexShrink: 0,
-            fontSize: '5pt',
+            fontSize: pt(5),
             lineHeight: 1.2,
           }}
         >
@@ -335,9 +345,9 @@ export function StickerPreview({ data }: Props) {
           {data.footer && (
             <div
               style={{
-                color: ORANGE,
+                color: accent,
                 fontWeight: 700,
-                fontSize: '6.5pt',
+                fontSize: pt(6.5),
                 whiteSpace: 'nowrap',
                 letterSpacing: '0.04em',
               }}

@@ -28,5 +28,7 @@ export function makeInitialSticker(): StickerData {
     footer: 'www.termojet.com.ua',
     widthMm: 150,
     heightMm: 90,
+    accentColor: '#F25D2A',
+    textScale: 1.0,
   };
 }

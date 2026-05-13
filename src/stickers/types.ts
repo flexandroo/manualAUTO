@@ -61,4 +61,14 @@ export interface StickerData {
   /** Physical sticker size in mm. */
   widthMm: number;
   heightMm: number;
+
+  /** Hex colour for the decorative border lines (top + sides).
+   *  Defaults to brand orange; user can override per-sticker. */
+  accentColor: string;
+
+  /** Global text-scale multiplier applied to every font size on the
+   *  sticker (1.0 = native size; e.g. 0.85 = compact, 1.2 = bigger).
+   *  Lets the user shrink/grow the whole sticker's text without
+   *  fiddling with individual font sizes. */
+  textScale: number;
 }

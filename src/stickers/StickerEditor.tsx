@@ -214,6 +214,45 @@ export function StickerEditor({ data, onChange }: Props) {
           />
         </FieldGroup>
       </div>
+
+      <FieldGroup label="Колір ліній (верх, ліво, право)">
+        <div className="flex items-center gap-2">
+          <input
+            type="color"
+            value={data.accentColor}
+            onChange={(e) => setField('accentColor', e.target.value)}
+            className="w-10 h-8 rounded border border-stone-200 cursor-pointer"
+          />
+          <Input
+            value={data.accentColor}
+            onChange={(e) => setField('accentColor', e.target.value)}
+            placeholder="#F25D2A"
+            className="font-mono"
+          />
+        </div>
+      </FieldGroup>
+
+      <FieldGroup label={`Розмір тексту: ${Math.round(data.textScale * 100)}%`}>
+        <div className="flex items-center gap-2">
+          <input
+            type="range"
+            min="0.7"
+            max="1.5"
+            step="0.05"
+            value={data.textScale}
+            onChange={(e) => setField('textScale', parseFloat(e.target.value))}
+            className="flex-1 accent-orange-500"
+          />
+          <button
+            type="button"
+            onClick={() => setField('textScale', 1.0)}
+            className="px-2 py-1 text-[10px] bg-stone-100 hover:bg-stone-200 rounded"
+            title="Скинути на 100%"
+          >
+            ↺
+          </button>
+        </div>
+      </FieldGroup>
     </div>
   );
 }
