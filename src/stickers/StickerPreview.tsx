@@ -7,13 +7,24 @@ interface Props {
 const NAVY = '#0D1526';
 const ORANGE = '#F25D2A';
 
-// TERMOJET-styled sticker with FERRO-ZMVA230-shaped info: title at top,
-// product code + photo + barcode + specs in the middle, multilingual
-// descriptions list, distributor info on a coloured band, footer URL.
-// Sections are conditional — empty arrays/strings collapse so the
-// generator works equally for simple (just title + photo) and dense
-// (everything filled) stickers.
+// Landscape TERMOJET sticker, compact two-column layout modeled after
+// the FERRO ZMVA230 reference. Section sizes are tuned for ~150×90 mm
+// (the default) but the relative grid stays sensible at other sizes too.
+//
+// Grid (top-to-bottom, then left-to-right inside the body):
+//   [ orange band — 2 mm ]
+//   [ TITLE (full width, centered) — ~10 mm ]
+//   [ left col          ][ right col          ]
+//   [ translations list ][ product code +     ]
+//   [                   ][ specs + photo +    ]
+//   [                   ][ CE + barcode       ]
+//   [ navy band — distributor info + URL ]
 export function StickerPreview({ data }: Props) {
+  const hasTitle = data.titleLines.some((l) => l.trim());
+  const hasTranslations = data.translations.length > 0;
+  const hasSpecs = data.specs.length > 0;
+  const hasFooter = data.footer || data.distributorInfo.trim();
+
   return (
     <div
       className="sticker-page"
@@ -31,183 +42,219 @@ export function StickerPreview({ data }: Props) {
       }}
     >
       {/* Top orange accent */}
-      <div style={{ height: '3mm', background: ORANGE, flexShrink: 0 }} />
+      <div style={{ height: '2mm', background: ORANGE, flexShrink: 0 }} />
 
-      {/* TITLE — big bold navy, centered */}
-      {data.titleLines.some((l) => l.trim()) && (
-        <div style={{ padding: '4mm 5mm 1mm', textAlign: 'center', flexShrink: 0 }}>
+      {/* TITLE row across full width */}
+      {hasTitle && (
+        <div
+          style={{
+            padding: '2mm 5mm 1mm',
+            textAlign: 'center',
+            flexShrink: 0,
+          }}
+        >
           {data.titleLines.map((line, i) => (
             <div
               key={i}
               style={{
-                fontSize: '13pt',
+                fontSize: '11pt',
                 fontWeight: 800,
                 lineHeight: 1.1,
                 letterSpacing: '-0.01em',
+                color: NAVY,
               }}
             >
               {line}
             </div>
           ))}
-          <div
-            style={{
-              width: '40%',
-              height: '0.6mm',
-              background: ORANGE,
-              margin: '2mm auto 0',
-            }}
-          />
         </div>
       )}
 
-      {/* PRODUCT CODE + PHOTO + CE */}
+      {/* BODY — two columns */}
       <div
         style={{
-          padding: '2mm 5mm 0',
-          display: 'flex',
+          flex: 1,
+          minHeight: 0,
+          display: 'grid',
+          gridTemplateColumns: '1.1fr 1fr',
           gap: '3mm',
-          alignItems: 'center',
-          flexShrink: 0,
+          padding: '1mm 4mm 2mm',
+          overflow: 'hidden',
         }}
       >
-        {/* Photo on the left */}
-        <div
-          style={{
-            width: '32mm',
-            height: '32mm',
-            flexShrink: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: '#FAFAF8',
-            border: data.productImageUrl ? 'none' : '1px dashed rgba(13,21,38,0.15)',
-          }}
-        >
-          {data.productImageUrl ? (
-            <img
-              src={data.productImageUrl}
-              alt={data.productCode}
-              style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
-            />
+        {/* LEFT — translations list */}
+        <div style={{ minWidth: 0, overflow: 'hidden' }}>
+          {hasTranslations ? (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '6mm 1fr',
+                columnGap: '1.5mm',
+                rowGap: '0.4mm',
+                fontSize: '6pt',
+                lineHeight: 1.2,
+              }}
+            >
+              {data.translations.map((t, i) => (
+                <span key={i} style={{ display: 'contents' }}>
+                  <span style={{ fontWeight: 800, color: ORANGE }}>{t.langCode}</span>
+                  <span style={{ color: NAVY }}>{t.text}</span>
+                </span>
+              ))}
+            </div>
           ) : (
-            <div style={{ fontSize: '6pt', color: '#8A8F9A', fontFamily: 'monospace' }}>
-              [ фото ]
+            <div style={{ fontSize: '6pt', color: '#999', fontFamily: 'monospace' }}>
+              [ переклади ]
             </div>
           )}
         </div>
 
-        {/* Right: product code + article + CE */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          {data.productCode && (
+        {/* RIGHT — product code, photo, specs, CE, barcode */}
+        <div
+          style={{
+            minWidth: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.5mm',
+          }}
+        >
+          {/* Code row: code+article on the left, photo on the right */}
+          <div style={{ display: 'flex', gap: '2mm', alignItems: 'flex-start' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {data.productCode && (
+                <div
+                  style={{
+                    fontSize: '13pt',
+                    fontWeight: 800,
+                    color: ORANGE,
+                    lineHeight: 1.05,
+                    wordBreak: 'break-word',
+                  }}
+                >
+                  {data.productCode}
+                </div>
+              )}
+              {data.articleCode && (
+                <div
+                  style={{
+                    fontSize: '7pt',
+                    fontWeight: 600,
+                    color: NAVY,
+                    marginTop: '0.5mm',
+                  }}
+                >
+                  ({data.articleCode})
+                </div>
+              )}
+            </div>
             <div
               style={{
-                fontSize: '13pt',
-                fontWeight: 800,
-                color: ORANGE,
-                lineHeight: 1.1,
-                wordBreak: 'break-word',
+                width: '22mm',
+                height: '22mm',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#FAFAF8',
+                border: data.productImageUrl ? 'none' : '0.3mm dashed rgba(13,21,38,0.15)',
               }}
             >
-              {data.productCode}
+              {data.productImageUrl ? (
+                <img
+                  src={data.productImageUrl}
+                  alt={data.productCode}
+                  style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                />
+              ) : (
+                <div style={{ fontSize: '5pt', color: '#8A8F9A', fontFamily: 'monospace' }}>
+                  [ фото ]
+                </div>
+              )}
             </div>
-          )}
-          {data.articleCode && (
+          </div>
+
+          {/* Specs — compact 2-col */}
+          {hasSpecs && (
             <div
               style={{
-                fontSize: '9pt',
-                fontWeight: 600,
-                color: NAVY,
-                marginTop: '1mm',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                columnGap: '2mm',
+                rowGap: '0.3mm',
+                fontSize: '6.5pt',
+                lineHeight: 1.25,
               }}
             >
-              ({data.articleCode})
+              {data.specs.map((s, i) => (
+                <div key={i}>
+                  <span style={{ color: NAVY, opacity: 0.65 }}>{s.key}:</span>{' '}
+                  <span style={{ fontWeight: 700, color: NAVY }}>{s.value}</span>
+                </div>
+              ))}
             </div>
           )}
-          {data.ceMark && (
-            <div
-              style={{
-                fontSize: '11mm',
-                fontWeight: 700,
-                fontFamily: 'Times, serif',
-                color: NAVY,
-                lineHeight: 1,
-                marginTop: '2mm',
-                letterSpacing: '-0.5mm',
-              }}
-            >
-              C€
-            </div>
-          )}
+
+          {/* CE + Barcode row at the bottom of the right column */}
+          <div
+            style={{
+              marginTop: 'auto',
+              display: 'flex',
+              alignItems: 'flex-end',
+              gap: '2mm',
+            }}
+          >
+            {data.ceMark && (
+              <div
+                style={{
+                  fontSize: '8mm',
+                  fontWeight: 700,
+                  fontFamily: 'Times, serif',
+                  color: NAVY,
+                  lineHeight: 1,
+                  letterSpacing: '-0.4mm',
+                }}
+              >
+                C€
+              </div>
+            )}
+            {data.barcodeImageUrl ? (
+              <img
+                src={data.barcodeImageUrl}
+                alt={data.articleCode}
+                style={{ maxHeight: '12mm', maxWidth: '45mm', marginLeft: 'auto' }}
+              />
+            ) : (
+              <div
+                style={{
+                  marginLeft: 'auto',
+                  width: '40mm',
+                  height: '10mm',
+                  border: '0.3mm dashed rgba(13,21,38,0.15)',
+                  background: '#FAFAF8',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '5pt',
+                  color: '#8A8F9A',
+                  fontFamily: 'monospace',
+                }}
+              >
+                [ штрих-код ]
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* SPECS — compact 2-column key/value list */}
-      {data.specs.length > 0 && (
-        <div style={{ padding: '3mm 5mm 0', flexShrink: 0 }}>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              columnGap: '3mm',
-              rowGap: '0.5mm',
-              fontSize: '7pt',
-              lineHeight: 1.3,
-            }}
-          >
-            {data.specs.map((s, i) => (
-              <div key={i}>
-                <span style={{ color: NAVY, opacity: 0.7 }}>{s.key}:</span>{' '}
-                <span style={{ fontWeight: 700, color: NAVY }}>{s.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* TRANSLATIONS — lang code + description list */}
-      {data.translations.length > 0 && (
-        <div style={{ padding: '3mm 5mm 0', flex: 1, minHeight: 0, overflow: 'hidden' }}>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '7mm 1fr',
-              columnGap: '2mm',
-              rowGap: '0.8mm',
-              fontSize: '7pt',
-              lineHeight: 1.2,
-            }}
-          >
-            {data.translations.map((t, i) => (
-              <span key={i} style={{ display: 'contents' }}>
-                <span style={{ fontWeight: 800, color: ORANGE }}>{t.langCode}</span>
-                <span style={{ color: NAVY }}>{t.text}</span>
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* BARCODE — uploaded image */}
-      {data.barcodeImageUrl && (
-        <div style={{ padding: '2mm 5mm', textAlign: 'center', flexShrink: 0 }}>
-          <img
-            src={data.barcodeImageUrl}
-            alt={data.articleCode}
-            style={{ maxWidth: '80%', maxHeight: '12mm' }}
-          />
-        </div>
-      )}
-
-      {/* FOOTNOTE */}
+      {/* FOOTNOTE — above the bottom band */}
       {data.footnote && (
         <div
           style={{
             padding: '0 5mm 1mm',
-            fontSize: '6pt',
+            fontSize: '5.5pt',
             fontStyle: 'italic',
             color: NAVY,
             opacity: 0.7,
-            textAlign: 'center',
             flexShrink: 0,
           }}
         >
@@ -215,36 +262,35 @@ export function StickerPreview({ data }: Props) {
         </div>
       )}
 
-      {/* DISTRIBUTOR INFO — navy band */}
-      {data.distributorInfo.trim() && (
+      {/* BOTTOM band — distributor info + footer URL on the right */}
+      {hasFooter && (
         <div
           style={{
-            padding: '2mm 5mm',
             background: NAVY,
             color: 'white',
-            fontSize: '5.5pt',
-            lineHeight: 1.25,
-            flexShrink: 0,
-          }}
-        >
-          {data.distributorInfo}
-        </div>
-      )}
-
-      {/* FOOTER URL */}
-      {data.footer && (
-        <div
-          style={{
             padding: '1.5mm 5mm',
-            textAlign: 'center',
-            color: ORANGE,
-            fontSize: '7pt',
-            fontWeight: 700,
-            letterSpacing: '0.06em',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4mm',
             flexShrink: 0,
+            fontSize: '5pt',
+            lineHeight: 1.2,
           }}
         >
-          {data.footer}
+          <div style={{ flex: 1, minWidth: 0 }}>{data.distributorInfo}</div>
+          {data.footer && (
+            <div
+              style={{
+                color: ORANGE,
+                fontWeight: 700,
+                fontSize: '6.5pt',
+                whiteSpace: 'nowrap',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {data.footer}
+            </div>
+          )}
         </div>
       )}
     </div>

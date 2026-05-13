@@ -26,7 +26,7 @@ export function makeInitialSticker(): StickerData {
     ceMark: false,
     footnote: '',
     footer: 'www.termojet.com.ua',
-    widthMm: 100,
-    heightMm: 140,
+    widthMm: 150,
+    heightMm: 90,
   };
 }
