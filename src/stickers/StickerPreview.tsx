@@ -1,4 +1,5 @@
 import type { StickerData, StickerFontSizes } from './types';
+import { findCertification } from './certificationLibrary';
 
 interface Props {
   data: StickerData;
@@ -260,7 +261,7 @@ export function StickerPreview({ data }: Props) {
                   [ штрих-код ]
                 </div>
               )}
-              {data.certifications.length > 0 && (
+              {data.selectedCertIds.length > 0 && (
                 <div
                   style={{
                     marginLeft: 'auto',
@@ -269,31 +270,18 @@ export function StickerPreview({ data }: Props) {
                     gap: '2mm',
                   }}
                 >
-                  {data.certifications.map((c) =>
-                    c.imageUrl ? (
+                  {data.selectedCertIds.map((id) => {
+                    const cert = findCertification(id);
+                    if (!cert) return null;
+                    return (
                       <img
-                        key={c.id}
-                        src={c.imageUrl}
-                        alt={c.label}
+                        key={id}
+                        src={cert.imageUrl}
+                        alt={cert.label}
                         style={{ height: '8mm', objectFit: 'contain' }}
                       />
-                    ) : (
-                      <div
-                        key={c.id}
-                        style={{
-                          fontSize: '5.5mm',
-                          fontWeight: 800,
-                          color: NAVY,
-                          fontFamily:
-                            c.label === 'CE' ? 'Times, serif' : '"Arial Black", Impact, sans-serif',
-                          letterSpacing: c.label === 'CE' ? '-0.3mm' : '0',
-                          lineHeight: 1,
-                        }}
-                      >
-                        {c.label === 'CE' ? 'C€' : c.label}
-                      </div>
-                    )
-                  )}
+                    );
+                  })}
                 </div>
               )}
             </div>

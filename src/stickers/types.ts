@@ -19,14 +19,17 @@ export interface StickerTranslation {
   text: string;
 }
 
-export interface StickerCertification {
+/** A reusable certification mark in the built-in library. Static data
+ *  shipped with the app — users pick which marks to show per sticker
+ *  via `selectedCertIds`. */
+export interface StickerCertificationDef {
   id: string;
-  /** Short text label, used as the visible mark when no image is set
-   *  (e.g. "CE", "EAC", "ISO"). */
+  /** Short text label (e.g. "CE", "EAC", "ISO"). */
   label: string;
-  /** Optional uploaded image of the certification mark. When present
-   *  the image replaces the text label entirely. */
-  imageUrl?: string;
+  /** Long-form name shown in the editor tooltip. */
+  description: string;
+  /** Path to the mark image bundled in /public/certs/. */
+  imageUrl: string;
 }
 
 /** Per-section font-size overrides in points. Any value left undefined
@@ -70,10 +73,9 @@ export interface StickerData {
   /** Free-form distributor / importer info block on the bottom band. */
   distributorInfo: string;
 
-  /** Conformity marks shown right-aligned next to the barcode (CE,
-   *  EAC, ISO, etc.). Each entry has a short label and an optional
-   *  uploaded image — when no image, the label renders as text. */
-  certifications: StickerCertification[];
+  /** IDs of conformity marks (from CERTIFICATION_LIBRARY) shown
+   *  right-aligned next to the barcode. */
+  selectedCertIds: string[];
 
   /** Asterisk note shown above the footer. */
   footnote: string;

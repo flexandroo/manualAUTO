@@ -1,5 +1,6 @@
 import type { StickerData } from './types';
 import { newId } from '../utils/id';
+import { CERTIFICATION_LIBRARY } from './certificationLibrary';
 
 // Default sample: TERMOJET-styled but with the FERRO ZMVA230 info shape
 // the user wants to support — single product, photo + barcode slots,
@@ -23,11 +24,7 @@ export function makeInitialSticker(): StickerData {
     distributorInfo:
       "Виробник: TERMOJET, Україна, www.termojet.com.ua. " +
       "Гарантія — 24 місяці з дати продажу за умови наявності товарної накладної.",
-    certifications: [
-      { id: newId('crt'), label: 'CE' },
-      { id: newId('crt'), label: 'EAC' },
-      { id: newId('crt'), label: 'ISO' },
-    ],
+    selectedCertIds: CERTIFICATION_LIBRARY.map((c) => c.id),
     fontSizes: {},
     footnote: '',
     footer: 'www.termojet.com.ua',

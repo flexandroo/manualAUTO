@@ -1,16 +1,11 @@
 import { Plus, Trash2 } from 'lucide-react';
-import type {
-  StickerData,
-  StickerSpecLine,
-  StickerTranslation,
-  StickerCertification,
-} from './types';
+import type { StickerData, StickerSpecLine, StickerTranslation } from './types';
 import { FieldGroup } from '../components/ui/FieldGroup';
 import { Input } from '../components/ui/Input';
 import { Textarea } from '../components/ui/Textarea';
 import { ImageUploader } from '../components/ui/ImageUploader';
 import { IconBtn } from '../components/ui/IconBtn';
-import { newId } from '../utils/id';
+import { CERTIFICATION_LIBRARY } from './certificationLibrary';
 
 interface Props {
   data: StickerData;
@@ -108,64 +103,42 @@ export function StickerEditor({ data, onChange }: Props) {
         />
       </FieldGroup>
 
-      <FieldGroup label={`Сертифікації (${data.certifications.length})`}>
-        {data.certifications.map((c, i) => (
-          <div key={c.id} className="border border-stone-100 rounded p-2 mb-2">
-            <div className="flex gap-2 items-center mb-2">
-              <Input
-                value={c.label}
-                onChange={(e) =>
-                  setField(
-                    'certifications',
-                    data.certifications.map((x, idx) =>
-                      idx === i ? { ...x, label: e.target.value } : x
-                    )
-                  )
-                }
-                placeholder="CE / EAC / ISO"
-                className="font-bold"
-              />
-              <IconBtn
-                onClick={() =>
-                  setField(
-                    'certifications',
-                    data.certifications.filter((_, idx) => idx !== i)
-                  )
-                }
-                variant="danger"
-                title="Видалити"
+      <FieldGroup label={`Сертифікації (${data.selectedCertIds.length})`}>
+        <div className="grid grid-cols-3 gap-2">
+          {CERTIFICATION_LIBRARY.map((cert) => {
+            const checked = data.selectedCertIds.includes(cert.id);
+            return (
+              <label
+                key={cert.id}
+                title={cert.description}
+                className={`flex flex-col items-center gap-1 p-2 rounded border cursor-pointer transition-colors ${
+                  checked
+                    ? 'border-orange-400 bg-orange-50'
+                    : 'border-stone-200 bg-white hover:bg-stone-50'
+                }`}
               >
-                <Trash2 size={12} />
-              </IconBtn>
-            </div>
-            <ImageUploader
-              value={c.imageUrl}
-              onChange={(url) =>
-                setField(
-                  'certifications',
-                  data.certifications.map((x, idx) =>
-                    idx === i ? { ...x, imageUrl: url } : x
-                  )
-                )
-              }
-              aspectRatio="3/2"
-              hint="Залиште порожнім, щоб показати текст-лейбл"
-            />
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={() => {
-            const next: StickerCertification = {
-              id: newId('crt'),
-              label: 'CE',
-            };
-            setField('certifications', [...data.certifications, next]);
-          }}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
-        >
-          <Plus size={12} /> Додати сертифікацію
-        </button>
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={(e) => {
+                    const next = e.target.checked
+                      ? [...data.selectedCertIds, cert.id]
+                      : data.selectedCertIds.filter((id) => id !== cert.id);
+                    setField('selectedCertIds', next);
+                  }}
+                  className="accent-orange-500"
+                />
+                <img
+                  src={cert.imageUrl}
+                  alt={cert.label}
+                  className="h-8 object-contain"
+                  style={{ opacity: checked ? 1 : 0.55 }}
+                />
+                <span className="text-[10px] font-bold text-stone-600">{cert.label}</span>
+              </label>
+            );
+          })}
+        </div>
       </FieldGroup>
 
       <FieldGroup label={`Технічні характеристики (${data.specs.length})`}>
