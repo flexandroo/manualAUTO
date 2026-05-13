@@ -29,7 +29,7 @@ export function TextStyleControls({
 
   return (
     <div className="flex gap-1.5 items-center mt-1 flex-wrap">
-      <span className="text-[10px] text-slate-500 uppercase tracking-wider">Стиль:</span>
+      <span className="text-[10px] text-stone-400 uppercase tracking-wider">Стиль:</span>
       <input
         type="number"
         min={6}
@@ -41,16 +41,16 @@ export function TextStyleControls({
           onChange({ ...v, fontSize: Number.isFinite(n) ? n : undefined });
         }}
         title="Розмір шрифту, px"
-        className="w-14 bg-slate-800 text-slate-200 rounded px-1.5 py-0.5 text-xs"
+        className="w-14 bg-stone-100 text-stone-700 rounded px-1.5 py-0.5 text-xs"
       />
-      <span className="text-[10px] text-slate-500">px</span>
+      <span className="text-[10px] text-stone-400">px</span>
       <button
         onClick={() => onChange({ ...v, bold: !effectiveBold })}
         title={effectiveBold ? 'Жирний' : 'Звичайний'}
         className={`px-2 py-0.5 rounded text-xs font-extrabold transition-colors ${
           effectiveBold
             ? 'bg-orange-600 text-white'
-            : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+            : 'bg-stone-100 text-stone-500 hover:bg-stone-200'
         }`}
       >
         B
@@ -63,7 +63,7 @@ export function TextStyleControls({
           type="color"
           value={v.color ?? defaultColor}
           onChange={(e) => onChange({ ...v, color: e.target.value })}
-          className="w-5 h-5 cursor-pointer rounded border border-slate-700 bg-transparent appearance-none p-0"
+          className="w-5 h-5 cursor-pointer rounded border border-stone-200 bg-transparent appearance-none p-0"
           style={{ borderColor: colorActive ? v.color : undefined }}
         />
       </label>
@@ -75,7 +75,7 @@ export function TextStyleControls({
             onChange(next);
           }}
           title="Скинути колір"
-          className="text-[10px] text-slate-500 hover:text-orange-400"
+          className="text-[10px] text-stone-400 hover:text-orange-400"
         >
           ×
         </button>
@@ -84,7 +84,7 @@ export function TextStyleControls({
         <button
           onClick={() => onChange({})}
           title="Скинути все до значень за замовчуванням"
-          className="text-[10px] text-slate-500 hover:text-orange-400 underline"
+          className="text-[10px] text-stone-400 hover:text-orange-400 underline"
         >
           скинути
         </button>

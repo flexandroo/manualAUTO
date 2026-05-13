@@ -69,21 +69,21 @@ export function DocumentSwitcher({
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium min-w-0 max-w-[280px]"
+        className="flex items-center gap-2 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs font-medium min-w-0 max-w-[280px]"
         title="Переключити документ"
       >
         <FileText size={14} className="text-orange-500 flex-shrink-0" />
         <span className="truncate">{active?.name ?? 'Без документа'}</span>
-        <ChevronDown size={12} className="flex-shrink-0 text-slate-400" />
+        <ChevronDown size={12} className="flex-shrink-0 text-stone-500" />
       </button>
       {open && (
-        <div className="absolute left-0 mt-1 w-80 bg-slate-900 border border-slate-700 rounded shadow-xl z-50 overflow-hidden">
+        <div className="absolute left-0 mt-1 w-80 bg-white border border-stone-200 rounded shadow-xl z-50 overflow-hidden">
           <button
             onClick={() => {
               onCreate();
               setOpen(false);
             }}
-            className="w-full flex items-center gap-2 px-3 py-2.5 text-xs font-medium hover:bg-slate-800 border-b border-slate-800 text-left"
+            className="w-full flex items-center gap-2 px-3 py-2.5 text-xs font-medium hover:bg-stone-100 border-b border-stone-100 text-left"
           >
             <Plus size={14} className="text-orange-500" />
             Новий документ
@@ -100,13 +100,13 @@ export function DocumentSwitcher({
                     onSwitch(d.id);
                     setOpen(false);
                   }}
-                  className={`group flex items-center gap-2 px-3 py-2 cursor-pointer text-xs border-b border-slate-800 last:border-b-0 ${
-                    isActive ? 'bg-orange-600/15' : 'hover:bg-slate-800'
+                  className={`group flex items-center gap-2 px-3 py-2 cursor-pointer text-xs border-b border-stone-100 last:border-b-0 ${
+                    isActive ? 'bg-orange-600/15' : 'hover:bg-stone-100'
                   }`}
                 >
                   <FileText
                     size={13}
-                    className={`flex-shrink-0 ${isActive ? 'text-orange-500' : 'text-slate-500'}`}
+                    className={`flex-shrink-0 ${isActive ? 'text-orange-500' : 'text-stone-400'}`}
                   />
                   <div className="flex-1 min-w-0">
                     {isRenaming ? (
@@ -122,12 +122,12 @@ export function DocumentSwitcher({
                               setRenamingId(null);
                             }
                           }}
-                          className="flex-1 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs outline-none focus:border-orange-500"
+                          className="flex-1 bg-stone-50 border border-stone-200 rounded px-2 py-1 text-xs outline-none focus:border-orange-500"
                         />
                         <button
                           type="submit"
                           onClick={commitRename}
-                          className="p-1 text-orange-500 hover:bg-slate-800 rounded"
+                          className="p-1 text-orange-500 hover:bg-stone-100 rounded"
                         >
                           <Check size={12} />
                         </button>
@@ -135,7 +135,7 @@ export function DocumentSwitcher({
                     ) : (
                       <>
                         <div className="font-medium truncate">{d.name}</div>
-                        <div className="text-[10px] text-slate-500">
+                        <div className="text-[10px] text-stone-400">
                           {d.data.pages.length} сторінок · {formatDate(d.updatedAt)}
                         </div>
                       </>
@@ -145,14 +145,14 @@ export function DocumentSwitcher({
                     <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100">
                       <button
                         onClick={(e) => startRename(e, d)}
-                        className="p-1 rounded hover:bg-slate-700 text-slate-400 hover:text-white"
+                        className="p-1 rounded hover:bg-stone-200 text-stone-500 hover:text-white"
                         title="Перейменувати"
                       >
                         <Edit2 size={11} />
                       </button>
                       <button
                         onClick={(e) => handleDelete(e, d)}
-                        className="p-1 rounded hover:bg-red-700 text-slate-400 hover:text-white"
+                        className="p-1 rounded hover:bg-red-700 text-stone-500 hover:text-white"
                         title="Видалити"
                       >
                         <Trash2 size={11} />

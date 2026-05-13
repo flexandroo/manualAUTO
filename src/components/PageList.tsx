@@ -19,9 +19,9 @@ export function PageList({ pages, activeId, onSelect, onAdd, onRemove, onMove }:
   const available = PAGE_TYPE_ORDER.filter((t) => !usedUnique.has(t));
 
   return (
-    <aside className="w-60 bg-slate-900 border-r border-slate-800 p-3 flex flex-col">
+    <aside className="w-60 bg-white border-r border-stone-100 p-3 flex flex-col">
       <div className="flex items-center justify-between mb-2 px-1">
-        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">
+        <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold">
           Сторінки документа ({pages.length})
         </span>
         <button
@@ -34,9 +34,9 @@ export function PageList({ pages, activeId, onSelect, onAdd, onRemove, onMove }:
       </div>
 
       {adding && (
-        <div className="mb-3 bg-slate-950 border border-slate-800 rounded p-2 space-y-1">
+        <div className="mb-3 bg-stone-50 border border-stone-100 rounded p-2 space-y-1">
           {available.length === 0 && (
-            <div className="text-[11px] text-slate-500 px-1">Усі унікальні типи додані</div>
+            <div className="text-[11px] text-stone-400 px-1">Усі унікальні типи додані</div>
           )}
           {available.map((t) => {
             const spec = PAGE_REGISTRY[t];
@@ -48,7 +48,7 @@ export function PageList({ pages, activeId, onSelect, onAdd, onRemove, onMove }:
                   onAdd(t);
                   setAdding(false);
                 }}
-                className="w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs text-slate-300 hover:bg-slate-800 text-left"
+                className="w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs text-stone-600 hover:bg-stone-100 text-left"
               >
                 <Icon size={12} /> {spec.label}
               </button>
@@ -56,7 +56,7 @@ export function PageList({ pages, activeId, onSelect, onAdd, onRemove, onMove }:
           })}
           <button
             onClick={() => setAdding(false)}
-            className="w-full text-[10px] text-slate-500 hover:text-slate-300 mt-1"
+            className="w-full text-[10px] text-stone-400 hover:text-stone-600 mt-1"
           >
             відмінити
           </button>
@@ -76,16 +76,16 @@ export function PageList({ pages, activeId, onSelect, onAdd, onRemove, onMove }:
               className={`group flex items-center gap-1 rounded border ${
                 isActive
                   ? 'bg-orange-600/15 border-orange-600/40'
-                  : 'border-transparent hover:bg-slate-800'
+                  : 'border-transparent hover:bg-stone-100'
               }`}
             >
               <button
                 onClick={() => onSelect(p.id)}
                 className={`flex-1 flex items-center gap-2 px-2 py-2 text-xs font-medium text-left ${
-                  isActive ? 'text-orange-300' : 'text-slate-300'
+                  isActive ? 'text-orange-300' : 'text-stone-600'
                 }`}
               >
-                <span className="text-[10px] text-slate-500 font-mono w-4">{i + 1}</span>
+                <span className="text-[10px] text-stone-400 font-mono w-4">{i + 1}</span>
                 <Icon size={13} className="flex-shrink-0" />
                 <span className="truncate">{label}</span>
               </button>
@@ -93,14 +93,14 @@ export function PageList({ pages, activeId, onSelect, onAdd, onRemove, onMove }:
                 <button
                   onClick={() => onMove(p.id, -1)}
                   disabled={i === 0}
-                  className="p-1 text-slate-400 hover:text-slate-200 disabled:opacity-30"
+                  className="p-1 text-stone-500 hover:text-stone-700 disabled:opacity-30"
                 >
                   <ChevronUp size={11} />
                 </button>
                 <button
                   onClick={() => onMove(p.id, 1)}
                   disabled={i === pages.length - 1}
-                  className="p-1 text-slate-400 hover:text-slate-200 disabled:opacity-30"
+                  className="p-1 text-stone-500 hover:text-stone-700 disabled:opacity-30"
                 >
                   <ChevronDown size={11} />
                 </button>
@@ -109,7 +109,7 @@ export function PageList({ pages, activeId, onSelect, onAdd, onRemove, onMove }:
                     onClick={() => {
                       if (confirmAction(`Видалити сторінку "${label}"?`)) onRemove(p.id);
                     }}
-                    className="p-1 text-slate-400 hover:text-red-400"
+                    className="p-1 text-stone-500 hover:text-red-400"
                   >
                     <Trash2 size={11} />
                   </button>

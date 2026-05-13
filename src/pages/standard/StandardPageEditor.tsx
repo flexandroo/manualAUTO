@@ -38,7 +38,7 @@ export function StandardPageEditor({ data, onChange }: Props) {
           <button
             onClick={() => onChange({ ...data, twoColumn: false })}
             className={`flex-1 py-2 rounded text-xs font-bold ${
-              !data.twoColumn ? 'bg-orange-600 text-white' : 'bg-slate-800 text-slate-400'
+              !data.twoColumn ? 'bg-orange-600 text-white' : 'bg-stone-100 text-stone-500'
             }`}
           >
             Одна колонка
@@ -46,7 +46,7 @@ export function StandardPageEditor({ data, onChange }: Props) {
           <button
             onClick={() => onChange({ ...data, twoColumn: true })}
             className={`flex-1 py-2 rounded text-xs font-bold ${
-              data.twoColumn ? 'bg-orange-600 text-white' : 'bg-slate-800 text-slate-400'
+              data.twoColumn ? 'bg-orange-600 text-white' : 'bg-stone-100 text-stone-500'
             }`}
           >
             Дві колонки
@@ -54,7 +54,7 @@ export function StandardPageEditor({ data, onChange }: Props) {
         </div>
       </FieldGroup>
 
-      <div className="border-t border-slate-800 pt-4 mt-2">
+      <div className="border-t border-stone-100 pt-4 mt-2">
         <ElementListEditor
           elements={data.elements}
           onChange={(elements) => onChange({ ...data, elements })}

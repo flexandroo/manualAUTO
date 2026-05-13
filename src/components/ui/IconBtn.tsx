@@ -10,8 +10,8 @@ interface IconBtnProps {
 }
 
 const variants: Record<Variant, string> = {
-  default: 'bg-slate-800 hover:bg-slate-700 text-slate-300',
-  danger: 'bg-slate-800 hover:bg-red-900/50 text-red-400',
+  default: 'bg-stone-100 hover:bg-stone-200 text-stone-600',
+  danger: 'bg-stone-100 hover:bg-red-900/50 text-red-400',
   primary: 'bg-orange-600 hover:bg-orange-500 text-white',
 };
 

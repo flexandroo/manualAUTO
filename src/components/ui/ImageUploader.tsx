@@ -76,7 +76,7 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
   return (
     <div className="mb-5">
       {label && (
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-1.5">
           {label}
         </label>
       )}
@@ -93,8 +93,8 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
           hovering
             ? 'border-orange-500 bg-orange-500/5'
             : value
-            ? 'border-slate-700'
-            : 'border-slate-700 hover:border-slate-600'
+            ? 'border-stone-200'
+            : 'border-stone-200 hover:border-stone-300'
         }`}
         style={{ aspectRatio }}
       >
@@ -108,21 +108,21 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
             />
             <button
               onClick={() => onChange(undefined)}
-              className="absolute top-2 right-2 bg-slate-900/90 hover:bg-red-700 text-white rounded p-1.5 shadow-lg"
+              className="absolute top-2 right-2 bg-white/90 hover:bg-red-700 text-white rounded p-1.5 shadow-lg"
               title="Видалити зображення"
             >
               <X size={14} />
             </button>
             <button
               onClick={() => setBgModalOpen(true)}
-              className="absolute bottom-2 left-2 bg-slate-900/90 hover:bg-slate-700 text-white rounded px-2 py-1 text-[11px] flex items-center gap-1.5 shadow-lg"
+              className="absolute bottom-2 left-2 bg-white/90 hover:bg-stone-200 text-white rounded px-2 py-1 text-[11px] flex items-center gap-1.5 shadow-lg"
               title="Прибрати фон"
             >
               <Eraser size={12} /> Прибрати фон
             </button>
             <button
               onClick={() => inputRef.current?.click()}
-              className="absolute bottom-2 right-2 bg-slate-900/90 hover:bg-slate-700 text-white rounded px-2 py-1 text-[11px] flex items-center gap-1.5 shadow-lg"
+              className="absolute bottom-2 right-2 bg-white/90 hover:bg-stone-200 text-white rounded px-2 py-1 text-[11px] flex items-center gap-1.5 shadow-lg"
             >
               <Upload size={12} /> Замінити
             </button>
@@ -131,7 +131,7 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
           <button
             onClick={() => inputRef.current?.click()}
             disabled={busy}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-500 hover:text-slate-300 disabled:cursor-wait"
+            className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-stone-400 hover:text-stone-600 disabled:cursor-wait"
           >
             {busy ? (
               <>
@@ -142,7 +142,7 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
               <>
                 <ImagePlus size={32} />
                 <div className="text-xs font-medium">Завантажити зображення</div>
-                <div className="text-[10px] text-slate-600 text-center px-4">
+                <div className="text-[10px] text-stone-300 text-center px-4">
                   Клік, перетягніть файл сюди<br />
                   або вставте з буфера (Ctrl+V)
                 </div>
@@ -159,7 +159,7 @@ export function ImageUploader({ value, onChange, label, hint, aspectRatio = '4/3
         className="hidden"
       />
       {error && <div className="text-[11px] text-red-400 mt-1">{error}</div>}
-      {!error && hint && <div className="text-[11px] text-slate-500 mt-1">{hint}</div>}
+      {!error && hint && <div className="text-[11px] text-stone-400 mt-1">{hint}</div>}
 
       {bgModalOpen && value && (
         <BackgroundRemoverModal

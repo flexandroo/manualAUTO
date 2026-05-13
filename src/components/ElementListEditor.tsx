@@ -49,7 +49,7 @@ export function ElementListEditor({ elements, onChange }: Props) {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
           Елементи на сторінці ({elements.length})
         </label>
         <button
@@ -61,7 +61,7 @@ export function ElementListEditor({ elements, onChange }: Props) {
       </div>
 
       {adding && (
-        <div className="mb-3 bg-slate-950 border border-slate-800 rounded p-2 grid grid-cols-2 gap-1">
+        <div className="mb-3 bg-stone-50 border border-stone-100 rounded p-2 grid grid-cols-2 gap-1">
           {ELEMENT_ORDER.map((t) => {
             const spec = ELEMENT_SPECS[t];
             const Icon = spec.icon;
@@ -69,20 +69,20 @@ export function ElementListEditor({ elements, onChange }: Props) {
               <button
                 key={t}
                 onClick={() => addElement(t)}
-                className="flex items-start gap-2 px-2 py-2 rounded text-xs text-slate-300 hover:bg-slate-800 text-left"
+                className="flex items-start gap-2 px-2 py-2 rounded text-xs text-stone-600 hover:bg-stone-100 text-left"
                 title={spec.hint}
               >
                 <Icon size={14} className="flex-shrink-0 mt-0.5 text-orange-400" />
                 <div>
                   <div className="font-semibold">{spec.label}</div>
-                  <div className="text-[10px] text-slate-500">{spec.hint}</div>
+                  <div className="text-[10px] text-stone-400">{spec.hint}</div>
                 </div>
               </button>
             );
           })}
           <button
             onClick={() => setAdding(false)}
-            className="col-span-2 text-[10px] text-slate-500 hover:text-slate-300 mt-1"
+            className="col-span-2 text-[10px] text-stone-400 hover:text-stone-600 mt-1"
           >
             відмінити
           </button>
@@ -98,40 +98,40 @@ export function ElementListEditor({ elements, onChange }: Props) {
             <div
               key={el.id}
               className={`border rounded ${
-                isOpen ? 'border-orange-600/40 bg-slate-900' : 'border-slate-800 bg-slate-950'
+                isOpen ? 'border-orange-600/40 bg-white' : 'border-stone-100 bg-stone-50'
               }`}
             >
               <div className="flex items-center gap-1 p-2">
                 <Icon size={13} className="text-orange-400 flex-shrink-0" />
                 <button
                   onClick={() => setOpenId(isOpen ? null : el.id)}
-                  className="flex-1 text-left text-xs font-medium text-slate-200 truncate"
+                  className="flex-1 text-left text-xs font-medium text-stone-700 truncate"
                 >
-                  {spec.label} <span className="text-slate-500">{summary(el)}</span>
+                  {spec.label} <span className="text-stone-400">{summary(el)}</span>
                 </button>
                 <button
                   onClick={() => moveElement(el.id, -1)}
                   disabled={i === 0}
-                  className="p-1 text-slate-400 hover:text-slate-200 disabled:opacity-30"
+                  className="p-1 text-stone-500 hover:text-stone-700 disabled:opacity-30"
                 >
                   <ChevronUp size={11} />
                 </button>
                 <button
                   onClick={() => moveElement(el.id, 1)}
                   disabled={i === elements.length - 1}
-                  className="p-1 text-slate-400 hover:text-slate-200 disabled:opacity-30"
+                  className="p-1 text-stone-500 hover:text-stone-700 disabled:opacity-30"
                 >
                   <ChevronDown size={11} />
                 </button>
                 <button
                   onClick={() => removeElement(el.id)}
-                  className="p-1 text-slate-400 hover:text-red-400"
+                  className="p-1 text-stone-500 hover:text-red-400"
                 >
                   <Trash2 size={11} />
                 </button>
               </div>
               {isOpen && (
-                <div className="p-3 pt-1 border-t border-slate-800">
+                <div className="p-3 pt-1 border-t border-stone-100">
                   <ElementEditor
                     element={el}
                     onChange={(next) => updateElement(el.id, next)}
@@ -142,7 +142,7 @@ export function ElementListEditor({ elements, onChange }: Props) {
           );
         })}
         {elements.length === 0 && (
-          <div className="text-[11px] text-slate-500 italic text-center py-6 border border-dashed border-slate-800 rounded">
+          <div className="text-[11px] text-stone-400 italic text-center py-6 border border-dashed border-stone-100 rounded">
             На цій сторінці немає елементів. Натисніть «Додати», щоб вставити перший.
           </div>
         )}

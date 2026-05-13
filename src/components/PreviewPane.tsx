@@ -30,14 +30,14 @@ export function PreviewPane({ doc, zoom, onZoomChange }: Props) {
   };
 
   return (
-    <section className="flex-1 bg-slate-800 overflow-auto relative">
-      <div className="sticky top-0 z-10 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+    <section className="flex-1 bg-stone-100 overflow-auto relative">
+      <div className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-stone-100 px-4 py-2 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Eye size={14} className="text-orange-500" />
           <span className="text-xs font-bold uppercase tracking-wider">Live preview</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[11px] text-slate-400">Zoom</span>
+          <span className="text-[11px] text-stone-500">Zoom</span>
           <input
             type="range"
             min="0.4"
@@ -47,7 +47,7 @@ export function PreviewPane({ doc, zoom, onZoomChange }: Props) {
             onChange={(e) => onZoomChange(parseFloat(e.target.value))}
             className="w-24 accent-orange-500"
           />
-          <span className="text-[11px] text-slate-400 font-mono w-10">
+          <span className="text-[11px] text-stone-500 font-mono w-10">
             {Math.round(zoom * 100)}%
           </span>
         </div>

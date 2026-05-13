@@ -46,7 +46,7 @@ export function CoverPageEditor({ data, onChange }: Props) {
     <div>
       {/* ─── Document-level fields (used by every page header / footer) ─── */}
       <div
-        className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-3 pb-2 border-b border-slate-800"
+        className="text-[10px] uppercase tracking-wider text-stone-400 font-bold mb-3 pb-2 border-b border-stone-100"
       >
         Бренд та продукт
       </div>
@@ -130,7 +130,7 @@ export function CoverPageEditor({ data, onChange }: Props) {
 
       {/* ─── Cover-page-specific fields ─── */}
       <div
-        className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-6 mb-3 pb-2 border-b border-slate-800"
+        className="text-[10px] uppercase tracking-wider text-stone-400 font-bold mt-6 mb-3 pb-2 border-b border-stone-100"
       >
         Вміст титульної
       </div>
@@ -161,7 +161,7 @@ export function CoverPageEditor({ data, onChange }: Props) {
 
       <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Особливості / переваги ({bulletPoints.length})
           </label>
           <IconBtn onClick={addBullet} variant="primary">
@@ -184,13 +184,13 @@ export function CoverPageEditor({ data, onChange }: Props) {
             </div>
           ))}
         </div>
-        <div className="text-[11px] text-slate-500 mt-1">
+        <div className="text-[11px] text-stone-400 mt-1">
           Перші 3 пункти показуються як 3 картки на титулці.
         </div>
       </div>
 
       <div className="mb-5">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-stone-500 mb-2">
           Фото продукту (до 3-х)
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -205,10 +205,10 @@ export function CoverPageEditor({ data, onChange }: Props) {
         </div>
       </div>
 
-      <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-6 mb-3 pb-2 border-b border-slate-800">
+      <div className="text-[10px] uppercase tracking-wider text-stone-400 font-bold mt-6 mb-3 pb-2 border-b border-stone-100">
         Додаткові елементи на титулці
       </div>
-      <div className="text-[11px] text-slate-500 italic mb-3">
+      <div className="text-[11px] text-stone-400 italic mb-3">
         Будь-які елементи, які ви додасте сюди, з'являться між блоком фічей та смужкою з фото.
       </div>
       <ElementListEditor

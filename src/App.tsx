@@ -341,19 +341,19 @@ export default function App() {
 
   return (
     <EditingDocProvider value={{ doc: data, setDoc: setData }}>
-      <div className="h-screen bg-slate-950 text-slate-100 flex flex-col overflow-hidden">
-        <header className="no-print bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
+      <div className="h-screen bg-stone-50 text-stone-800 flex flex-col overflow-hidden">
+        <header className="no-print bg-white border-b border-stone-100 px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-orange-600 rounded flex items-center justify-center font-black text-sm">
               M
             </div>
             <div className="hidden xl:block">
               <div className="text-sm font-bold tracking-tight">manualAUTO</div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider">
+              <div className="text-[10px] text-stone-400 uppercase tracking-wider">
                 Генератор інструкцій · v0.7
               </div>
             </div>
-            <div className="w-px h-6 bg-slate-800 mx-1" />
+            <div className="w-px h-6 bg-stone-100 mx-1" />
             <DocumentSwitcher
               docs={docs}
               activeId={activeDocId}
@@ -368,7 +368,7 @@ export default function App() {
             <button
               onClick={history.undo}
               disabled={!history.canUndo}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed rounded text-xs font-medium"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 disabled:opacity-40 disabled:cursor-not-allowed rounded text-xs font-medium"
               title="Скасувати (Ctrl+Z)"
             >
               <Undo2 size={14} />
@@ -376,20 +376,20 @@ export default function App() {
             <button
               onClick={history.redo}
               disabled={!history.canRedo}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed rounded text-xs font-medium"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 disabled:opacity-40 disabled:cursor-not-allowed rounded text-xs font-medium"
               title="Повторити (Ctrl+Shift+Z)"
             >
               <Redo2 size={14} />
             </button>
-            <div className="w-px h-6 bg-slate-800 mx-1" />
+            <div className="w-px h-6 bg-stone-100 mx-1" />
             <TemplateMenu currentDoc={data} onLoad={handleLoadFromTemplate} />
-            <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium">
+            <label className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs font-medium">
               <Upload size={14} /> Імпорт JSON
               <input type="file" accept=".json" onChange={handleImportJson} className="hidden" />
             </label>
             <button
               onClick={handleExportJson}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs font-medium"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs font-medium"
             >
               <Save size={14} /> Експорт JSON
             </button>

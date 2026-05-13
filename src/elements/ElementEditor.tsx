@@ -97,7 +97,7 @@ export function ElementEditor({ element, onChange }: Props) {
       return <TwoColumnEd data={element} onChange={onChange} />;
     case 'separator':
       return (
-        <div className="text-[11px] text-slate-500 italic">
+        <div className="text-[11px] text-stone-400 italic">
           Розділювач — тонка горизонтальна лінія. Без налаштувань.
         </div>
       );
@@ -107,11 +107,11 @@ export function ElementEditor({ element, onChange }: Props) {
 function TwoColumnEd({ data, onChange }: EdProps<TwoColumnElement>) {
   return (
     <div>
-      <div className="text-[11px] text-slate-500 italic mb-3">
+      <div className="text-[11px] text-stone-400 italic mb-3">
         Контейнер ділить ширину на дві колонки. У кожну колонку додавайте свої елементи.
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-slate-950 border border-slate-800 rounded p-2">
+        <div className="bg-stone-50 border border-stone-100 rounded p-2">
           <div className="text-[10px] uppercase tracking-wider text-orange-400 font-bold mb-2 px-1">
             Ліва колонка
           </div>
@@ -120,7 +120,7 @@ function TwoColumnEd({ data, onChange }: EdProps<TwoColumnElement>) {
             onChange={(left) => onChange({ ...data, left })}
           />
         </div>
-        <div className="bg-slate-950 border border-slate-800 rounded p-2">
+        <div className="bg-stone-50 border border-stone-100 rounded p-2">
           <div className="text-[10px] uppercase tracking-wider text-orange-400 font-bold mb-2 px-1">
             Права колонка
           </div>
@@ -207,7 +207,7 @@ function BulletListEd({ data, onChange }: EdProps<BulletListElement>) {
   return (
     <div className="mb-4">
       <div className="flex items-center justify-between mb-2">
-        <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
           Пункти ({data.items.length})
         </label>
         <IconBtn onClick={add} variant="primary">
@@ -263,7 +263,7 @@ function NumberedListEd({ data, onChange }: EdProps<NumberedListElement>) {
   return (
     <div className="mb-4">
       <div className="flex items-center justify-between mb-2">
-        <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
           Пункти ({data.items.length})
         </label>
         <IconBtn onClick={add} variant="primary">
@@ -272,12 +272,12 @@ function NumberedListEd({ data, onChange }: EdProps<NumberedListElement>) {
       </div>
       <div className="space-y-2">
         {data.items.map((it, i) => (
-          <div key={i} className="bg-slate-900 border border-slate-800 rounded p-2 space-y-2">
+          <div key={i} className="bg-white border border-stone-100 rounded p-2 space-y-2">
             <div className="flex items-center gap-2">
               <input
                 value={it.number}
                 onChange={(e) => update(i, 'number', e.target.value)}
-                className="w-14 bg-slate-800 text-orange-300 font-mono font-bold rounded px-2 py-1 text-xs"
+                className="w-14 bg-stone-100 text-orange-300 font-mono font-bold rounded px-2 py-1 text-xs"
               />
               <div className="flex-1" />
               <IconBtn onClick={() => move(i, -1)}>
@@ -299,9 +299,9 @@ function NumberedListEd({ data, onChange }: EdProps<NumberedListElement>) {
         ))}
       </div>
       <div className="mt-3 space-y-1">
-        <div className="text-[11px] text-slate-400">Номер кроку:</div>
+        <div className="text-[11px] text-stone-500">Номер кроку:</div>
         <StyleRow data={data} onChange={onChange} elType="numberedList" styleKey="number" />
-        <div className="text-[11px] text-slate-400 mt-1">Текст кроку:</div>
+        <div className="text-[11px] text-stone-500 mt-1">Текст кроку:</div>
         <StyleRow data={data} onChange={onChange} elType="numberedList" styleKey="text" />
       </div>
     </div>
@@ -341,25 +341,25 @@ function TableEd({ data, onChange }: EdProps<TableElement>) {
   return (
     <div className="mb-4">
       <div className="flex items-center justify-between mb-2">
-        <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
           Таблиця ({data.headers.length}×{data.rows.length})
         </label>
         <div className="flex gap-1">
           <button
             onClick={addCol}
-            className="text-[11px] px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded"
+            className="text-[11px] px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded"
           >
             + колонка
           </button>
           <button
             onClick={addRow}
-            className="text-[11px] px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded"
+            className="text-[11px] px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-600 rounded"
           >
             + рядок
           </button>
         </div>
       </div>
-      <div className="overflow-x-auto bg-slate-900 rounded p-2">
+      <div className="overflow-x-auto bg-white rounded p-2">
         <table className="w-full text-xs">
           <thead>
             <tr>
@@ -368,7 +368,7 @@ function TableEd({ data, onChange }: EdProps<TableElement>) {
                   <input
                     value={h}
                     onChange={(e) => updateHeader(i, e.target.value)}
-                    className="w-full bg-slate-800 text-orange-300 font-semibold rounded px-2 py-1 text-xs"
+                    className="w-full bg-stone-100 text-orange-300 font-semibold rounded px-2 py-1 text-xs"
                   />
                   {i > 0 && (
                     <button
@@ -391,7 +391,7 @@ function TableEd({ data, onChange }: EdProps<TableElement>) {
                       value={cell}
                       onChange={(e) => updateCell(r, c, e.target.value)}
                       rows={1}
-                      className="w-full bg-slate-800 text-slate-200 rounded px-2 py-1 text-xs resize-y"
+                      className="w-full bg-stone-100 text-stone-700 rounded px-2 py-1 text-xs resize-y"
                     />
                   </td>
                 ))}
@@ -406,9 +406,9 @@ function TableEd({ data, onChange }: EdProps<TableElement>) {
         </table>
       </div>
       <div className="mt-3 space-y-1">
-        <div className="text-[11px] text-slate-400">Заголовки колонок:</div>
+        <div className="text-[11px] text-stone-500">Заголовки колонок:</div>
         <StyleRow data={data} onChange={onChange} elType="table" styleKey="header" />
-        <div className="text-[11px] text-slate-400 mt-1">Клітинки:</div>
+        <div className="text-[11px] text-stone-500 mt-1">Клітинки:</div>
         <StyleRow data={data} onChange={onChange} elType="table" styleKey="cell" />
       </div>
     </div>
@@ -435,7 +435,7 @@ function KvListEd({ data, onChange }: EdProps<KvListElement>) {
       </FieldGroup>
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Пари ключ-значення ({data.rows.length})
           </label>
           <IconBtn onClick={add} variant="primary">
@@ -462,9 +462,9 @@ function KvListEd({ data, onChange }: EdProps<KvListElement>) {
           ))}
         </div>
         <div className="mt-3 space-y-1">
-          <div className="text-[11px] text-slate-400">Стиль ключів:</div>
+          <div className="text-[11px] text-stone-500">Стиль ключів:</div>
           <StyleRow data={data} onChange={onChange} elType="kvList" styleKey="key" />
-          <div className="text-[11px] text-slate-400 mt-1">Стиль значень:</div>
+          <div className="text-[11px] text-stone-500 mt-1">Стиль значень:</div>
           <StyleRow data={data} onChange={onChange} elType="kvList" styleKey="value" />
         </div>
       </div>
@@ -514,7 +514,7 @@ function SchemeEd({ data, onChange }: EdProps<SchemeElement>) {
       />
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Виноски ({data.items.length})
           </label>
           <IconBtn onClick={addItem} variant="primary">
@@ -528,7 +528,7 @@ function SchemeEd({ data, onChange }: EdProps<SchemeElement>) {
                 type="number"
                 value={it.number}
                 onChange={(e) => updateItem(i, 'number', e.target.value)}
-                className="w-12 bg-slate-800 text-orange-300 font-mono font-bold rounded px-2 py-1.5 text-xs"
+                className="w-12 bg-stone-100 text-orange-300 font-mono font-bold rounded px-2 py-1.5 text-xs"
               />
               <Input
                 value={it.label}
@@ -550,7 +550,7 @@ function SchemeEd({ data, onChange }: EdProps<SchemeElement>) {
       </div>
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Лінії потоку (опціонально)
           </label>
           <IconBtn onClick={addFlow} variant="primary">
@@ -564,7 +564,7 @@ function SchemeEd({ data, onChange }: EdProps<SchemeElement>) {
                 type="color"
                 value={f.color}
                 onChange={(e) => updateFlow(i, 'color', e.target.value)}
-                className="w-10 h-9 bg-slate-900 rounded cursor-pointer"
+                className="w-10 h-9 bg-white rounded cursor-pointer"
               />
               <Input
                 value={f.label}
@@ -577,11 +577,11 @@ function SchemeEd({ data, onChange }: EdProps<SchemeElement>) {
           ))}
         </div>
         <div className="mt-3 space-y-1">
-          <div className="text-[11px] text-slate-400">Номер виноски:</div>
+          <div className="text-[11px] text-stone-500">Номер виноски:</div>
           <StyleRow data={data} onChange={onChange} elType="scheme" styleKey="number" />
-          <div className="text-[11px] text-slate-400 mt-1">Назва компонента:</div>
+          <div className="text-[11px] text-stone-500 mt-1">Назва компонента:</div>
           <StyleRow data={data} onChange={onChange} elType="scheme" styleKey="label" />
-          <div className="text-[11px] text-slate-400 mt-1">Лінії потоку:</div>
+          <div className="text-[11px] text-stone-500 mt-1">Лінії потоку:</div>
           <StyleRow data={data} onChange={onChange} elType="scheme" styleKey="flow" />
         </div>
       </div>
@@ -614,7 +614,7 @@ function ImageEd({ data, onChange }: EdProps<ImageElement>) {
               className={`flex-1 py-2 rounded text-xs font-bold ${
                 (data.size ?? 'md') === s
                   ? 'bg-orange-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                  : 'bg-stone-100 text-stone-500 hover:bg-stone-200'
               }`}
             >
               {s.toUpperCase()}
@@ -631,7 +631,7 @@ function ImageEd({ data, onChange }: EdProps<ImageElement>) {
               className={`flex-1 py-2 rounded text-xs font-bold ${
                 (data.align ?? 'center') === a
                   ? 'bg-orange-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                  : 'bg-stone-100 text-stone-500 hover:bg-stone-200'
               }`}
             >
               {a === 'left' ? 'Зліва' : a === 'center' ? 'По центру' : 'Справа'}
@@ -675,7 +675,7 @@ function ImageGridEd({ data, onChange }: EdProps<ImageGridElement>) {
               className={`flex-1 py-2 rounded text-xs font-bold ${
                 data.columns === n
                   ? 'bg-orange-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                  : 'bg-stone-100 text-stone-500 hover:bg-stone-200'
               }`}
             >
               {n}
@@ -685,7 +685,7 @@ function ImageGridEd({ data, onChange }: EdProps<ImageGridElement>) {
       </FieldGroup>
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Картки ({data.items.length})
           </label>
           <IconBtn onClick={addItem} variant="primary">
@@ -694,7 +694,7 @@ function ImageGridEd({ data, onChange }: EdProps<ImageGridElement>) {
         </div>
         <div className="space-y-3">
           {data.items.map((f, i) => (
-            <div key={f.id} className="bg-slate-900 border border-slate-800 rounded p-2">
+            <div key={f.id} className="bg-white border border-stone-100 rounded p-2">
               <div className="flex items-center gap-2 mb-2">
                 <Input
                   value={f.caption}
@@ -719,7 +719,7 @@ function ImageGridEd({ data, onChange }: EdProps<ImageGridElement>) {
           ))}
         </div>
         <div className="mt-3">
-          <div className="text-[11px] text-slate-400 mb-1">Підпис карток:</div>
+          <div className="text-[11px] text-stone-500 mb-1">Підпис карток:</div>
           <StyleRow data={data} onChange={onChange} elType="imageGrid" styleKey="caption" />
         </div>
       </div>
@@ -742,7 +742,7 @@ function WarningEd({ data, onChange }: EdProps<WarningElement>) {
               key={l.v}
               onClick={() => onChange({ ...data, level: l.v })}
               className={`flex-1 py-2 rounded text-xs font-bold ${
-                data.level === l.v ? `${l.cls} text-white` : 'bg-slate-800 text-slate-400'
+                data.level === l.v ? `${l.cls} text-white` : 'bg-stone-100 text-stone-500'
               }`}
             >
               {l.label}
@@ -798,7 +798,7 @@ function StepListEd({ data, onChange }: EdProps<StepListElement>) {
             className={`px-2.5 py-1 text-xs rounded ${
               (data.imagePosition ?? 'right') === 'right'
                 ? 'bg-orange-600 text-white'
-                : 'bg-slate-800 hover:bg-slate-700'
+                : 'bg-stone-100 hover:bg-stone-200'
             }`}
           >
             Праворуч від тексту
@@ -809,7 +809,7 @@ function StepListEd({ data, onChange }: EdProps<StepListElement>) {
             className={`px-2.5 py-1 text-xs rounded ${
               data.imagePosition === 'below'
                 ? 'bg-orange-600 text-white'
-                : 'bg-slate-800 hover:bg-slate-700'
+                : 'bg-stone-100 hover:bg-stone-200'
             }`}
           >
             Під текстом
@@ -818,7 +818,7 @@ function StepListEd({ data, onChange }: EdProps<StepListElement>) {
       </FieldGroup>
       <FieldGroup label={`Кроки (${data.steps.length})`}>
         {data.steps.map((step, idx) => (
-          <div key={step.id} className="border border-slate-800 rounded p-2 mb-2">
+          <div key={step.id} className="border border-stone-100 rounded p-2 mb-2">
             <div className="flex gap-2 items-start mb-2">
               <Input
                 value={step.number}
@@ -855,7 +855,7 @@ function StepListEd({ data, onChange }: EdProps<StepListElement>) {
         <button
           type="button"
           onClick={addStep}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
         >
           <Plus size={12} /> Додати крок
         </button>
@@ -904,7 +904,7 @@ function CardGridEd({ data, onChange }: EdProps<CardGridElement>) {
               className={`px-3 py-1 text-xs rounded ${
                 data.columns === n
                   ? 'bg-orange-600 text-white'
-                  : 'bg-slate-800 hover:bg-slate-700'
+                  : 'bg-stone-100 hover:bg-stone-200'
               }`}
             >
               {n}
@@ -914,7 +914,7 @@ function CardGridEd({ data, onChange }: EdProps<CardGridElement>) {
       </FieldGroup>
       <FieldGroup label={`Картки (${data.cards.length})`}>
         {data.cards.map((card, idx) => (
-          <div key={card.id} className="border border-slate-800 rounded p-2 mb-2">
+          <div key={card.id} className="border border-stone-100 rounded p-2 mb-2">
             <div className="flex gap-2 items-start mb-2">
               <Input
                 value={card.title}
@@ -940,7 +940,7 @@ function CardGridEd({ data, onChange }: EdProps<CardGridElement>) {
               placeholder="Короткий опис"
             />
             <div className="mt-2">
-              <div className="text-[10px] uppercase tracking-wider text-slate-500 mb-1">
+              <div className="text-[10px] uppercase tracking-wider text-stone-400 mb-1">
                 Буллети (рядок = пункт)
               </div>
               <Textarea
@@ -963,7 +963,7 @@ function CardGridEd({ data, onChange }: EdProps<CardGridElement>) {
         <button
           type="button"
           onClick={addCard}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded text-xs"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
         >
           <Plus size={12} /> Додати картку
         </button>

@@ -48,7 +48,7 @@ export function WarrantyPageEditor({ data, onChange }: Props) {
 
       <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Поля для заповнення
           </label>
           <IconBtn onClick={addField} variant="primary">
@@ -99,7 +99,7 @@ export function WarrantyPageEditor({ data, onChange }: Props) {
 
       <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Документи для гарантії
           </label>
           <IconBtn onClick={addDoc} variant="primary">
@@ -128,7 +128,7 @@ export function WarrantyPageEditor({ data, onChange }: Props) {
 
       <div className="mb-5">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
             Гарантія не поширюється на:
           </label>
           <IconBtn onClick={addExcl} variant="primary">

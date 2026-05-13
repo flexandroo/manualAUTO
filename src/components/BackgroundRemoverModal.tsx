@@ -55,17 +55,17 @@ export function BackgroundRemoverModal({ src, onClose, onSave }: Props) {
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 no-print">
-      <div className="bg-slate-900 border border-slate-700 rounded-lg max-w-3xl w-full p-5 max-h-[90vh] overflow-y-auto">
+      <div className="bg-white border border-stone-200 rounded-lg max-w-3xl w-full p-5 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-3">
           <div>
             <h3 className="text-lg font-bold">Прибрати фон зображення</h3>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-stone-500 mt-1">
               Клацніть на колір фону який хочете прибрати. Працює найкраще зі суцільним фоном.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white"
+            className="p-2 text-stone-500 hover:text-white"
             title="Закрити"
           >
             <X size={18} />
@@ -104,7 +104,7 @@ export function BackgroundRemoverModal({ src, onClose, onSave }: Props) {
             </div>
           )}
           {busy && (
-            <div className="absolute top-2 right-2 bg-slate-900/90 text-white text-xs px-2 py-1 rounded">
+            <div className="absolute top-2 right-2 bg-white/90 text-white text-xs px-2 py-1 rounded">
               Обробка...
             </div>
           )}
@@ -112,21 +112,21 @@ export function BackgroundRemoverModal({ src, onClose, onSave }: Props) {
 
         <div className="mb-4">
           <div className="flex items-center justify-between mb-1">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <label className="text-xs font-semibold uppercase tracking-wider text-stone-500">
               Толерантність ({tolerance})
             </label>
             {pickedColor && (
-              <div className="flex items-center gap-2 text-[11px] text-slate-400">
+              <div className="flex items-center gap-2 text-[11px] text-stone-500">
                 Колір:
                 <span
-                  className="w-4 h-4 rounded border border-slate-600"
+                  className="w-4 h-4 rounded border border-stone-300"
                   style={{
                     background: `rgb(${pickedColor.join(',')})`,
                   }}
                 />
                 <button
                   onClick={() => setPickedColor(null)}
-                  className="text-slate-500 hover:text-orange-400 underline ml-2"
+                  className="text-stone-400 hover:text-orange-400 underline ml-2"
                 >
                   скинути
                 </button>
@@ -141,7 +141,7 @@ export function BackgroundRemoverModal({ src, onClose, onSave }: Props) {
             onChange={(e) => setTolerance(parseInt(e.target.value, 10))}
             className="w-full accent-orange-500"
           />
-          <div className="text-[11px] text-slate-500 mt-1">
+          <div className="text-[11px] text-stone-400 mt-1">
             Менше — точніше, більше — захоплює більший діапазон близьких кольорів.
           </div>
         </div>
@@ -149,7 +149,7 @@ export function BackgroundRemoverModal({ src, onClose, onSave }: Props) {
         <div className="flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded text-sm"
+            className="flex-1 px-4 py-2 bg-stone-100 hover:bg-stone-200 rounded text-sm"
           >
             Скасувати
           </button>
