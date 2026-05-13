@@ -19,7 +19,7 @@ export function makeInitialData(): InstructionData {
     sectionTitle: 'Основні положення',
     footerLabel: 'Основні положення',
     footerLabelSecondary: 'Розд. 1.1–1.5',
-    twoColumn: false,
+    twoColumn: true,
     elements: makeSafetyPage1Elements(),
   };
 
