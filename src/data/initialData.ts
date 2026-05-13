@@ -1,11 +1,14 @@
-import type { InstructionData, StandardPage, PageElement } from '../types/instruction';
+import type { InstructionData, StandardPage } from '../types/instruction';
 import { PAGE_REGISTRY } from '../pages/pageRegistry';
 import { newId } from '../utils/id';
-import { SAFETY_TEMPLATE } from '../templates/safetyBlock';
+import {
+  makeSafetyPage1Elements,
+  makeSafetyPage2Elements,
+} from '../templates/safetyBlock';
 
 // Builds a brand-new instruction document with the canonical TERMOJET spine:
-// Cover -> Safety (1.1-1.12 prefilled) -> empty Standard pages for Specs +
-// Construction + ... -> Warranty.
+// Cover -> Safety (1.1-1.12 prefilled, with warnings and bullet lists as
+// proper element types) -> Warranty.
 export function makeInitialData(): InstructionData {
   const cover = PAGE_REGISTRY.cover.createNew();
   const warranty = PAGE_REGISTRY.warranty.createNew();
@@ -17,15 +20,7 @@ export function makeInitialData(): InstructionData {
     footerLabel: 'Основні положення',
     footerLabelSecondary: 'Розд. 1.1–1.5',
     twoColumn: false,
-    elements: SAFETY_TEMPLATE.slice(0, 5).map(
-      (s): PageElement => ({
-        id: newId('s'),
-        type: 'subsection',
-        number: s.number,
-        heading: s.heading,
-        body: s.body,
-      })
-    ),
+    elements: makeSafetyPage1Elements(),
   };
 
   const safety2: StandardPage = {
@@ -35,15 +30,7 @@ export function makeInitialData(): InstructionData {
     footerLabel: 'Основні положення',
     footerLabelSecondary: 'Розд. 1.6–1.12',
     twoColumn: true,
-    elements: SAFETY_TEMPLATE.slice(5).map(
-      (s): PageElement => ({
-        id: newId('s'),
-        type: 'subsection',
-        number: s.number,
-        heading: s.heading,
-        body: s.body,
-      })
-    ),
+    elements: makeSafetyPage2Elements(),
   };
 
   return {
