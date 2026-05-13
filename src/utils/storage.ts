@@ -1,4 +1,5 @@
 import type { InstructionData } from '../types/instruction';
+import type { StickerData } from '../stickers/types';
 
 // IndexedDB-backed storage for documents and templates.
 //
@@ -19,10 +20,11 @@ import type { InstructionData } from '../types/instruction';
 // browsers). The caller falls back to in-memory state.
 
 const DB_NAME = 'manualAUTO';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_DOCS = 'documents';
 const STORE_TEMPLATES = 'templates';
 const STORE_META = 'meta';
+const STORE_STICKERS = 'stickers';
 
 export interface DocumentRow {
   id: string;
@@ -36,6 +38,13 @@ export interface TemplateRow {
   id: string;
   name: string;
   data: InstructionData;
+  createdAt: number;
+}
+
+export interface StickerRow {
+  id: string;
+  data: StickerData;
+  updatedAt: number;
   createdAt: number;
 }
 
@@ -59,6 +68,9 @@ function openDb(): Promise<IDBDatabase | null> {
       }
       if (!db.objectStoreNames.contains(STORE_META)) {
         db.createObjectStore(STORE_META, { keyPath: 'key' });
+      }
+      if (!db.objectStoreNames.contains(STORE_STICKERS)) {
+        db.createObjectStore(STORE_STICKERS, { keyPath: 'id' });
       }
     };
     req.onsuccess = () => resolve(req.result);
@@ -118,6 +130,38 @@ export async function putTemplateRow(row: TemplateRow): Promise<void> {
 
 export async function deleteTemplateRow(id: string): Promise<void> {
   await tx(STORE_TEMPLATES, 'readwrite', (s) => s.delete(id));
+}
+
+// ─── stickers ─────────────────────────────────────────────────────────────
+
+export async function listStickers(): Promise<StickerRow[]> {
+  const all = (await tx<StickerRow[]>(STORE_STICKERS, 'readonly', (s) => s.getAll())) ?? [];
+  return all.sort((a, b) => b.updatedAt - a.updatedAt);
+}
+
+export async function putSticker(row: StickerRow): Promise<void> {
+  await tx(STORE_STICKERS, 'readwrite', (s) => s.put(row));
+}
+
+export async function putStickers(rows: StickerRow[]): Promise<void> {
+  const db = await openDb();
+  if (!db) return;
+  await new Promise<void>((resolve) => {
+    const t = db.transaction(STORE_STICKERS, 'readwrite');
+    const store = t.objectStore(STORE_STICKERS);
+    for (const row of rows) store.put(row);
+    t.oncomplete = () => resolve();
+    t.onerror = () => resolve();
+    t.onabort = () => resolve();
+  });
+}
+
+export async function deleteSticker(id: string): Promise<void> {
+  await tx(STORE_STICKERS, 'readwrite', (s) => s.delete(id));
+}
+
+export async function clearStickers(): Promise<void> {
+  await tx(STORE_STICKERS, 'readwrite', (s) => s.clear());
 }
 
 // ─── meta ─────────────────────────────────────────────────────────────────
