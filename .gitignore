@@ -24,3 +24,7 @@ yarn-error.log*
 pnpm-debug.log*
 
 .claude/
+
+# Source price list — contains pricing. Re-extract sofievka.json
+# locally and commit only the JSON (no prices); keep xlsx out of git.
+data/*.xlsx

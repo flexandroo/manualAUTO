@@ -1,5 +1,13 @@
 import { useMemo, useState } from 'react';
-import { ChevronDown, ChevronRight, Plus, Upload, Trash2, FileText } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronRight,
+  Download,
+  FileText,
+  Plus,
+  Trash2,
+  Upload,
+} from 'lucide-react';
 import type { StickerData } from './types';
 import { getStickerCategory, listCategories } from './categories';
 
@@ -10,7 +18,9 @@ interface Props {
   onAdd: () => void;
   onImport: () => void;
   onDelete: (id: string) => void;
+  onPullAll: (visibleIds: string[]) => void;
   importing?: boolean;
+  pullingAll?: boolean;
 }
 
 // Left sidebar in the stickers tab. Groups stickers by category derived
@@ -23,7 +33,9 @@ export function StickerList({
   onAdd,
   onImport,
   onDelete,
+  onPullAll,
   importing,
+  pullingAll,
 }: Props) {
   const [search, setSearch] = useState('');
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
@@ -100,8 +112,22 @@ export function StickerList({
           onChange={(e) => setSearch(e.target.value)}
           className="w-full px-2 py-1.5 text-xs border border-stone-200 rounded focus:outline-none focus:border-orange-400"
         />
-        <div className="text-[10px] text-stone-500">
-          {filtered.length} / {stickers.length} наклейок
+        <div className="flex items-center justify-between gap-2">
+          <div className="text-[10px] text-stone-500">
+            {filtered.length} / {stickers.length} наклейок
+          </div>
+          {filtered.length > 0 && (
+            <button
+              type="button"
+              onClick={() => onPullAll(filtered.map((s) => s.id))}
+              disabled={pullingAll}
+              className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold bg-stone-800 hover:bg-stone-900 disabled:opacity-40 text-white rounded"
+              title="Підтягнути специфікації + фото з termojet.com.ua для всіх показаних"
+            >
+              <Download size={10} />
+              {pullingAll ? 'Завантаження…' : 'Каталог'}
+            </button>
+          )}
         </div>
       </div>
 

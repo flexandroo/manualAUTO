@@ -1,4 +1,5 @@
-import { Plus, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import { Download, Plus, Trash2 } from 'lucide-react';
 import type { StickerData, StickerSpecLine, StickerTranslation } from './types';
 import { FieldGroup } from '../components/ui/FieldGroup';
 import { Input } from '../components/ui/Input';
@@ -6,6 +7,7 @@ import { Textarea } from '../components/ui/Textarea';
 import { ImageUploader } from '../components/ui/ImageUploader';
 import { IconBtn } from '../components/ui/IconBtn';
 import { CERTIFICATION_LIBRARY } from './certificationLibrary';
+import { applyCatalogProduct, loadCatalog } from './catalogPull';
 
 interface Props {
   data: StickerData;
@@ -44,11 +46,59 @@ export function StickerEditor({ data, onChange }: Props) {
       s.split('\n').filter((line, i, all) => line.trim() || i < all.length - 1)
     );
 
+  const [pulling, setPulling] = useState(false);
+  const handlePullFromCatalog = async () => {
+    const article = data.articleCode.trim();
+    if (!article) {
+      alert('Спочатку заповніть артикул, щоб знайти товар у каталозі.');
+      return;
+    }
+    setPulling(true);
+    try {
+      const cat = await loadCatalog();
+      if (!cat) {
+        alert('Не вдалося завантажити каталог. Перевірте підключення.');
+        return;
+      }
+      const product = cat.productsByArticle[article];
+      if (!product) {
+        alert(`Артикул ${article} відсутній у каталозі termojet.com.ua.`);
+        return;
+      }
+      const hasSpecs = data.specs.length > 0;
+      const hasImage = !!data.productImageUrl;
+      if (hasSpecs || hasImage) {
+        const what = [
+          hasSpecs && 'характеристики',
+          hasImage && 'фото',
+        ]
+          .filter(Boolean)
+          .join(' та ');
+        if (!confirm(`Перезаписати ${what}?`)) return;
+      }
+      const { sticker: next } = applyCatalogProduct(data, product);
+      onChange(next);
+    } finally {
+      setPulling(false);
+    }
+  };
+
   return (
     <div className="p-4 overflow-y-auto h-full">
-      <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-4">
-        Параметри наклейки
-      </h3>
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-stone-500">
+          Параметри наклейки
+        </h3>
+        <button
+          type="button"
+          onClick={handlePullFromCatalog}
+          disabled={pulling || !data.articleCode.trim()}
+          className="flex items-center gap-1 px-2 py-1 text-[11px] font-semibold bg-stone-800 hover:bg-stone-900 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded"
+          title="Підтягнути специфікації та фото з termojet.com.ua за артикулом"
+        >
+          <Download size={11} /> {pulling ? 'Завантаження…' : 'З каталогу'}
+        </button>
+      </div>
 
       <FieldGroup label="Логотип бренду">
         <ImageUploader

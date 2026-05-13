@@ -6,6 +6,7 @@ import { StickerEditor } from './StickerEditor';
 import { StickerPreview } from './StickerPreview';
 import { StickerList } from './StickerList';
 import { importCatalogFile } from './catalogImport';
+import { applyCatalogProduct, loadCatalog } from './catalogPull';
 import {
   listStickers,
   putSticker,
@@ -23,6 +24,7 @@ export function StickersTab() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1.5);
   const [importing, setImporting] = useState(false);
+  const [pullingAll, setPullingAll] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const saveTimers = useRef<Map<string, number>>(new Map());
 
@@ -108,6 +110,63 @@ export function StickersTab() {
     fileInputRef.current?.click();
   }, []);
 
+  const handlePullAll = useCallback(
+    async (visibleIds: string[]) => {
+      setPullingAll(true);
+      try {
+        const cat = await loadCatalog();
+        if (!cat) {
+          alert('Не вдалося завантажити каталог.');
+          return;
+        }
+        let filled = 0;
+        let skipped = 0;
+        let notFound = 0;
+        const updates: StickerData[] = [];
+        setStickers((prev) => {
+          const next = prev.map((s) => {
+            if (!visibleIds.includes(s.id)) return s;
+            const article = s.articleCode.trim();
+            if (!article) {
+              skipped++;
+              return s;
+            }
+            const product = cat.productsByArticle[article];
+            if (!product) {
+              notFound++;
+              return s;
+            }
+            const { sticker } = applyCatalogProduct(s, product);
+            updates.push(sticker);
+            filled++;
+            return sticker;
+          });
+          return next;
+        });
+        if (updates.length > 0) {
+          const now = Date.now();
+          await putStickers(
+            updates.map((s) => ({
+              id: s.id,
+              data: s,
+              createdAt: now,
+              updatedAt: now,
+            }))
+          );
+        }
+        alert(
+          `Заповнено: ${filled}\nНемає у каталозі: ${notFound}\nБез артикула: ${skipped}`
+        );
+      } catch (e) {
+        console.error(e);
+        alert('Помилка: ' + (e instanceof Error ? e.message : 'невідома'));
+      } finally {
+        setPullingAll(false);
+      }
+    },
+    []
+  );
+
   const handleFileChosen = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
@@ -162,7 +221,9 @@ export function StickersTab() {
         onAdd={handleAdd}
         onImport={handleImport}
         onDelete={handleDelete}
+        onPullAll={handlePullAll}
         importing={importing}
+        pullingAll={pullingAll}
       />
 
       <aside className="w-[420px] bg-white border-r border-stone-100 flex flex-col">

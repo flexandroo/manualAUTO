@@ -1,0 +1,5782 @@
+{
+  "scrapedAt": "2026-05-13T14:40:02.115Z",
+  "source": "https://termojet.com.ua",
+  "matched": 132,
+  "missing": [
+    "84040TJ-R-W-08",
+    "84040TJ-R-W-10",
+    "84040TJ-W-04",
+    "84040TJ-W-07",
+    "84040TJ-R-W-03",
+    "84040TJ-R-W-11",
+    "84040TJ-W-11",
+    "84040TJ-R-W-06",
+    "84030082",
+    "84040TJ-R-W-02",
+    "84040TJ-B-1",
+    "84040TJ-W-03",
+    "84040TJ-W-08",
+    "84040TJ-W-10",
+    "84040TJ-R-W-12",
+    "84040TJ-W-05",
+    "84040TJ-R-W-09",
+    "84040TJ-MU-25",
+    "84040TJ-R-W-07",
+    "84040TJ-W-09",
+    "84040TJ-R-W-05",
+    "84040TJ-EC-162",
+    "84040TJ-W-02",
+    "84040TJ-W-06",
+    "84040TJ-W-12",
+    "84040TJ-R-W-04",
+    "84040393",
+    "200085",
+    "51040160",
+    "52086060",
+    "AQUAO401-3-230-120",
+    "TJ002003",
+    "",
+    "TJ000204",
+    "TJ000205",
+    "51060260",
+    "TJ000206",
+    "51040200",
+    "52086200",
+    "TJ000202",
+    "33250618",
+    "84300460",
+    "51040135",
+    "30321018",
+    "84600460",
+    "TJ002006",
+    "30328018",
+    "51040090",
+    "52084185",
+    "84620480A",
+    "WT400A",
+    "42040240",
+    "84040TJ-W-14",
+    "52086150",
+    "38241225",
+    "54010680",
+    "54040850",
+    "AQUAO405-3-230-060",
+    "53060110",
+    "51040185",
+    "52086750",
+    "30254018",
+    "54011020",
+    "54031100",
+    "54041020",
+    "52084250",
+    "47025230",
+    "TJ000201",
+    "TJ000203",
+    "52086300",
+    "54010340",
+    "54012040",
+    "53060180",
+    "30320818",
+    "TJ002002",
+    "30400822",
+    "52086100",
+    "41015110",
+    "43025155",
+    "43020145",
+    "30256013",
+    "30321218",
+    "21500168",
+    "84622480A",
+    "WT400B",
+    "44032265",
+    "84320480A",
+    "TJ002001",
+    "51160135",
+    "30254013",
+    "47032230",
+    "54040680",
+    "54012380",
+    "54020700",
+    "54030620",
+    "54040510",
+    "52086105",
+    "TJ-MU-40А",
+    "84040TJ-EC-202",
+    "54011360",
+    "54042380",
+    "42020170",
+    "51040165",
+    "TJ002004",
+    "52086500",
+    "54021100",
+    "52086075",
+    "30258018",
+    "30401225",
+    "84310490",
+    "42025185",
+    "52083500",
+    "54020265",
+    "52086000",
+    "84040TJ-W-13",
+    "51071400",
+    "54011700",
+    "51040130",
+    "51060320",
+    "84040TJ-W-15",
+    "21500169",
+    "TJ002005",
+    "AQUAO910-3-230-060",
+    "54010510",
+    "84312520",
+    "84620480",
+    "WT400C",
+    "84142380A",
+    "30258013",
+    "903289 PR",
+    "84040232",
+    "54041360",
+    "84040221",
+    "903289 LT",
+    "TJ002000",
+    "84612520A",
+    "52060300",
+    "51061000",
+    "84040381250",
+    "51160160",
+    "5051001412",
+    "51160200",
+    "41025110",
+    "51072230",
+    "84040281250",
+    "51060860",
+    "42032200",
+    "51070230",
+    "52083200",
+    "53060210",
+    "5051001413",
+    "51072400",
+    "84324480A",
+    "52060200",
+    "84312520A",
+    "51061680",
+    "51060500",
+    "5051001426",
+    "52084300",
+    "5051001414",
+    "51071230",
+    "53060150",
+    "5051001427",
+    "84030720 L",
+    "52083320",
+    "TJ000200",
+    "41020110"
+  ],
+  "productsByArticle": {
+    "4535484": {
+      "url": "https://termojet.com.ua/product/nergozberigayuchi-reczyrkulyaczijni-nasosy-termojet-spe12-1-4/",
+      "article": "4535484",
+      "productCode": "Енергозберігаючий",
+      "name": "рециркуляційний насос TERMOJET SPE12/1.4",
+      "specs": [
+        {
+          "key": "Максимальна подача",
+          "value": "0,6 м³/год"
+        },
+        {
+          "key": "Максимальний напір",
+          "value": "1,4 м"
+        },
+        {
+          "key": "Споживча потужність",
+          "value": "до 9 Вт"
+        },
+        {
+          "key": "Розмір підключення",
+          "value": "½&#8221;ВР"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "+2°С~ +110°С"
+        },
+        {
+          "key": "Максимальна температура навколишнього середовища",
+          "value": "+40°С"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Клас захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Характеристики рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, з характеристиками, близькими до води"
+        },
+        {
+          "key": "Установка",
+          "value": "Вал двигуна має бути розташований горизонтально"
+        },
+        {
+          "key": "Рівень pH:",
+          "value": "6.5 – 8.5"
+        },
+        {
+          "key": "Корпус насоса",
+          "value": "нержавіюча сталь 304"
+        },
+        {
+          "key": "Двигун",
+          "value": "постійний магніт"
+        },
+        {
+          "key": "Корпус двигуна",
+          "value": "алюмінієвий сплав"
+        },
+        {
+          "key": "Робоче колесо",
+          "value": "полімерний матеріал із магнітним наповнювачем"
+        },
+        {
+          "key": "Габарити/вага",
+          "value": "16*11*11/ 1кг."
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/04/spe12-1.4-800x861.png",
+      "imageFile": "products/4535484.png"
+    },
+    "4535487": {
+      "url": "https://termojet.com.ua/product/nergozberigayuchi-reczyrkulyaczijni-nasosy-termojet-spe12-1-4s/",
+      "article": "4535487",
+      "productCode": "Енергозберігаючий",
+      "name": "рециркуляційний насос TERMOJET SPE12/1.4S з таймером та термостатом",
+      "specs": [
+        {
+          "key": "Максимальна подача",
+          "value": "0,6 м³/год"
+        },
+        {
+          "key": "Максимальний напір",
+          "value": "1,4 м"
+        },
+        {
+          "key": "Споживча потужність",
+          "value": "до 9 Вт"
+        },
+        {
+          "key": "Розмір підключення",
+          "value": "½&#8221;ВР"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "+2°С~ +110°С"
+        },
+        {
+          "key": "Максимальна температура навколишнього середовища",
+          "value": "+40°С"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Клас захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Характеристики рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, з характеристиками, близькими до води"
+        },
+        {
+          "key": "Установка",
+          "value": "Вал двигуна має бути розташований горизонтально"
+        },
+        {
+          "key": "Рівень pH:",
+          "value": "6.5 – 8.5"
+        },
+        {
+          "key": "Корпус насоса",
+          "value": "нержавіюча сталь 304"
+        },
+        {
+          "key": "Двигун",
+          "value": "постійний магніт"
+        },
+        {
+          "key": "Корпус двигуна",
+          "value": "алюмінієвий сплав"
+        },
+        {
+          "key": "Робоче колесо",
+          "value": "полімерний матеріал із магнітним наповнювачем"
+        },
+        {
+          "key": "Габарити/вага",
+          "value": "16*11*11/ 1кг."
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/04/spe12-1.4s-800x873.png",
+      "imageFile": "products/4535487.png"
+    },
+    "30206013": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-ape-20-60-130-mm/",
+      "article": "30206013",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APE 20/60/130 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APE 20/60"
+        },
+        {
+          "key": "Діаметр",
+          "value": "RP 1(різьба 1 ½&#8221;)"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "3,2 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "6 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "5-45 W"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/img_0792-800x532.jpg",
+      "imageFile": "products/30206013.jpg"
+    },
+    "30250818": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-25-8-180-mm/",
+      "article": "30250818",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 25/8/180 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APE 25/8"
+        },
+        {
+          "key": "Діаметр",
+          "value": "RP 1 ¼(різьба 2&#8243;)"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "8 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "8 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "5-80 W"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0471-800x532.jpg",
+      "imageFile": "products/30250818.jpg"
+    },
+    "30251218": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-25-12-180-mm/",
+      "article": "30251218",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 25/12/180 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APE 25/12"
+        },
+        {
+          "key": "Діаметр",
+          "value": "RP 1 ¼(різьба 2&#8243;)"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "10 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "12 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "5-180 W"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0471-800x532.jpg",
+      "imageFile": "products/30251218.jpg"
+    },
+    "30256018": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-ape-25-60-180-mm-kopyrovat/",
+      "article": "30256018",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APE 25/60/180 мм (Копировать)",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APE 25/60"
+        },
+        {
+          "key": "Діаметр",
+          "value": "RP 1(різьба 1 ½&#8221;)"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "3,2 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "6 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "5-45 W"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0478-800x532.jpg",
+      "imageFile": "products/30256018.jpg"
+    },
+    "30401525": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-40-15f-250-mm/",
+      "article": "30401525",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 40/15F-250 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APM 40/15F"
+        },
+        {
+          "key": "Діаметр",
+          "value": "Dn 40 фланець"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "250 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "24 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "15 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "25-670 W"
+        },
+        {
+          "key": "I max",
+          "value": "3.5 А"
+        },
+        {
+          "key": "Розмір",
+          "value": "415*335*250мм"
+        },
+        {
+          "key": "Маса",
+          "value": "22кг"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "0°C ~ 110°C"
+        },
+        {
+          "key": "Зовнішня температура",
+          "value": "0°C ~ 40°C"
+        },
+        {
+          "key": "Максимальний тиск у системі",
+          "value": "1,0 МПа"
+        },
+        {
+          "key": "Рівень захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Напруга",
+          "value": "230 В ± 10% / 50 Гц"
+        },
+        {
+          "key": "Тепловий клас",
+          "value": "F"
+        },
+        {
+          "key": "Вимоги до перекачуваної рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, близька за характеристиками до води"
+        },
+        {
+          "key": "Встановлення",
+          "value": "вал двигуна повинен знаходитися в горизонтальному положенні"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/1741202799707659-800x800.jpg",
+      "imageFile": "products/30401525.jpg"
+    },
+    "30401825": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-40-18f-250-mm/",
+      "article": "30401825",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 40/18F-250 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APM 40/18F"
+        },
+        {
+          "key": "Діаметр",
+          "value": "Dn 40 фланець"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "250 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "24 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "18 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "25-670 W"
+        },
+        {
+          "key": "I max",
+          "value": "3.5 A"
+        },
+        {
+          "key": "Розмір",
+          "value": "415*335*250мм"
+        },
+        {
+          "key": "Маса",
+          "value": "22кг"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "0°C ~ 110°C"
+        },
+        {
+          "key": "Зовнішня температура",
+          "value": "0°C ~ 40°C"
+        },
+        {
+          "key": "Максимальний тиск у системі",
+          "value": "1,0 МПа"
+        },
+        {
+          "key": "Рівень захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Напруга",
+          "value": "230 В ± 10% / 50 Гц"
+        },
+        {
+          "key": "Тепловий клас",
+          "value": "F"
+        },
+        {
+          "key": "Вимоги до перекачуваної рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, близька за характеристиками до води"
+        },
+        {
+          "key": "Встановлення",
+          "value": "вал двигуна повинен знаходитися в горизонтальному положенні"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/1741202799707659-800x800.jpg",
+      "imageFile": "products/30401825.jpg"
+    },
+    "30501028": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-50-10f-280-mm/",
+      "article": "30501028",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 50/10F-280 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APM 50/10F"
+        },
+        {
+          "key": "Діаметр",
+          "value": "Dn 50 фланець"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "280 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "25 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "10 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "20-435 W"
+        },
+        {
+          "key": "I max",
+          "value": "2.2 A"
+        },
+        {
+          "key": "Розмір",
+          "value": "390*250*455мм"
+        },
+        {
+          "key": "Маса",
+          "value": "22кг"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "0°C ~ 110°C"
+        },
+        {
+          "key": "Зовнішня температура",
+          "value": "0°C ~ 40°C"
+        },
+        {
+          "key": "Максимальний тиск у системі",
+          "value": "1,0 МПа"
+        },
+        {
+          "key": "Рівень захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Напруга",
+          "value": "230 В ± 10% / 50 Гц"
+        },
+        {
+          "key": "Тепловий клас",
+          "value": "F"
+        },
+        {
+          "key": "Вимоги до перекачуваної рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, близька за характеристиками до води"
+        },
+        {
+          "key": "Встановлення",
+          "value": "вал двигуна повинен знаходитися в горизонтальному положенні"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/1741202799707659-800x800.jpg",
+      "imageFile": "products/30501028.jpg"
+    },
+    "30501228": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-50-12f-280-mm/",
+      "article": "30501228",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 50/12F-280 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APM 50/12F"
+        },
+        {
+          "key": "Діаметр",
+          "value": "Dn 50 фланець"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "280 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "25 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "12 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "25-550 W"
+        },
+        {
+          "key": "I max",
+          "value": "3 A"
+        },
+        {
+          "key": "Розмір",
+          "value": "390*250*455мм"
+        },
+        {
+          "key": "Маса",
+          "value": "22кг"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "0°C ~ 110°C"
+        },
+        {
+          "key": "Зовнішня температура",
+          "value": "0°C ~ 40°C"
+        },
+        {
+          "key": "Максимальний тиск у системі",
+          "value": "1,0 МПа"
+        },
+        {
+          "key": "Рівень захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Напруга",
+          "value": "230 В ± 10% / 50 Гц"
+        },
+        {
+          "key": "Тепловий клас",
+          "value": "F"
+        },
+        {
+          "key": "Вимоги до перекачуваної рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, близька за характеристиками до води"
+        },
+        {
+          "key": "Встановлення",
+          "value": "вал двигуна повинен знаходитися в горизонтальному положенні"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/1741202799707659-800x800.jpg",
+      "imageFile": "products/30501228.jpg"
+    },
+    "30651034": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-65-10f-340-mm/",
+      "article": "30651034",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 65/10F-340 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APM 65/10F"
+        },
+        {
+          "key": "Діаметр",
+          "value": "Dn 65 фланець"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "340 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "37 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "10 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "25-600 W"
+        },
+        {
+          "key": "I max",
+          "value": "3,5 A"
+        },
+        {
+          "key": "Розмір",
+          "value": "395*255*465мм"
+        },
+        {
+          "key": "Маса",
+          "value": "29,5кг"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "0°C ~ 110°C"
+        },
+        {
+          "key": "Зовнішня температура",
+          "value": "0°C ~ 40°C"
+        },
+        {
+          "key": "Максимальний тиск у системі",
+          "value": "1,0 МПа"
+        },
+        {
+          "key": "Рівень захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Напруга",
+          "value": "230 В ± 10% / 50 Гц"
+        },
+        {
+          "key": "Тепловий клас",
+          "value": "F"
+        },
+        {
+          "key": "Вимоги до перекачуваної рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, близька за характеристиками до води"
+        },
+        {
+          "key": "Встановлення",
+          "value": "вал двигуна повинен знаходитися в горизонтальному положенні"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/1741202799707659-800x800.jpg",
+      "imageFile": "products/30651034.jpg"
+    },
+    "30651234": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-65-12f-340-mm/",
+      "article": "30651234",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 65/12F-340 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APM 65/12F"
+        },
+        {
+          "key": "Діаметр",
+          "value": "Dn 65 фланець"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "340 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "37 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "12 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "30-710 W"
+        },
+        {
+          "key": "I max",
+          "value": "3,7 A"
+        },
+        {
+          "key": "Розмір",
+          "value": "395*255*465мм"
+        },
+        {
+          "key": "Маса",
+          "value": "29,5кг"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "0°C ~ 110°C"
+        },
+        {
+          "key": "Зовнішня температура",
+          "value": "0°C ~ 40°C"
+        },
+        {
+          "key": "Максимальний тиск у системі",
+          "value": "1,0 МПа"
+        },
+        {
+          "key": "Рівень захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Напруга",
+          "value": "230 В ± 10% / 50 Гц"
+        },
+        {
+          "key": "Тепловий клас",
+          "value": "F"
+        },
+        {
+          "key": "Вимоги до перекачуваної рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, близька за характеристиками до води"
+        },
+        {
+          "key": "Встановлення",
+          "value": "вал двигуна повинен знаходитися в горизонтальному положенні"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/1741202799707659-800x800.jpg",
+      "imageFile": "products/30651234.jpg"
+    },
+    "30651534": {
+      "url": "https://termojet.com.ua/product/nasos-czyrkulyaczijnyj-termojet-auto-energozberigayuchyj-apm-65-15f-340-mm/",
+      "article": "30651534",
+      "productCode": "Насос",
+      "name": "циркуляційний Termojet AUTO енергозберігаючий APM 65/15F-340 мм",
+      "specs": [
+        {
+          "key": "Назва",
+          "value": "APM 65/15F"
+        },
+        {
+          "key": "Діаметр",
+          "value": "Dn 65 фланець"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "240 мм"
+        },
+        {
+          "key": "Qmax",
+          "value": "45 м³/год"
+        },
+        {
+          "key": "Hmax",
+          "value": "15 м"
+        },
+        {
+          "key": "Споживана потужність",
+          "value": "35-1650 W"
+        },
+        {
+          "key": "I max",
+          "value": "6,8 A"
+        },
+        {
+          "key": "Розмір",
+          "value": "440*285*485мм"
+        },
+        {
+          "key": "Маса",
+          "value": "32,7кг"
+        },
+        {
+          "key": "Температура рідини",
+          "value": "0°C ~ 110°C"
+        },
+        {
+          "key": "Зовнішня температура",
+          "value": "0°C ~ 40°C"
+        },
+        {
+          "key": "Максимальний тиск у системі",
+          "value": "1,0 МПа"
+        },
+        {
+          "key": "Рівень захисту",
+          "value": "IP44"
+        },
+        {
+          "key": "Напруга",
+          "value": "230 В ± 10% / 50 Гц"
+        },
+        {
+          "key": "Тепловий клас",
+          "value": "F"
+        },
+        {
+          "key": "Вимоги до перекачуваної рідини",
+          "value": "чиста, без твердих часток і мінеральних олій, нетоксична, хімічно нейтральна, близька за характеристиками до води"
+        },
+        {
+          "key": "Встановлення",
+          "value": "вал двигуна повинен знаходитися в горизонтальному положенні"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/1741202799707659-800x800.jpg",
+      "imageFile": "products/30651534.jpg"
+    },
+    "42050246": {
+      "url": "https://termojet.com.ua/product/povitryanyj-separator-tj-ca-dn50m/",
+      "article": "42050246",
+      "productCode": "Повітряний",
+      "name": "сепаратор TJ-CA-DN50M",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CA-DN50M"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN50"
+        },
+        {
+          "key": "H(mm)",
+          "value": "246"
+        },
+        {
+          "key": "d(mm)",
+          "value": "50"
+        },
+        {
+          "key": "D(mm)",
+          "value": "88"
+        },
+        {
+          "key": "L(mm)",
+          "value": "135"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "7.5"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "4.0"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1406-800x800.jpg",
+      "imageFile": "products/42050246.jpg"
+    },
+    "43025145": {
+      "url": "https://termojet.com.ua/product/separator-brudu-tj-cd-dn25/",
+      "article": "43025145",
+      "productCode": "Сепаратор",
+      "name": "бруду TJ-CD-DN25",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CD-DN25"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN25"
+        },
+        {
+          "key": "H(mm)",
+          "value": "145"
+        },
+        {
+          "key": "h(mm)",
+          "value": "112"
+        },
+        {
+          "key": "d(mm)",
+          "value": "25"
+        },
+        {
+          "key": "D(mm)",
+          "value": "65"
+        },
+        {
+          "key": "e(mm)",
+          "value": "DN15"
+        },
+        {
+          "key": "L(mm)",
+          "value": "100"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "2.0"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "1.3"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1400-800x800.jpg",
+      "imageFile": "products/43025145.jpg"
+    },
+    "43032160": {
+      "url": "https://termojet.com.ua/product/separator-brudu-tj-cd-dn32/",
+      "article": "43032160",
+      "productCode": "Сепаратор",
+      "name": "бруду TJ-CD-DN32",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CD-DN32"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN32"
+        },
+        {
+          "key": "H(mm)",
+          "value": "160"
+        },
+        {
+          "key": "h(mm)",
+          "value": "125"
+        },
+        {
+          "key": "d(mm)",
+          "value": "32"
+        },
+        {
+          "key": "D(mm)",
+          "value": "65"
+        },
+        {
+          "key": "e(mm)",
+          "value": "DN15"
+        },
+        {
+          "key": "L(mm)",
+          "value": "100"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "3.7"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "1.5"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1401-800x800.jpg",
+      "imageFile": "products/43032160.jpg"
+    },
+    "43040197": {
+      "url": "https://termojet.com.ua/product/separator-brudu-tj-cd-dn40/",
+      "article": "43040197",
+      "productCode": "Сепаратор",
+      "name": "бруду TJ-CD-DN40",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CD-DN40"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN40"
+        },
+        {
+          "key": "H(mm)",
+          "value": "197"
+        },
+        {
+          "key": "h(mm)",
+          "value": "158"
+        },
+        {
+          "key": "d(mm)",
+          "value": "40"
+        },
+        {
+          "key": "D(mm)",
+          "value": "65"
+        },
+        {
+          "key": "e(mm)",
+          "value": "DN15"
+        },
+        {
+          "key": "L(mm)",
+          "value": "100"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "5.0"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "1.8"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1399-800x800.jpg",
+      "imageFile": "products/43040197.jpg"
+    },
+    "43050440": {
+      "url": "https://termojet.com.ua/product/separator-brudu-tj-cd-dn50m/",
+      "article": "43050440",
+      "productCode": "Сепаратор",
+      "name": "бруду TJ-CD-DN50M",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CD-DN50M"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN50"
+        },
+        {
+          "key": "H(mm)",
+          "value": "246"
+        },
+        {
+          "key": "h(mm)",
+          "value": "196"
+        },
+        {
+          "key": "d(mm)",
+          "value": "50"
+        },
+        {
+          "key": "D(mm)",
+          "value": "88"
+        },
+        {
+          "key": "e(mm)",
+          "value": "DN15"
+        },
+        {
+          "key": "L(mm)",
+          "value": "135"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "7.5"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "4.0"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1408-800x800.jpg",
+      "imageFile": "products/43050440.jpg"
+    },
+    "44025265": {
+      "url": "https://termojet.com.ua/product/separator-povitrya-ta-brudu-tj-cad-dn25/",
+      "article": "44025265",
+      "productCode": "Сепаратор",
+      "name": "повітря та бруду TJ-CAD-DN25",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CAD-DN25"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN25"
+        },
+        {
+          "key": "H(mm)",
+          "value": "265"
+        },
+        {
+          "key": "h(mm)",
+          "value": "112"
+        },
+        {
+          "key": "d(mm)",
+          "value": "25"
+        },
+        {
+          "key": "D(mm)",
+          "value": "65"
+        },
+        {
+          "key": "e(mm)",
+          "value": "DN15"
+        },
+        {
+          "key": "L(mm)",
+          "value": "100"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "2.0"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "1.9"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1393-800x800.jpg",
+      "imageFile": "products/44025265.jpg"
+    },
+    "44040265": {
+      "url": "https://termojet.com.ua/product/separator-povitrya-ta-brudu-tj-cad-dn40/",
+      "article": "44040265",
+      "productCode": "Сепаратор",
+      "name": "повітря та бруду TJ-CAD-DN40",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CAD-DN40"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN40"
+        },
+        {
+          "key": "H(mm)",
+          "value": "265"
+        },
+        {
+          "key": "h(mm)",
+          "value": "112"
+        },
+        {
+          "key": "d(mm)",
+          "value": "40"
+        },
+        {
+          "key": "D(mm)",
+          "value": "65"
+        },
+        {
+          "key": "e(mm)",
+          "value": "DN15"
+        },
+        {
+          "key": "L(mm)",
+          "value": "100"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "5.0"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "2.2"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1405-800x800.jpg",
+      "imageFile": "products/44040265.jpg"
+    },
+    "44050332": {
+      "url": "https://termojet.com.ua/product/separator-povitrya-ta-brudu-tj-cad-dn50m/",
+      "article": "44050332",
+      "productCode": "Сепаратор",
+      "name": "повітря та бруду TJ-CAD-DN50M",
+      "specs": [
+        {
+          "key": "Модель",
+          "value": "TJ-CAD-DN50M"
+        },
+        {
+          "key": "Розмір",
+          "value": "DN50"
+        },
+        {
+          "key": "H(mm)",
+          "value": "332"
+        },
+        {
+          "key": "h(mm)",
+          "value": "137"
+        },
+        {
+          "key": "d(mm)",
+          "value": "50"
+        },
+        {
+          "key": "D(mm)",
+          "value": "88"
+        },
+        {
+          "key": "e(mm)",
+          "value": "DN15"
+        },
+        {
+          "key": "L(mm)",
+          "value": "135"
+        },
+        {
+          "key": "Швидкість потоку (м3/год)",
+          "value": "7.5"
+        },
+        {
+          "key": "Вага (Кг)",
+          "value": "6.0"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/06/img_1407-800x800.jpg",
+      "imageFile": "products/44050332.jpg"
+    },
+    "84030610": {
+      "url": "https://termojet.com.ua/product/ng-61-bez-zmishuvacha-1-1-2/",
+      "article": "84030610",
+      "productCode": "НГ-61.250",
+      "name": "Насосна група без змішувача 1 1/2&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "DN",
+          "value": "40"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "120 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "19,1 м³/год"
+        },
+        {
+          "key": "Висота",
+          "value": "873 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "496 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/10/6171.png",
+      "imageFile": "products/84030610.png"
+    },
+    "84030620": {
+      "url": "https://termojet.com.ua/product/ng-62-zi-zmishuvachem-1-1-2/",
+      "article": "84030620",
+      "productCode": "НГ-62.250",
+      "name": "Насосна група зі змішувачем 1 1/2&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "DN",
+          "value": "40"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "120 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "19,1 м³/год"
+        },
+        {
+          "key": "Висота",
+          "value": "873 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "496 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/10/6272.png",
+      "imageFile": "products/84030620.png"
+    },
+    "84030710": {
+      "url": "https://termojet.com.ua/product/ng-71-bez-zmishuvacha-2/",
+      "article": "84030710",
+      "productCode": "НГ-71.250",
+      "name": "Насосна група без змішувача 2&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "DN",
+          "value": "50"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "90 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "180 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "40 м³/год"
+        },
+        {
+          "key": "Висота",
+          "value": "873 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "496 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/10/6171.png",
+      "imageFile": "products/84030710.png"
+    },
+    "84040025": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-25-v-izolyacziyi/",
+      "article": "84040025",
+      "productCode": "ГС-25",
+      "name": "Гідрострілка в теплоізоляції 1&#8243;",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "2,1 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "1”ЗР"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "150 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Висота",
+          "value": "370 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "160 мм"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "1,83 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0569-800x1202.jpg",
+      "imageFile": "products/84040025.jpg"
+    },
+    "84040026": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-26-v-izolyacziyi/",
+      "article": "84040026",
+      "productCode": "ГС-26",
+      "name": "Гідрострілка в теплоізоляції 1 1/4&#8243;",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "1 ¼”ЗР"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "200 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "90 кВт"
+        },
+        {
+          "key": "Висота",
+          "value": "470 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "180 мм"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "3,69 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0572-800x1202.jpg",
+      "imageFile": "products/84040026.jpg"
+    },
+    "84040027": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-27-v-izolyacziyi/",
+      "article": "84040027",
+      "productCode": "ГС-27",
+      "name": "Гідрострілка в теплоізоляції 1 1/2&#8243;",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "9,25 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "1 ½”ЗР"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "240 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Висота",
+          "value": "550 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "220 мм"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "6,22 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0571-800x1202.jpg",
+      "imageFile": "products/84040027.jpg"
+    },
+    "84040028": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-28-v-izolyacziyi/",
+      "article": "84040028",
+      "productCode": "ГС-28",
+      "name": "Гідрострілка в теплоізоляції 2&#8243;",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "14,3 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "2”ЗР"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "300 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "150 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "250 кВт"
+        },
+        {
+          "key": "Висота",
+          "value": "665 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "240 мм"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "13,30 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0573-800x1202.jpg",
+      "imageFile": "products/84040028.jpg"
+    },
+    "84040030": {
+      "url": "https://termojet.com.ua/product/gidravlichnyj-rozdilyuvach-gs-28/",
+      "article": "84040030",
+      "productCode": "ГС-30",
+      "name": "Гідрострілка в теплоізоляції ГС-219 фланцева з підставкою",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "21,5 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "2 ½” Ф"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "450 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "250 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "370 кВт"
+        },
+        {
+          "key": "Висота",
+          "value": "925 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "490 мм"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "35,78 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2024/01/gs-30.jpg",
+      "imageFile": "products/84040030.jpg"
+    },
+    "84040031": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-31/",
+      "article": "84040031",
+      "productCode": "ГС-31",
+      "name": "Гідрострілка в теплоізоляції з підставкою Termojet Mega",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "39,7 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "270 мм"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "500 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "450 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "920 кВт"
+        },
+        {
+          "key": "Висота (з підставкою)",
+          "value": "1070 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "620 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/gs-31-1019x2048-1-800x800.png",
+      "imageFile": "products/84040031.png"
+    },
+    "84040032": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-32/",
+      "article": "84040032",
+      "productCode": "ГС-32",
+      "name": "Гідрострілка в теплоізоляції з підставкою Termojet Mega",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "56,8 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "325 мм"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "600 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "650 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "1300 кВт"
+        },
+        {
+          "key": "Висота (з підставкою)",
+          "value": "1570 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "675 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/gs-32-940x2048-1-800x800.png",
+      "imageFile": "products/84040032.png"
+    },
+    "84040033": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-33/",
+      "article": "84040033",
+      "productCode": "ГС-33",
+      "name": "Гідрострілка в теплоізоляції з підставкою Termojet Mega",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "76,2 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "380 мм"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "750 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "900 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "1800 кВт"
+        },
+        {
+          "key": "Висота (з підставкою)",
+          "value": "1770 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "730 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/gs-33-957x2048-1-800x800.png",
+      "imageFile": "products/84040033.png"
+    },
+    "84040034": {
+      "url": "https://termojet.com.ua/product/gidrostrilka-gs-34/",
+      "article": "84040034",
+      "productCode": "ГС-34",
+      "name": "Гідрострілка в теплоізоляції з підставкою Termojet Mega",
+      "specs": [
+        {
+          "key": "Gmax",
+          "value": "95,1 м³/год"
+        },
+        {
+          "key": "Діаметр",
+          "value": "425 мм"
+        },
+        {
+          "key": "Міжосьова відстань",
+          "value": "900 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "1100 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "2200 кВт"
+        },
+        {
+          "key": "Висота (з підставкою)",
+          "value": "2080 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "930 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/gs-34-919x2048-1-800x800.png",
+      "imageFile": "products/84040034.png"
+    },
+    "84040172": {
+      "url": "https://termojet.com.ua/product/kolektor-k22vn-125-200/",
+      "article": "84040172",
+      "productCode": "К22ВН.125(200)",
+      "name": "Колектор в теплоізоляції 2+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0576-800x532.jpg",
+      "imageFile": "products/84040172.jpg"
+    },
+    "84040173": {
+      "url": "https://termojet.com.ua/product/kolektor-k22vn-150-300/",
+      "article": "84040173",
+      "productCode": "К22ВН.150(300)",
+      "name": "Колектор в теплоізоляції 2+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0576-800x532.jpg",
+      "imageFile": "products/84040173.jpg"
+    },
+    "84040181": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs22vn-125-150/",
+      "article": "84040181",
+      "productCode": "КГС22ВН.125(150)",
+      "name": "Колектор в теплоізоляції 1 вгору- вниз + 1 боковий Mini",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0566-800x532.jpg",
+      "imageFile": "products/84040181.jpg"
+    },
+    "84040182": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs22vn-125-200/",
+      "article": "84040182",
+      "productCode": "КГС22ВН.125(200)",
+      "name": "Колектор в теплоізоляції 2+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0575-800x532.jpg",
+      "imageFile": "products/84040182.jpg"
+    },
+    "84040211": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs22v-125-150/",
+      "article": "84040211",
+      "productCode": "КГС22В.125(150)",
+      "name": "Колектор в теплоізоляції 2 вгору + 1 боковий Mini",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0561-800x532.jpg",
+      "imageFile": "products/84040211.jpg"
+    },
+    "84040212": {
+      "url": "https://termojet.com.ua/product/kolektor-k22v-125-200/",
+      "article": "84040212",
+      "productCode": "К22В.125(200)",
+      "name": "Колектор в теплоізоляції 2+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0583-800x532.jpg",
+      "imageFile": "products/84040212.jpg"
+    },
+    "84040222": {
+      "url": "https://termojet.com.ua/product/kollektor-kgs22v-125-200/",
+      "article": "84040222",
+      "productCode": "КГС22В.125(200)",
+      "name": "Колектор в теплоізоляції 2+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0585-800x532.jpg",
+      "imageFile": "products/84040222.jpg"
+    },
+    "84040231": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs22n-125-150/",
+      "article": "84040231",
+      "productCode": "КГС22Н.125(150)",
+      "name": "Колектор в теплоізоляції 2 вниз + 1 боковий Mini",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0586-800x532.jpg",
+      "imageFile": "products/84040231.jpg"
+    },
+    "84040242": {
+      "url": "https://termojet.com.ua/product/kolektor-k22n-125-240-2/",
+      "article": "84040242",
+      "productCode": "К22Н.125(200)",
+      "name": "Колектор в теплоізоляції 2+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0579-800x532.jpg",
+      "imageFile": "products/84040242.jpg"
+    },
+    "84040252": {
+      "url": "https://termojet.com.ua/product/kolektor-k22v-125-240/",
+      "article": "84040252",
+      "productCode": "К22В.125(240)",
+      "name": "Колектор в теплоізоляції 2+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0583-800x532.jpg",
+      "imageFile": "products/84040252.jpg"
+    },
+    "84040253": {
+      "url": "https://termojet.com.ua/product/kolektor-k22v-150-300/",
+      "article": "84040253",
+      "productCode": "К22В.150(300)",
+      "name": "Колектор в теплоізоляції 2+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0583-800x532.jpg",
+      "imageFile": "products/84040253.jpg"
+    },
+    "84040262": {
+      "url": "https://termojet.com.ua/product/kolektor-k22n-125-240/",
+      "article": "84040262",
+      "productCode": "К22Н.125(240)",
+      "name": "Колектор в теплоізоляції 2+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0579-800x532.jpg",
+      "imageFile": "products/84040262.jpg"
+    },
+    "84040263": {
+      "url": "https://termojet.com.ua/product/kolektor-k22n-150-300/",
+      "article": "84040263",
+      "productCode": "К22Н.150(300)",
+      "name": "Колектор в теплоізоляції 2+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0579-800x532.jpg",
+      "imageFile": "products/84040263.jpg"
+    },
+    "84040271": {
+      "url": "https://termojet.com.ua/product/kolektor-na-2-vyhoda/",
+      "article": "84040271",
+      "productCode": "Колектор",
+      "name": "СК-271.250 в теплоізоляції з комплектом гнучких муфт 6&#8243;(150-159мм)",
+      "specs": [
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "650 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "1150 кВт"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "DN 150"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "DN 50"
+        },
+        {
+          "key": "Висота з підставкою",
+          "value": "975 мм"
+        },
+        {
+          "key": "Довжина",
+          "value": "1135 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/10/k271-951x800-3-800x800.png",
+      "imageFile": "products/84040271.png"
+    },
+    "84040272": {
+      "url": "https://termojet.com.ua/product/k42gd125-200/",
+      "article": "84040272",
+      "productCode": "К42ВН.125(200)",
+      "name": "Колектор в теплоізоляції 4+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0567-800x532.jpg",
+      "imageFile": "products/84040272.jpg"
+    },
+    "84040273": {
+      "url": "https://termojet.com.ua/product/kolektor-k42vn-150-300/",
+      "article": "84040273",
+      "productCode": "К42ВН.150(300)",
+      "name": "Колектор в теплоізоляції 4+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0567-800x532.jpg",
+      "imageFile": "products/84040273.jpg"
+    },
+    "84040281": {
+      "url": "https://termojet.com.ua/product/kolektor-hydrauliczny-na-2-obwody-km281/",
+      "article": "84040281",
+      "productCode": "Колектор",
+      "name": "СК-281.250 в теплоізоляції з комплектом гнучких муфт 8&#8243;(200-219мм)",
+      "specs": [
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "850 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "2100 кВт"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "DN 200"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "DN 50"
+        },
+        {
+          "key": "Висота з підставкою",
+          "value": "995 мм"
+        },
+        {
+          "key": "Довжина",
+          "value": "1135 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/10/k271-951x800-2-800x800.png",
+      "imageFile": "products/84040281.png"
+    },
+    "84040282": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs42vn-125-200/",
+      "article": "84040282",
+      "productCode": "КГС42ВН.125(200)",
+      "name": "Колектор в теплоізоляції 4+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0584-800x532.jpg",
+      "imageFile": "products/84040282.jpg"
+    },
+    "84040291": {
+      "url": "https://termojet.com.ua/product/kolektor-k31v-125m/",
+      "article": "84040291",
+      "productCode": "К21В.125(80)",
+      "name": "Колектор в теплоізоляції 2 вгору Міні",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0582-800x532.jpg",
+      "imageFile": "products/84040291.jpg"
+    },
+    "84040311": {
+      "url": "https://termojet.com.ua/product/k22d125-150/",
+      "article": "84040311",
+      "productCode": "К22Н.125(150)",
+      "name": "Колектор в теплоізоляції 2 вниз + 1 боковий Mini",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "2,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0579-800x532.jpg",
+      "imageFile": "products/84040311.jpg"
+    },
+    "84040312": {
+      "url": "https://termojet.com.ua/product/kolektor-k32v-125-200/",
+      "article": "84040312",
+      "productCode": "К32В.125(200)",
+      "name": "Колектор в теплоізоляції 3+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0578-800x532.jpg",
+      "imageFile": "products/84040312.jpg"
+    },
+    "84040321": {
+      "url": "https://termojet.com.ua/product/ksh32g125-150/",
+      "article": "84040321",
+      "productCode": "КГС32В.125(150)",
+      "name": "Колектор в теплоізоляції 3 вгору + 1 боковий Mini",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0581-800x532.jpg",
+      "imageFile": "products/84040321.jpg"
+    },
+    "84040322": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs22n-125-200/",
+      "article": "84040322",
+      "productCode": "КГС22Н.125(200)",
+      "name": "Колектор в теплоізоляції 2+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0586-800x532.jpg",
+      "imageFile": "products/84040322.jpg"
+    },
+    "84040331": {
+      "url": "https://termojet.com.ua/product/ksh32d125-150/",
+      "article": "84040331",
+      "productCode": "КГС32Н.125(150)",
+      "name": "Колектор в теплоізоляції 3 вниз + 1 боковий Mini",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0591-800x532.jpg",
+      "imageFile": "products/84040331.jpg"
+    },
+    "84040332": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs32n-125-200/",
+      "article": "84040332",
+      "productCode": "КГС32Н.125(200)",
+      "name": "Колектор в теплоізоляції 3+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0591-800x532.jpg",
+      "imageFile": "products/84040332.jpg"
+    },
+    "84040342": {
+      "url": "https://termojet.com.ua/product/kolektor-k32n-125-200/",
+      "article": "84040342",
+      "productCode": "К32Н.125(200)",
+      "name": "Колектор в теплоізоляції 3+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0589-800x532.jpg",
+      "imageFile": "products/84040342.jpg"
+    },
+    "84040352": {
+      "url": "https://termojet.com.ua/product/kolektor-k32v-125-240/",
+      "article": "84040352",
+      "productCode": "К32В.125(240)",
+      "name": "Колектор в теплоізоляції 3+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0578-800x532.jpg",
+      "imageFile": "products/84040352.jpg"
+    },
+    "84040353": {
+      "url": "https://termojet.com.ua/product/kolektor-k32v-150-300/",
+      "article": "84040353",
+      "productCode": "К32В.150(300)",
+      "name": "Колектор в теплоізоляції 3+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0578-800x532.jpg",
+      "imageFile": "products/84040353.jpg"
+    },
+    "84040362": {
+      "url": "https://termojet.com.ua/product/kolektor-k32n-125-240/",
+      "article": "84040362",
+      "productCode": "К32Н.125(240)",
+      "name": "Колектор в теплоізоляції 3+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0589-800x532.jpg",
+      "imageFile": "products/84040362.jpg"
+    },
+    "84040363": {
+      "url": "https://termojet.com.ua/product/kolektor-k32n-150-300/",
+      "article": "84040363",
+      "productCode": "К32Н.150(300)",
+      "name": "Колектор в теплоізоляції 3+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0589-800x532.jpg",
+      "imageFile": "products/84040363.jpg"
+    },
+    "84040371": {
+      "url": "https://termojet.com.ua/product/kolektor-na-3-vyhoda/",
+      "article": "84040371",
+      "productCode": "Колектор",
+      "name": "СК-371.250 в теплоізоляції з комплектом гнучких муфт 6&#8243;(150-159мм)",
+      "specs": [
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "650 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "1150 кВт"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "DN 150"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "DN 50"
+        },
+        {
+          "key": "Висота з підставкою",
+          "value": "975 мм"
+        },
+        {
+          "key": "Довжина",
+          "value": "1634 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/k371-1-800x800.png",
+      "imageFile": "products/84040371.png"
+    },
+    "84040372": {
+      "url": "https://termojet.com.ua/product/kolektor-k62vn-125-200/",
+      "article": "84040372",
+      "productCode": "К62ВН.125(200)",
+      "name": "Колектор в теплоізоляції 6+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "6+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0565-800x532.jpg",
+      "imageFile": "products/84040372.jpg"
+    },
+    "84040373": {
+      "url": "https://termojet.com.ua/product/kolektor-k62vn-150-300/",
+      "article": "84040373",
+      "productCode": "К62ВН.150(300)",
+      "name": "Колектор в теплоізоляції 6+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "6+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0565-800x532.jpg",
+      "imageFile": "products/84040373.jpg"
+    },
+    "84040382": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs62vn-125-200/",
+      "article": "84040382",
+      "productCode": "КГС62ВН.125(200)",
+      "name": "Колектор в теплоізоляції 6+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "6+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0588-800x532.jpg",
+      "imageFile": "products/84040382.jpg"
+    },
+    "84040391": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs31vn-125/",
+      "article": "84040391",
+      "productCode": "К31В.125(80)",
+      "name": "Колектор в теплоізоляції 2 вгору + 1 вниз Міні",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "2+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0564-800x532.jpg",
+      "imageFile": "products/84040391.jpg"
+    },
+    "84040392": {
+      "url": "https://termojet.com.ua/product/kolektor-k31v-125/",
+      "article": "84040392",
+      "productCode": "К51ВН.125(100)",
+      "name": "Колектор в теплоізоляції 3 вгору + 2 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+2"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0594-800x532.jpg",
+      "imageFile": "products/84040392.jpg"
+    },
+    "84040412": {
+      "url": "https://termojet.com.ua/product/kolektor-k42v-125-200/",
+      "article": "84040412",
+      "productCode": "К42В.125(200)",
+      "name": "Колектор в теплоізоляції 4+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0600-800x532.jpg",
+      "imageFile": "products/84040412.jpg"
+    },
+    "84040422": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs42v-125-200/",
+      "article": "84040422",
+      "productCode": "КГС42В.125(200)",
+      "name": "Колектор в теплоізоляції 4+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/kgs42v125-200-800x297.png",
+      "imageFile": "products/84040422.png"
+    },
+    "84040432": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs42n-125-200/",
+      "article": "84040432",
+      "productCode": "КГС42Н.125(200)",
+      "name": "Колектор в теплоізоляції 4+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0599-800x532.jpg",
+      "imageFile": "products/84040432.jpg"
+    },
+    "84040442": {
+      "url": "https://termojet.com.ua/product/kolektor-k42n-125-200/",
+      "article": "84040442",
+      "productCode": "К42Н.125(200)",
+      "name": "Колектор в теплоізоляції 4+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0598-800x532.jpg",
+      "imageFile": "products/84040442.jpg"
+    },
+    "84040452": {
+      "url": "https://termojet.com.ua/product/kolektor-k42v-125-240/",
+      "article": "84040452",
+      "productCode": "К42В.125(240)",
+      "name": "Колектор в теплоізоляції 4+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0600-800x532.jpg",
+      "imageFile": "products/84040452.jpg"
+    },
+    "84040453": {
+      "url": "https://termojet.com.ua/product/kolektor-k42v-150-300/",
+      "article": "84040453",
+      "productCode": "К42В.150(300)",
+      "name": "Колектор в теплоізоляції 4+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0600-800x532.jpg",
+      "imageFile": "products/84040453.jpg"
+    },
+    "84040462": {
+      "url": "https://termojet.com.ua/product/kolektor-k42n-125-240/",
+      "article": "84040462",
+      "productCode": "К42Н.125(240)",
+      "name": "Колектор в теплоізоляції 4+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0598-800x532.jpg",
+      "imageFile": "products/84040462.jpg"
+    },
+    "84040472": {
+      "url": "https://termojet.com.ua/product/kolektor-k82vn-125-200/",
+      "article": "84040472",
+      "productCode": "К82ВН.125(200)",
+      "name": "Колектор в теплоізоляції 8+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "8+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0597-800x532.jpg",
+      "imageFile": "products/84040472.jpg"
+    },
+    "84040473": {
+      "url": "https://termojet.com.ua/product/kolektor-k82vn-150-300/",
+      "article": "84040473",
+      "productCode": "К82ВН.150(300)",
+      "name": "Колектор в теплоізоляції 8+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "8+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0597-800x532.jpg",
+      "imageFile": "products/84040473.jpg"
+    },
+    "84040482": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs82vn-125-200/",
+      "article": "84040482",
+      "productCode": "КГС82ВН.125(200)",
+      "name": "Колектор в теплоізоляції 8+1 вгору+вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "8+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0601-800x532.jpg",
+      "imageFile": "products/84040482.jpg"
+    },
+    "84040491": {
+      "url": "https://termojet.com.ua/product/kolektor-k41v-125m/",
+      "article": "84040491",
+      "productCode": "К41В.125(80)",
+      "name": "Колектор в теплоізоляції 3 вгору + 1 вниз Міні",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0593-800x532.jpg",
+      "imageFile": "products/84040491.jpg"
+    },
+    "84040492": {
+      "url": "https://termojet.com.ua/product/kolektor-k41v-125/",
+      "article": "84040492",
+      "productCode": "К71ВН.125(100)",
+      "name": "Колектор в теплоізоляції 4 вгору + 3 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "4+3"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/k41v125-800x129.png",
+      "imageFile": "products/84040492.png"
+    },
+    "84040512": {
+      "url": "https://termojet.com.ua/product/kolektor-k52v-125-200/",
+      "article": "84040512",
+      "productCode": "К52В.125(200)",
+      "name": "Колектор в теплоізоляції 5+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0602-800x532.jpg",
+      "imageFile": "products/84040512.jpg"
+    },
+    "84040522": {
+      "url": "https://termojet.com.ua/product/kollektor-kgs52v-125-200/",
+      "article": "84040522",
+      "productCode": "КГС52В.125(200)",
+      "name": "Колектор в теплоізоляції 5+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0605-800x532.jpg",
+      "imageFile": "products/84040522.jpg"
+    },
+    "84040532": {
+      "url": "https://termojet.com.ua/product/kolektor-kgs52n-125-200/",
+      "article": "84040532",
+      "productCode": "КГС52Н.125(200)",
+      "name": "Колектор в теплоізоляції 5+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "60 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "95 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "6,35 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0603-800x532.jpg",
+      "imageFile": "products/84040532.jpg"
+    },
+    "84040542": {
+      "url": "https://termojet.com.ua/product/kolektor-k52n-125-200/",
+      "article": "84040542",
+      "productCode": "К52Н.125(200)",
+      "name": "Колектор в теплоізоляції 5+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0604-800x532.jpg",
+      "imageFile": "products/84040542.jpg"
+    },
+    "84040552": {
+      "url": "https://termojet.com.ua/product/kolektor-k52v-125-240/",
+      "article": "84040552",
+      "productCode": "К52В.125(240)",
+      "name": "Колектор в теплоізоляції 5+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0602-800x532.jpg",
+      "imageFile": "products/84040552.jpg"
+    },
+    "84040553": {
+      "url": "https://termojet.com.ua/product/kolektor-k52v-150-300/",
+      "article": "84040553",
+      "productCode": "К52В.150(300)",
+      "name": "Колектор в теплоізоляції 5+1 вгору",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0602-800x532.jpg",
+      "imageFile": "products/84040553.jpg"
+    },
+    "84040562": {
+      "url": "https://termojet.com.ua/product/kolektor-k52n-125-240/",
+      "article": "84040562",
+      "productCode": "К52Н.125(240)",
+      "name": "Колектор в теплоізоляції 5+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "105 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "210 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "9,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ½&#8221;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0604-800x532.jpg",
+      "imageFile": "products/84040562.jpg"
+    },
+    "84040563": {
+      "url": "https://termojet.com.ua/product/kolektor-k52n-150-300/",
+      "article": "84040563",
+      "productCode": "К52Н.150(300)",
+      "name": "Колектор в теплоізоляції 5+1 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+1"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "175 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "350 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "17,5 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "2&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ¼&#8221;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0604-800x532.jpg",
+      "imageFile": "products/84040563.jpg"
+    },
+    "84040591": {
+      "url": "https://termojet.com.ua/product/kolektor-k51v-125m/",
+      "article": "84040591",
+      "productCode": "К51В.125(80)",
+      "name": "Колектор в теплоізоляції 3 вгору + 2 вниз Міні",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "3+2"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "25 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "50 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "5,1 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0596-800x532.jpg",
+      "imageFile": "products/84040591.jpg"
+    },
+    "84040592": {
+      "url": "https://termojet.com.ua/product/kolektor-k51v-125/",
+      "article": "84040592",
+      "productCode": "К91ВН.125(100)",
+      "name": "Колектор в теплоізоляції 5 вгору + 4 вниз",
+      "specs": [
+        {
+          "key": "Кількість виходів",
+          "value": "5+4"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "72 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "145 кВт"
+        },
+        {
+          "key": "Gmax",
+          "value": "7,2 м³/год"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1 ¼ &#8220;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1&#8243;"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/k51v125-800x104.png",
+      "imageFile": "products/84040592.png"
+    },
+    "84130370": {
+      "url": "https://termojet.com.ua/product/ng-37-bez-smesytelya-1/",
+      "article": "84130370",
+      "productCode": "НГ-37",
+      "name": "(пряма)",
+      "specs": [
+        {
+          "key": "DN",
+          "value": "25 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "40 кВт"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "KVS",
+          "value": "10,2 м³/год"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/47-500x712-1.png",
+      "imageFile": "products/84130370.png"
+    },
+    "84130390": {
+      "url": "https://termojet.com.ua/product/ng-36-z-termokranom-1/",
+      "article": "84130390",
+      "productCode": "НГ-36",
+      "name": "(з термостатичним краном)",
+      "specs": [
+        {
+          "key": "DN",
+          "value": "25 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "40 кВт"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "KVS",
+          "value": "2,5 м³/год"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/46-500x712-1.png",
+      "imageFile": "products/84130390.png"
+    },
+    "84130670": {
+      "url": "https://termojet.com.ua/product/ng-67150-dlya-pidklyuchennya-bojlera-1/",
+      "article": "84130670",
+      "productCode": "НГ-67.150",
+      "name": ".Бойлер Насосна група без змішувача 1&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "286 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "264 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "10 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "10,2 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,32 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/67-800x1202.jpg",
+      "imageFile": "products/84130670.jpg"
+    },
+    "84131670": {
+      "url": "https://termojet.com.ua/product/ng-67200-dlya-pidklyuchennya-bojlera-1/",
+      "article": "84131670",
+      "productCode": "НГ-67.200",
+      "name": ".Бойлер Насосна група без змішувача 1&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "349 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "264 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "10,2 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,32 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/67-800x1202.jpg",
+      "imageFile": "products/84131670.jpg"
+    },
+    "84142380": {
+      "url": "https://termojet.com.ua/product/ng-38-so-smesytelem-1/",
+      "article": "84142380",
+      "productCode": "НГ-38",
+      "name": "(зі змішувачем)",
+      "specs": [
+        {
+          "key": "DN",
+          "value": "25 мм"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "40 кВт"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "KVS",
+          "value": "6,3 м³/год"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/48-500x764-1.png",
+      "imageFile": "products/84142380.png"
+    },
+    "84300470": {
+      "url": "https://termojet.com.ua/product/ng-47-bez-zmishuvacha-1/",
+      "article": "84300470",
+      "productCode": "НГ-47",
+      "name": "(27) Л Насосна група без змішувача 1&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "353 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "261 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "10,2 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,32 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0533-800x1202.jpg",
+      "imageFile": "products/84300470.jpg"
+    },
+    "84300510": {
+      "url": "https://termojet.com.ua/product/ng-51-bez-zmishuvacha-1-1-4/",
+      "article": "84300510",
+      "productCode": "НГ-51.150-Л",
+      "name": "Насосна група без змішувача1 1/4&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "471 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "296 мм"
+        },
+        {
+          "key": "Głębokość",
+          "value": "160 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "45 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "85 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "16,3 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,9 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0657-800x1202.jpg",
+      "imageFile": "products/84300510.jpg"
+    },
+    "84310470": {
+      "url": "https://termojet.com.ua/product/ng-47-bez-zmishuvacha-1-epp/",
+      "article": "84310470",
+      "productCode": "НГ-47",
+      "name": "Л Насосна група без змішувача 1&#8243; ВР в EPP BLACK теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "395 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "250 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "10,2 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,32 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0531-800x1202.jpg",
+      "imageFile": "products/84310470.jpg"
+    },
+    "84320480": {
+      "url": "https://termojet.com.ua/product/ng-48-zi-zmishuvachem-1/",
+      "article": "84320480",
+      "productCode": "НГ-48",
+      "name": "(28) Л Насосна група зі змішувачем 1&#8243; ВР в теплоізоляції без насосу",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "353 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "261 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "6,3 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,34 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0558-800x1202.jpg",
+      "imageFile": "products/84320480.jpg"
+    },
+    "84324480": {
+      "url": "https://termojet.com.ua/product/ng-48-zi-zmishuvachem-1epp/",
+      "article": "84324480",
+      "productCode": "НГ-48",
+      "name": "Л Насосна група зі змішувачем 1&#8243; ВР в EPP BLACK теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "395 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "250 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "6,3 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,34 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0535-800x1202.jpg",
+      "imageFile": "products/84324480.jpg"
+    },
+    "84600470": {
+      "url": "https://termojet.com.ua/product/ng-47p-bez-zmishuvacha-1/",
+      "article": "84600470",
+      "productCode": "НГ-47",
+      "name": "(27) Насосна група без змішувача 1&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "130 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "353 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "261 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "10,2 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,32 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0536-800x1202.jpg",
+      "imageFile": "products/84600470.jpg"
+    },
+    "84600510": {
+      "url": "https://termojet.com.ua/product/ng-51p-bez-zmishuvacha-1-1-4/",
+      "article": "84600510",
+      "productCode": "НГ-51.150",
+      "name": "Насосна група без змішувача 1 1/4&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "471 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "296 мм"
+        },
+        {
+          "key": "Głębokość",
+          "value": "160 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "45 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "85 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "16,3 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,9 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0658-800x1202.jpg",
+      "imageFile": "products/84600510.jpg"
+    },
+    "84610470": {
+      "url": "https://termojet.com.ua/product/ng-47p-bez-zmishuvacha-1-epp/",
+      "article": "84610470",
+      "productCode": "НГ-47",
+      "name": "Насосна група без змішувача 1&#8243; ВР в EPP BLACK теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "395 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "250 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "10,2 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,32 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0556-800x1202.jpg",
+      "imageFile": "products/84610470.jpg"
+    },
+    "84610490": {
+      "url": "https://termojet.com.ua/product/ng-49p-z-termokranom-1epp/",
+      "article": "84610490",
+      "productCode": "НГ-46",
+      "name": "Насосна група з термокраном 25-55 С 1&#8243; ВР в EPP BLACK теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "395 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "250 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "15 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "30 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "3,5 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,34 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0555-800x1202.jpg",
+      "imageFile": "products/84610490.jpg"
+    },
+    "84612520": {
+      "url": "https://termojet.com.ua/product/ng-52-zi-zmishuvachem-1-1-4/",
+      "article": "84612520",
+      "productCode": "НГ-52.150",
+      "name": "Л Насосна група зі змішувачем 1 1/4&#8243; ВР в теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1 ¼&#8221;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "471 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "296 мм"
+        },
+        {
+          "key": "Głębokość",
+          "value": "160 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "45 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "85 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "10,3 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "1,1 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0530-800x1202.jpg",
+      "imageFile": "products/84612520.jpg"
+    },
+    "84622480": {
+      "url": "https://termojet.com.ua/product/ng-48p-zi-zmishuvachem-1epp/",
+      "article": "84622480",
+      "productCode": "НГ-48",
+      "name": "Насосна група зі змішувачем 1&#8243; ВР в EPP BLACK теплоізоляції без насоса",
+      "specs": [
+        {
+          "key": "Підключення до колектора",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення до контуру опалення",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Довжина насоса",
+          "value": "180 мм"
+        },
+        {
+          "key": "Висота",
+          "value": "395 мм"
+        },
+        {
+          "key": "Ширина",
+          "value": "250 мм"
+        },
+        {
+          "key": "Qmax: ΔT=10°C",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: ΔT=20°C",
+          "value": "40 кВт"
+        },
+        {
+          "key": "KVS",
+          "value": "6,3 м³/год"
+        },
+        {
+          "key": "Робочий тиск",
+          "value": "до 6 бар"
+        },
+        {
+          "key": "Об&#8217;єм",
+          "value": "0,34 л"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0534-800x1202.jpg",
+      "imageFile": "products/84622480.jpg"
+    },
+    "84040BOX2": {
+      "url": "https://termojet.com.ua/product/termojet-box-2/",
+      "article": "84040BOX2",
+      "productCode": "Модуль",
+      "name": "Termojet BOX2 в теплоізоляції (КМ2) UPS",
+      "specs": [
+        {
+          "key": "Кількість контурів",
+          "value": "2"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "30 кВт"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ½&#8221; накидна гайка"
+        },
+        {
+          "key": "Висота",
+          "value": "500 мм"
+        },
+        {
+          "key": "Довжина",
+          "value": "400 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0544-800x1202.jpg",
+      "imageFile": "products/84040BOX2.jpg"
+    },
+    "84040BOX3": {
+      "url": "https://termojet.com.ua/product/termojet-box-3/",
+      "article": "84040BOX3",
+      "productCode": "Модуль",
+      "name": "Termojet BOX3 в теплоізоляції (КМ3) UPS",
+      "specs": [
+        {
+          "key": "Кількість контурів",
+          "value": "3"
+        },
+        {
+          "key": "Qmax: △Т=10°С",
+          "value": "20 кВт"
+        },
+        {
+          "key": "Qmax: △Т=20°С",
+          "value": "30 кВт"
+        },
+        {
+          "key": "Підключення котла",
+          "value": "1&#8243;"
+        },
+        {
+          "key": "Підключення контура опалення",
+          "value": "1 ½&#8221; накидна гайка"
+        },
+        {
+          "key": "Висота",
+          "value": "500 мм"
+        },
+        {
+          "key": "Довжина",
+          "value": "600 мм"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0552-800x532.jpg",
+      "imageFile": "products/84040BOX3.jpg"
+    },
+    "TJ-MU-10B": {
+      "url": "https://termojet.com.ua/product/zmishuvalnyj-vuzol-dlya-teployi-pidlogy-tj-mu-10b/",
+      "article": "TJ-MU-10B",
+      "productCode": "TJ-MU-10B",
+      "name": "Змішувальний термостатичний вузел Termojet для колектора теплої підлоги",
+      "specs": [
+        {
+          "key": "Температура",
+          "value": "20-43°C"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/dsc_0522-800x1202.jpg",
+      "imageFile": "products/TJ-MU-10B.jpg"
+    },
+    "AQUA411-0-10-24": {
+      "url": "https://termojet.com.ua/product/elektropryvid-termojet-411-24v-ac-dc-02-10v-60s-120s-90-6-nm/",
+      "article": "AQUA411-0-10-24",
+      "productCode": "Електропривід",
+      "name": "&#8220;TERMOJET&#8221; 411 24V ac/dc. 0(2)-10v. 60s. 120s/90* 6 Nm",
+      "specs": [
+        {
+          "key": "Напруга",
+          "value": "24V"
+        },
+        {
+          "key": "Енергоспоживання",
+          "value": "2W"
+        },
+        {
+          "key": "Крутний момент",
+          "value": "6Нм"
+        },
+        {
+          "key": "Керування",
+          "value": "0-10V"
+        },
+        {
+          "key": "Клас захисту",
+          "value": "II, IP42"
+        },
+        {
+          "key": "Час обертання на 90°",
+          "value": "60/120 сек"
+        },
+        {
+          "key": "Рівень шуму",
+          "value": ">35дб"
+        },
+        {
+          "key": "Ручне управління",
+          "value": "Так"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/08/1684839955239616-800x774.jpg",
+      "imageFile": "products/AQUA411-0-10-24.jpg"
+    },
+    "TJ413": {
+      "url": "https://termojet.com.ua/product/elektropryvid-keruvannya-postijnoyu-temperaturoyu-pro400/",
+      "article": "TJ413",
+      "productCode": "Електропривід",
+      "name": "з інтегр. контролером і датчиком&#8221;TERMOJET&#8221; 413, 230V, 3-точковий, 5-90*С, 6 Nm",
+      "specs": [
+        {
+          "key": "Напруга",
+          "value": "230 В, 50–60 Гц"
+        },
+        {
+          "key": "Енергоспоживання",
+          "value": "5W"
+        },
+        {
+          "key": "Крутний момент",
+          "value": "6Нм"
+        },
+        {
+          "key": "Керування",
+          "value": "SPDT (3-точковий)"
+        },
+        {
+          "key": "Клас захисту",
+          "value": "IP42"
+        },
+        {
+          "key": "Час обертання на 90°",
+          "value": "120 сек"
+        },
+        {
+          "key": "Рівень шуму",
+          "value": "макс. 40 дБ (на відстані 100 мм від пристрою)"
+        },
+        {
+          "key": "Ручне управління",
+          "value": "є, натискання зчеплення (clutch) з можливістю обертання ручкою"
+        },
+        {
+          "key": "Сертифікація",
+          "value": "CE, RoHS"
+        },
+        {
+          "key": "Індикатор положення",
+          "value": "так, можливе налаштування CW-CCW згідно з монтажем клапана"
+        },
+        {
+          "key": "Довжина кабелю",
+          "value": "євровилка – 1,5 м, датчик – 5 × 0,5 м (діаметр 4 мм)."
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2025/03/img_3786-800x600.jpg",
+      "imageFile": "products/TJ413.jpg"
+    },
+    "TMV131": {
+      "url": "https://termojet.com.ua/product/termostatychnyj-trohhodovyj-zmishuvalnyj-kran-termojet-tmv131-20-43-c/",
+      "article": "TMV131",
+      "productCode": "Термостатичний",
+      "name": "триходовий Termojet 1&#8243; Зовн.різьба, kvs-1.6, temp &#8211; 20-43°C",
+      "specs": [
+        {
+          "key": "Діапазон температур",
+          "value": "20-45°C &#8211; 35-60 °C"
+        },
+        {
+          "key": "Максимальна робоча температура",
+          "value": "95 &#8211; 110 °C"
+        },
+        {
+          "key": "Точність змішування на виході",
+          "value": "±2 °C"
+        },
+        {
+          "key": "Посилання на гарячий і холодний тиск",
+          "value": "3 бар"
+        },
+        {
+          "key": "Максимальний статичний тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "5 бар"
+        },
+        {
+          "key": "Максимальна різниця між тиском на вході",
+          "value": "3 бар"
+        },
+        {
+          "key": "Потік",
+          "value": "KVS 1,6 i KVS 2,5"
+        },
+        {
+          "key": "Рідина",
+          "value": "Санітарна вода, вода / розчин гліколю"
+        },
+        {
+          "key": "Підключення",
+          "value": "Зовнішня або внутр. різьба"
+        },
+        {
+          "key": "Корпус клапана",
+          "value": "CW617N"
+        },
+        {
+          "key": "Ручка",
+          "value": "Нейлон"
+        },
+        {
+          "key": "Прокладка",
+          "value": "PDM"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0513-800x532.jpg",
+      "imageFile": "products/TMV131.jpg"
+    },
+    "TMV132": {
+      "url": "https://termojet.com.ua/product/termostatychnyj-trohhodovyj-zmishuvalnyj-kran-termojet-tmv132-35-60-c/",
+      "article": "TMV132",
+      "productCode": "Термостатичний",
+      "name": "триходовий Termojet 1&#8243; Зовн.різьба, kvs-1.6, temp &#8211; 35-60°C",
+      "specs": [
+        {
+          "key": "Діапазон температур",
+          "value": "20-45°C &#8211; 35-60 °C"
+        },
+        {
+          "key": "Максимальна робоча температура",
+          "value": "95 &#8211; 110 °C"
+        },
+        {
+          "key": "Точність змішування на виході",
+          "value": "±2 °C"
+        },
+        {
+          "key": "Посилання на гарячий і холодний тиск",
+          "value": "3 бар"
+        },
+        {
+          "key": "Максимальний статичний тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "5 бар"
+        },
+        {
+          "key": "Максимальна різниця між тиском на вході",
+          "value": "3 бар"
+        },
+        {
+          "key": "Потік",
+          "value": "KVS 1,6 i KVS 2,5"
+        },
+        {
+          "key": "Рідина",
+          "value": "Санітарна вода, вода / розчин гліколю"
+        },
+        {
+          "key": "Підключення",
+          "value": "Зовнішня або внутр. різьба"
+        },
+        {
+          "key": "Корпус клапана",
+          "value": "CW617N"
+        },
+        {
+          "key": "Ручка",
+          "value": "Нейлон"
+        },
+        {
+          "key": "Прокладка",
+          "value": "PDM"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0511-800x532.jpg",
+      "imageFile": "products/TMV132.jpg"
+    },
+    "TMV231": {
+      "url": "https://termojet.com.ua/product/termostatychnyj-trohhodovyj-zmishuvalnyj-kran-termojet-tmv231-20-43-c/",
+      "article": "TMV231",
+      "productCode": "Термостатичний",
+      "name": "триходовий Termojet 1&#8243; Зовн.різьба, kvs-2.5, temp &#8211; 20-43°C",
+      "specs": [
+        {
+          "key": "Діапазон температур",
+          "value": "20-45°C &#8211; 35-60 °C"
+        },
+        {
+          "key": "Максимальна робоча температура",
+          "value": "95 &#8211; 110 °C"
+        },
+        {
+          "key": "Точність змішування на виході",
+          "value": "±2 °C"
+        },
+        {
+          "key": "Посилання на гарячий і холодний тиск",
+          "value": "3 бар"
+        },
+        {
+          "key": "Максимальний статичний тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "5 бар"
+        },
+        {
+          "key": "Максимальна різниця між тиском на вході",
+          "value": "3 бар"
+        },
+        {
+          "key": "Потік",
+          "value": "KVS 1,6 i KVS 2,5"
+        },
+        {
+          "key": "Рідина",
+          "value": "Санітарна вода, вода / розчин гліколю"
+        },
+        {
+          "key": "Підключення",
+          "value": "Зовнішня або внутр. різьба"
+        },
+        {
+          "key": "Корпус клапана",
+          "value": "CW617N"
+        },
+        {
+          "key": "Ручка",
+          "value": "Нейлон"
+        },
+        {
+          "key": "Прокладка",
+          "value": "PDM"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0513-800x532.jpg",
+      "imageFile": "products/TMV231.jpg"
+    },
+    "TMV232": {
+      "url": "https://termojet.com.ua/product/termostatychnyj-trohhodovyj-zmishuvalnyj-kran-termojet-tmv232-35-60-c/",
+      "article": "TMV232",
+      "productCode": "Термостатичний",
+      "name": "триходовий Termojet 1&#8243; Зовн.різьба, kvs-2.5, temp &#8211; 35-60°C",
+      "specs": [
+        {
+          "key": "Діапазон температур",
+          "value": "20-45°C &#8211; 35-60 °C"
+        },
+        {
+          "key": "Максимальна робоча температура",
+          "value": "95 &#8211; 110 °C"
+        },
+        {
+          "key": "Точність змішування на виході",
+          "value": "±2 °C"
+        },
+        {
+          "key": "Посилання на гарячий і холодний тиск",
+          "value": "3 бар"
+        },
+        {
+          "key": "Максимальний статичний тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "5 бар"
+        },
+        {
+          "key": "Максимальна різниця між тиском на вході",
+          "value": "3 бар"
+        },
+        {
+          "key": "Потік",
+          "value": "KVS 1,6 i KVS 2,5"
+        },
+        {
+          "key": "Рідина",
+          "value": "Санітарна вода, вода / розчин гліколю"
+        },
+        {
+          "key": "Підключення",
+          "value": "Зовнішня або внутр. різьба"
+        },
+        {
+          "key": "Корпус клапана",
+          "value": "CW617N"
+        },
+        {
+          "key": "Ручка",
+          "value": "Нейлон"
+        },
+        {
+          "key": "Прокладка",
+          "value": "PDM"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0511-800x532.jpg",
+      "imageFile": "products/TMV232.jpg"
+    },
+    "TMV121": {
+      "url": "https://termojet.com.ua/product/termostatychnyj-trohhodovyj-zmishuvalnyj-kran-termojet-tmv121-20-43-c/",
+      "article": "TMV121",
+      "productCode": "Термостатичний",
+      "name": "триходовий Termojet 3/4&#8243; Зовн.різьба, kvs-1.6, temp &#8211; 20-43°C",
+      "specs": [
+        {
+          "key": "Діапазон температур",
+          "value": "20-45°C &#8211; 35-60 °C"
+        },
+        {
+          "key": "Максимальна робоча температура",
+          "value": "95 &#8211; 110 °C"
+        },
+        {
+          "key": "Точність змішування на виході",
+          "value": "±2 °C"
+        },
+        {
+          "key": "Посилання на гарячий і холодний тиск",
+          "value": "3 бар"
+        },
+        {
+          "key": "Максимальний статичний тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "5 бар"
+        },
+        {
+          "key": "Максимальна різниця між тиском на вході",
+          "value": "3 бар"
+        },
+        {
+          "key": "Потік",
+          "value": "KVS 1,6 i KVS 2,5"
+        },
+        {
+          "key": "Рідина",
+          "value": "Санітарна вода, вода / розчин гліколю"
+        },
+        {
+          "key": "Підключення",
+          "value": "Зовнішня або внутр. різьба"
+        },
+        {
+          "key": "Корпус клапана",
+          "value": "CW617N"
+        },
+        {
+          "key": "Ручка",
+          "value": "Нейлон"
+        },
+        {
+          "key": "Прокладка",
+          "value": "PDM"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0513-800x532.jpg",
+      "imageFile": "products/TMV121.jpg"
+    },
+    "TMV122": {
+      "url": "https://termojet.com.ua/product/termostatychnyj-trohhodovyj-zmishuvalnyj-kran-termojet-tmv122-35-60-c/",
+      "article": "TMV122",
+      "productCode": "Термостатичний",
+      "name": "триходовий Termojet 3/4&#8243; Зовн.різьба, kvs-1.6, temp &#8211; 35-60°C",
+      "specs": [
+        {
+          "key": "Діапазон температур",
+          "value": "20-45°C &#8211; 35-60 °C"
+        },
+        {
+          "key": "Максимальна робоча температура",
+          "value": "95 &#8211; 110 °C"
+        },
+        {
+          "key": "Точність змішування на виході",
+          "value": "±2 °C"
+        },
+        {
+          "key": "Посилання на гарячий і холодний тиск",
+          "value": "3 бар"
+        },
+        {
+          "key": "Максимальний статичний тиск",
+          "value": "10 бар"
+        },
+        {
+          "key": "Максимальний робочий тиск",
+          "value": "5 бар"
+        },
+        {
+          "key": "Максимальна різниця між тиском на вході",
+          "value": "3 бар"
+        },
+        {
+          "key": "Потік",
+          "value": "KVS 1,6 i KVS 2,5"
+        },
+        {
+          "key": "Рідина",
+          "value": "Санітарна вода, вода / розчин гліколю"
+        },
+        {
+          "key": "Підключення",
+          "value": "Зовнішня або внутр. різьба"
+        },
+        {
+          "key": "Корпус клапана",
+          "value": "CW617N"
+        },
+        {
+          "key": "Ручка",
+          "value": "Нейлон"
+        },
+        {
+          "key": "Прокладка",
+          "value": "PDM"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0511-800x532.jpg",
+      "imageFile": "products/TMV122.jpg"
+    },
+    "RMV03100-034": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-vnutrishnoyu-rizboyu-3-4/",
+      "article": "RMV03100-034",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN20, kvs-6.3 внутрішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0506-800x532.jpg",
+      "imageFile": "products/RMV03100-034.jpg"
+    },
+    "RMV03100-100": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-vnutrishnoyu-rizboyu-1/",
+      "article": "RMV03100-100",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN25, kvs-10 внутрішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0498-800x532.jpg",
+      "imageFile": "products/RMV03100-100.jpg"
+    },
+    "RMV03100-114": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-vnutrishnoyu-rizboyu-1-1-4/",
+      "article": "RMV03100-114",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN32, kvs-16 внутрішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0500-800x532.jpg",
+      "imageFile": "products/RMV03100-114.jpg"
+    },
+    "RMV03100-112": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-vnutrishnoyu-rizboyu-1-1-2/",
+      "article": "RMV03100-112",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN40, kvs-25 внутрішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0494-800x532.jpg",
+      "imageFile": "products/RMV03100-112.jpg"
+    },
+    "RMV03100-200": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-vnutrishnoyu-rizboyu-2/",
+      "article": "RMV03100-200",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN50, kvs-40 внутрішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0493-800x532.jpg",
+      "imageFile": "products/RMV03100-200.jpg"
+    },
+    "RMV03110-034": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-zovnishnoyu-rizboyu-3-4/",
+      "article": "RMV03110-034",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN20, kvs-2,5 зовнішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0507-800x532.jpg",
+      "imageFile": "products/RMV03110-034.jpg"
+    },
+    "RMV03110-100": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-zovnishnoyu-rizboyu-1/",
+      "article": "RMV03110-100",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN25, kvs-6 зовнішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0515-800x532.jpg",
+      "imageFile": "products/RMV03110-100.jpg"
+    },
+    "RMV03110-114": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-zovnishnoyu-rizboyu-1-1-4/",
+      "article": "RMV03110-114",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN32, kvs-12 зовнішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0504-800x532.jpg",
+      "imageFile": "products/RMV03110-114.jpg"
+    },
+    "RMV03110-112": {
+      "url": "https://termojet.com.ua/product/3-h-hodovyj-klapan-z-zovnishnoyu-rizboyu-1-1-2/",
+      "article": "RMV03110-112",
+      "productCode": "Триходовий",
+      "name": "змішувальний кран Termojet, DN40, kvs-18 зовнішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0497-800x532.jpg",
+      "imageFile": "products/RMV03110-112.jpg"
+    },
+    "RMV04110-100": {
+      "url": "https://termojet.com.ua/product/chotyrohhodovyj-zmishuvalnyj-kran-termojet-rmv04110-100-2/",
+      "article": "RMV04110-100",
+      "productCode": "Чотирьохходовий",
+      "name": "змішувальний кран Termojet, DN25, kvs-12 внутрішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0496-800x532.jpg",
+      "imageFile": "products/RMV04110-100.jpg"
+    },
+    "RMV04110-114": {
+      "url": "https://termojet.com.ua/product/chotyrohhodovyj-zmishuvalnyj-kran-termojet-rmv04110-100/",
+      "article": "RMV04110-114",
+      "productCode": "Чотирьохходовий",
+      "name": "змішувальний кран Termojet, DN32, kvs-18 внутрішня різьба",
+      "specs": [
+        {
+          "key": "1.",
+          "value": "Корпус вентиля"
+        },
+        {
+          "key": "2.",
+          "value": "Ротор вентиля"
+        },
+        {
+          "key": "3.",
+          "value": "Кришка вентиля"
+        },
+        {
+          "key": "4.",
+          "value": "Ручка вентиля"
+        },
+        {
+          "key": "5.",
+          "value": "Індикатор положення ручки"
+        },
+        {
+          "key": "6.",
+          "value": "Схований гвинт ручки"
+        },
+        {
+          "key": "7.",
+          "value": "Гвинт"
+        },
+        {
+          "key": "8.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "9.",
+          "value": "Індикатор положення"
+        },
+        {
+          "key": "10.",
+          "value": "Гвинт для кришки"
+        },
+        {
+          "key": "11.",
+          "value": "Ущільнювальне кільце"
+        },
+        {
+          "key": "12.",
+          "value": "Гвинт для кришки"
+        }
+      ],
+      "imageUrl": "https://termojet.com.ua/wp-content/uploads/2023/11/dsc_0496-800x532.jpg",
+      "imageFile": "products/RMV04110-114.jpg"
+    }
+  }
+}
