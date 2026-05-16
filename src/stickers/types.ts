@@ -41,6 +41,7 @@ export interface StickerFontSizes {
   translations?: number;
   distributor?: number;
   footer?: number;
+  description?: number;
 }
 
 export interface StickerData {
@@ -66,6 +67,9 @@ export interface StickerData {
 
   /** Technical spec rows (P / U / IP / etc.). Optional. */
   specs: StickerSpecLine[];
+
+  /** Short product description shown above the translations block. */
+  description: string;
 
   /** Multilingual product descriptions. Each row: lang code + text. */
   translations: StickerTranslation[];

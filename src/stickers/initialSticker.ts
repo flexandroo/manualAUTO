@@ -16,6 +16,7 @@ export function makeInitialSticker(): StickerData {
       { key: 'Міжосьова відстань', value: '125 мм' },
       { key: 'Контурів', value: '2' },
     ],
+    description: 'Колектор з нержавіючої сталі з 2 виходами вгору, термоізоляція 125 мм',
     translations: [
       { langCode: 'UA', text: 'Колектор розподільчий з виходами вгору' },
       { langCode: 'EN', text: 'Distribution manifold with upward outlets' },

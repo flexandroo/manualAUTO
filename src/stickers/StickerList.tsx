@@ -99,7 +99,7 @@ export function StickerList({
             type="button"
             onClick={onImport}
             disabled={importing}
-            className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-stone-100 hover:bg-stone-200 disabled:opacity-50 text-xs rounded font-semibold"
+            className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-stone-200 hover:bg-stone-300 border border-stone-300 disabled:opacity-50 text-xs rounded font-semibold text-stone-700"
             title="Імпорт каталогу з .xlsx"
           >
             <Upload size={12} /> {importing ? 'Імпорт…' : 'Імпорт'}
@@ -235,7 +235,7 @@ function EmptyState({ onAdd, onImport }: { onAdd: () => void; onImport: () => vo
         <button
           type="button"
           onClick={onImport}
-          className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded font-semibold"
+          className="px-3 py-1.5 bg-stone-200 hover:bg-stone-300 border border-stone-300 rounded font-semibold text-stone-700"
         >
           Імпорт з Excel
         </button>

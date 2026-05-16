@@ -18,6 +18,7 @@ const DEFAULT_SIZES: Required<StickerFontSizes> = {
   translations: 6,
   distributor: 5,
   footer: 6.5,
+  description: 6.5,
 };
 
 export function StickerPreview({ data }: Props) {
@@ -115,6 +116,21 @@ export function StickerPreview({ data }: Props) {
                 </div>
               )}
             </div>
+
+            {data.description?.trim() && (
+              <div
+                style={{
+                  fontSize: sz('description'),
+                  lineHeight: 1.25,
+                  color: NAVY,
+                  fontWeight: 600,
+                  whiteSpace: 'pre-wrap',
+                  flexShrink: 0,
+                }}
+              >
+                {data.description}
+              </div>
+            )}
 
             {hasTranslations && (
               <div

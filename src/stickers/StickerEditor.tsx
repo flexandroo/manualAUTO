@@ -213,10 +213,19 @@ export function StickerEditor({ data, onChange }: Props) {
         <button
           type="button"
           onClick={addSpec}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-200 hover:bg-stone-300 border border-stone-300 rounded text-xs font-semibold text-stone-700"
         >
           <Plus size={12} /> Додати характеристику
         </button>
+      </FieldGroup>
+
+      <FieldGroup label="Опис товару (над перекладами)">
+        <Textarea
+          value={data.description}
+          onChange={(e) => setField('description', e.target.value)}
+          rows={2}
+          placeholder="Короткий опис українською — буде показаний над списком перекладів"
+        />
       </FieldGroup>
 
       <FieldGroup label={`Переклади опису (${data.translations.length})`}>
@@ -243,7 +252,7 @@ export function StickerEditor({ data, onChange }: Props) {
         <button
           type="button"
           onClick={addTr}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded text-xs"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 bg-stone-200 hover:bg-stone-300 border border-stone-300 rounded text-xs font-semibold text-stone-700"
         >
           <Plus size={12} /> Додати переклад
         </button>
@@ -323,7 +332,7 @@ export function StickerEditor({ data, onChange }: Props) {
           <button
             type="button"
             onClick={() => setField('textScale', 1.0)}
-            className="px-2 py-1 text-[10px] bg-stone-100 hover:bg-stone-200 rounded"
+            className="px-2 py-1 text-[10px] bg-stone-200 hover:bg-stone-300 border border-stone-300 rounded text-stone-700 font-semibold"
             title="Скинути на 100%"
           >
             ↺
@@ -352,6 +361,14 @@ export function StickerEditor({ data, onChange }: Props) {
             placeholder="6"
             value={data.fontSizes?.specs}
             onChange={(v) => setField('fontSizes', { ...data.fontSizes, specs: v })}
+          />
+          <FontSizeInput
+            label="Опис товару"
+            placeholder="6"
+            value={data.fontSizes?.description}
+            onChange={(v) =>
+              setField('fontSizes', { ...data.fontSizes, description: v })
+            }
           />
           <FontSizeInput
             label="Переклади"

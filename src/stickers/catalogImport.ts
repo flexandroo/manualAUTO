@@ -84,6 +84,7 @@ export function rowToSticker(row: CatalogRow): StickerData {
     titleLines: row.title ? [row.title] : [],
     productCode: row.productCode,
     articleCode: row.article,
+    description: '',
     specs: [],
     translations: [],
     distributorInfo: DEFAULT_DISTRIBUTOR,
